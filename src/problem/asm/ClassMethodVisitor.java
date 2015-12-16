@@ -35,7 +35,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		addReturnType(desc);
 		addArguments(desc);
 		String type= Type.getType(desc).getClassName();
-		this.classData.addMethod(new MethodData(name, type, access));
+		this.classData.addMethod(new MethodData(name, type, access, Type.getArgumentTypes(desc)));
 		return toDecorate;
 	}
 

@@ -6,8 +6,8 @@ public class ClassData {
 	private String name;
 	private String superClass;
 	private String[] interfaces;
-	private ArrayList<FieldData> fields;
-	private ArrayList<MethodData> methods;
+	private ArrayList<FieldData> fields = new ArrayList<>();
+	private ArrayList<MethodData> methods = new ArrayList<>();
 	
 	public String getName() {
 		return this.name;
@@ -40,5 +40,21 @@ public class ClassData {
 		return this.fields;
 	}
 	
-	
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.name + " [\n");
+		sb.append("label = \"{"+this.name);
+		sb.append("|");
+		for(FieldData fd : this.fields){
+			sb.append(fd.toString());
+		}
+		sb.append("|");
+		for(MethodData md : this.methods)
+		{
+			sb.append(md.toString());
+		}
+		sb.append("}\"\n]");
+		return sb.toString();
+	}
 }

@@ -5,13 +5,13 @@ import org.objectweb.asm.Type;
 public class MethodData {
 	private String name;
 	private String type;
-	private int access;
+	private String access;
 	private Type[] args;
 	
-	public MethodData(String name, String type, int access, Type[] args){
+	public MethodData(String name, String type, String level, Type[] args){
 		this.name=name;
 		this.type=type;
-		this.access = access;
+		this.access = level;
 		this.setArgs(args);
 	}
 
@@ -31,11 +31,11 @@ public class MethodData {
 		this.type = type;
 	}
 
-	public int getAccess() {
+	public String getAccess() {
 		return this.access;
 	}
 
-	public void setAccess(int access) {
+	public void setAccess(String access) {
 		this.access = access;
 	}
 
@@ -45,5 +45,18 @@ public class MethodData {
 
 	public void setArgs(Type[] args) {
 		this.args = args;
+	}
+	
+	@Override
+	public String toString(){
+		String result = this.access+" "+this.name+"(";
+		for(Type arg: this.args){
+			result += arg.getClassName()+ ", ";
+		}
+		if(args.length!=0){
+			result = result.substring(0, result.length()-2);
+		}
+		result+=") : " + this.type+"\\l";
+		return result;
 	}
 }

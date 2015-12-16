@@ -22,4 +22,9 @@ public class FieldData {
 	public String getType() {
 		return type;
 	}
+	
+	@Override
+	public String toString(){
+		return this.access+" "+this.fieldName+" : " +this.type+ "\\l";
+	}
 }

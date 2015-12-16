@@ -46,7 +46,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			level = "+";
 		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
-			level = "protected";
+			level = "#";
 		} else if ((access & Opcodes.ACC_PRIVATE) != 0) {
 			level = "-";
 		} else {

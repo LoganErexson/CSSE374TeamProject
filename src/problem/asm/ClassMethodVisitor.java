@@ -7,6 +7,7 @@ import org.objectweb.asm.Type;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	private ClassData classData;
+	private String level = "";
 	public ClassMethodVisitor(int api) {
 		super(api);
 		this.classData = new ClassData();
@@ -35,23 +36,20 @@ public class ClassMethodVisitor extends ClassVisitor {
 		addReturnType(desc);
 		addArguments(desc);
 		String type= Type.getType(desc).getClassName();
-		this.classData.addMethod(new MethodData(name, type, access, Type.getArgumentTypes(desc)));
+		this.classData.addMethod(new MethodData(name, type, this.level, Type.getArgumentTypes(desc)));
 		return toDecorate;
 	}
 
-	void addAccessLevel(int access) {
-		String level = "";
+	public void addAccessLevel(int access) {
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
-			level = "public";
+			this.level = "+";
 		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
-			level = "protected";
+			this.level = "#";
 		} else if ((access & Opcodes.ACC_PRIVATE) != 0) {
-			level = "private";
+			this.level = "-";
 		} else {
-			level = "default";
+			this.level = "+";
 		}
-		// TODO: delete the next line
-		System.out.println("access level: " + level);
 		// TODO: ADD this information to your representation of the current method.
 	}
 

@@ -13,7 +13,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 	@Override
 	public void visit(int version, int access, String name, String signature,
 			String superName, String[] interfaces) {
-		this.classData.setName(name);
+		this.classData.setName(name.substring(name.lastIndexOf("/")+1));
 		this.classData.setSuperClass(superName);
 		this.classData.setInterfaces(interfaces);
 		System.out.println("Class: " + name + " extends " + superName

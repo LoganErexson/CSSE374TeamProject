@@ -22,4 +22,9 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		System.out.println("------------------------------");
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
+	
+	public ClassData getClassData()
+	{
+		return this.classData;
+	}
 }

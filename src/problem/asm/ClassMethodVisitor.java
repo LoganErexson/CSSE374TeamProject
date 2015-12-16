@@ -5,14 +5,21 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-
 public class ClassMethodVisitor extends ClassVisitor {
+	private ClassData classData;
 	public ClassMethodVisitor(int api) {
 		super(api);
+		this.classData = new ClassData();
 	}
 
 	public ClassMethodVisitor(int api, ClassVisitor decorated) {
 		super(api, decorated);
+		this.classData = new ClassData();
+	}
+	
+	public ClassMethodVisitor(int api, ClassDeclarationVisitor decorated) {
+		super(api, decorated);
+		this.classData = decorated.getClassData();
 	}
 
 	@Override
@@ -20,16 +27,15 @@ public class ClassMethodVisitor extends ClassVisitor {
 			String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc,
 				signature, exceptions);
+		
 		System.out.println("------------------------------");
 		// TODO: delete the line below
 		System.out.println("method " + name);
-		// TODO: create an internal representation of the current method and pass it to the methods
-		// below
 		addAccessLevel(access);
 		addReturnType(desc);
 		addArguments(desc);
-		// TODO: add the current method to your internal representation of the current class
-		// What is a good way for the code to remember what the current class is?
+		String type= Type.getType(desc).getClassName();
+		this.classData.addMethod(new MethodData(name, type, access));
 		return toDecorate;
 	}
 
@@ -65,4 +71,9 @@ public class ClassMethodVisitor extends ClassVisitor {
 			// TODO: ADD this information to your representation of the current method.
 		}
 	}
+
+	public ClassData getClassData() {
+		return this.classData;
+	}
+
 }

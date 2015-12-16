@@ -28,16 +28,16 @@ public class ClassData {
 		this.interfaces = interfaces;
 	}
 	public void addField(FieldData f) {
-		
+		this.fields.add(f);
 	}
 	public ArrayList<FieldData> getFields() {
-		return fields;
+		return this.fields;
 	}
     public void addMethod(MethodData m) {
-		
+		this.methods.add(m);
 	}
 	public ArrayList<FieldData> getMethods() {
-		return fields;
+		return this.fields;
 	}
 	
 	

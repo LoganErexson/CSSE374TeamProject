@@ -7,7 +7,12 @@ public abstract class AbstractClassDataVisitor extends ClassVisitor{
 	
 	public AbstractClassDataVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
-		this.classData = decorated.getClassData();
+		if(decorated ==null){
+			this.classData = new ClassData();
+		}
+		else{
+			this.classData = decorated.getClassData();
+		}
 		
 	}
 

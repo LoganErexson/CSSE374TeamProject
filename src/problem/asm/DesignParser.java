@@ -3,7 +3,6 @@ package problem.asm;
 import java.io.IOException;
 
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class DesignParser {
@@ -24,12 +23,12 @@ public class DesignParser {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
 			ClassReader reader = new ClassReader(className);
 			// make class declaration visitor to get superclass and interfaces
-			ClassDeclarationVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
+			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
 			// DECORATE declaration visitor with field visitor
-			ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+			AbstractClassDataVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
 					decVisitor);
 			// DECORATE field visitor with method visitor
-			ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+			AbstractClassDataVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
 					fieldVisitor);
 			// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class

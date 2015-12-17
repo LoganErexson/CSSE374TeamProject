@@ -7,7 +7,8 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class DesignParser {
-	public static final String[] CLASSES = {"problem.asm.FirstASM"};
+	public static String[] CLASSES = {"problem.asm.FirstASM", "problem.asm.ClassData", "problem.asm.ClassDeclarationVisitor", 
+		"problem.asm.ClassFieldVisitor", "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser", "problem.asm.FieldData", "problem.asm.MethodData"};
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
 	 * 
@@ -17,6 +18,8 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		if (args.length > 0)
+			CLASSES = args;
 		for (String className : CLASSES) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
 			ClassReader reader = new ClassReader(className);

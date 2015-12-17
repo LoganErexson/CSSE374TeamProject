@@ -4,11 +4,11 @@ import java.io.FileOutputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 public class GraphVisPrinter {
 	
-	public static void makeUML(String file, ArrayList<ClassData> classes ){
+	public static void makeUML(String file, List<ClassData> classes ){
 		try {
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));

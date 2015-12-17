@@ -1,26 +1,14 @@
 package problem.asm;
 
-import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-public class ClassMethodVisitor extends ClassVisitor {
-	private ClassData classData;
-	private String level = "";
-	public ClassMethodVisitor(int api) {
-		super(api);
-		this.classData = new ClassData();
-	}
-
-	public ClassMethodVisitor(int api, ClassVisitor decorated) {
-		super(api, decorated);
-		this.classData = new ClassData();
-	}
+public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	
-	public ClassMethodVisitor(int api, ClassFieldVisitor decorated) {
+	private String level = "";
+	public ClassMethodVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
-		this.classData = decorated.getClassData();
 	}
 
 	@Override
@@ -61,10 +49,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 			String arg = args[i].getClassName();
 			// TODO: ADD this information to your representation of the current method.
 		}
-	}
-
-	public ClassData getClassData() {
-		return this.classData;
 	}
 
 }

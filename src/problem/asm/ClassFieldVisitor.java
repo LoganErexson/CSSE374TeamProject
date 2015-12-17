@@ -1,39 +1,29 @@
 package problem.asm;
 
-import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-public class ClassFieldVisitor extends ClassVisitor {
+public class ClassFieldVisitor extends AbstractClassDataVisitor {
+	
+	public ClassFieldVisitor(int api, AbstractClassDataVisitor decorated) {
+		super(api, decorated);
+	}
+
 	private String level = "";
-	private ClassData data;
-	
-	public ClassFieldVisitor(int api) {
-		super(api);
-		this.data = new ClassData();
-	}
 
-	public ClassFieldVisitor(int api, ClassVisitor decorated) {
-		super(api, decorated);
-		this.data = new ClassData();
-	}
-	
-	public ClassFieldVisitor(int api, ClassDeclarationVisitor decorated) {
-		super(api, decorated);
-		this.data = decorated.getClassData();
-	}
-
-
+	@Override
 	public FieldVisitor visitField(int access, String name, String desc,
 			String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc,
 				signature, value);
 		String type = Type.getType(desc).getClassName();
+		// TODO: delete the line below
+		System.out.println(" " + type + " " + name);
 		
 		addAccessLevel(access);
 		
-		data.addField(new FieldData(name, level, type));
+		this.classData.addField(new FieldData(name, level, type));
 		//appendToField(name + " : " + type + "'\'l");
 		// TODO: add this field to your internal representation of the current class.
 		// What is a good way to know what the current class is?
@@ -51,9 +41,5 @@ public class ClassFieldVisitor extends ClassVisitor {
 			level = "+";
 		}
 		// TODO: ADD this information to your representation of the current method.
-	}
-	
-	public ClassData getClassData() {
-		return data;
 	}
 }

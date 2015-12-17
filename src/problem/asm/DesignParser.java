@@ -26,15 +26,15 @@ public class DesignParser {
 			// make class declaration visitor to get superclass and interfaces
 			ClassDeclarationVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5);
 			// DECORATE declaration visitor with field visitor
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+			ClassFieldVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
 					decVisitor);
 			// DECORATE field visitor with method visitor
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+			ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
 					fieldVisitor);
 			// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			System.out.println(decVisitor.getClassData().toString());
+			System.out.println(methodVisitor.getClassData().toString());
 		}
 	}
 }

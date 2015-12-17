@@ -18,7 +18,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		this.classData = new ClassData();
 	}
 	
-	public ClassMethodVisitor(int api, ClassDeclarationVisitor decorated) {
+	public ClassMethodVisitor(int api, ClassFieldVisitor decorated) {
 		super(api, decorated);
 		this.classData = decorated.getClassData();
 	}

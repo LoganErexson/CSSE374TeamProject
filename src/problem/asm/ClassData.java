@@ -46,12 +46,11 @@ public class ClassData {
 		sb.append(this.name + " [\n");
 		sb.append("label = \"{"+this.name);
 		sb.append("|");
-		for(FieldData fd : this.fields){
+		for(FieldData fd : this.fields) {
 			sb.append(fd.toString());
 		}
 		sb.append("|");
-		for(MethodData md : this.methods)
-		{
+		for(MethodData md : this.methods) {
 			sb.append(md.toString());
 		}
 		sb.append("}\"\n]");

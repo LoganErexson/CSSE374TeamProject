@@ -30,8 +30,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 		FieldVisitor toDecorate = super.visitField(access, name, desc,
 				signature, value);
 		String type = Type.getType(desc).getClassName();
-		// TODO: delete the line below
-		System.out.println(" " + type + " " + name);
 		
 		addAccessLevel(access);
 		

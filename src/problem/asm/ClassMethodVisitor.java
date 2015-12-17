@@ -29,9 +29,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc,
 				signature, exceptions);
 		
-		System.out.println("------------------------------");
-		// TODO: delete the line below
-		System.out.println("method " + name);
 		addAccessLevel(access);
 		addReturnType(desc);
 		addArguments(desc);
@@ -55,8 +52,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	void addReturnType(String desc) {
 		String returnType = Type.getReturnType(desc).getClassName();
-		// TODO: delete the next line
-		System.out.println("return type: " + returnType);
 		// TODO: ADD this information to your representation of the current method.
 	}
 
@@ -64,8 +59,6 @@ public class ClassMethodVisitor extends ClassVisitor {
 		Type[] args = Type.getArgumentTypes(desc);
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i].getClassName();
-			// TODO: delete the next line
-			System.out.println("arg " + i + ": " + arg);
 			// TODO: ADD this information to your representation of the current method.
 		}
 	}

@@ -16,10 +16,6 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		this.classData.setName(name.substring(name.lastIndexOf("/")+1));
 		this.classData.setSuperClass(superName);
 		this.classData.setInterfaces(interfaces);
-		System.out.println("Class: " + name + " extends " + superName
-				+ " implements " + Arrays.toString(interfaces));
-		
-		System.out.println("------------------------------");
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 	

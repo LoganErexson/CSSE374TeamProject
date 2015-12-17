@@ -49,6 +49,8 @@ public class MethodData {
 	
 	@Override
 	public String toString(){
+		if(this.name.contains("<"))
+			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access+" "+this.name+"(";
 		for(Type arg: this.args){
 			result += arg.getClassName()+ ", ";

@@ -1,6 +1,8 @@
 package problem.asm;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
@@ -19,6 +21,7 @@ public class DesignParser {
 	public static void main(String[] args) throws IOException {
 		if (args.length > 0)
 			CLASSES = args;
+		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
 			ClassReader reader = new ClassReader(className);
@@ -33,7 +36,8 @@ public class DesignParser {
 			// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			System.out.println(methodVisitor.getClassData().toString());
+			classDatas.add(methodVisitor.getClassData());
 		}
+		GraphVisPrinter.makeUML("./input_output/out.txt", classDatas);
 	}
 }

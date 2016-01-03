@@ -53,7 +53,7 @@ public class ClassData {
 		for(MethodData md : this.methods) {
 			sb.append(md.toString());
 		}
-		sb.append("}\"\n]");
+		sb.append("}\"\n]\n");
 		return sb.toString();
 	}
 }

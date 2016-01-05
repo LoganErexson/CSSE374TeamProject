@@ -36,10 +36,20 @@ public class GraphVisPrinter {
 						sb.append(currentData.getName()+" -> "+ curInterface);
 					}
 				}
-				if(currentData.getSuperClass()!=null&&!currentData.getSuperClass().equals("Object")){
-					sb.append("edge [ \n");
-					sb.append("arrowhead = \"empty\"\n]\n");
-					sb.append(currentData.getName()+" -> "+ currentData.getSuperClass()+ "\n");
+				if(!currentData.getSuperClass().equals("Object")){
+					boolean inClassFolder = false;
+					for(ClassData curData: classes){
+						if(curData.getName().equals(currentData.getSuperClass()))
+						{
+							inClassFolder = true;
+							break;
+						}
+					}
+					if(inClassFolder){
+						sb.append("edge [ \n");
+						sb.append("arrowhead = \"empty\"\n]\n");
+						sb.append(currentData.getName()+" -> "+ currentData.getSuperClass()+ "\n");
+					}
 				}
 				
 			}

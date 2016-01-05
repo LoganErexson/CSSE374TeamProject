@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,9 @@ public class DesignParser {
 	public static void main(String[] args) throws IOException {
 		if (args.length > 0)
 			CLASSES = args;
+	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
 		List<ClassData> classDatas = new ArrayList<>();
-		for (String className : CLASSES) {
+		for (String className : classes) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
 			ClassReader reader = new ClassReader(className);
 			// make class declaration visitor to get superclass and interfaces
@@ -39,5 +41,24 @@ public class DesignParser {
 			classDatas.add(methodVisitor.getClassData());
 		}
 		GraphVisPrinter.makeUML("./input_output/out.txt", classDatas);
+	}
+	
+	public static List<String> getClasses(String folder, String prefix)
+	{
+		List<String> classes = new ArrayList<>();
+		
+		File classesFolder = new File(folder);
+		File[] listOfFiles = classesFolder.listFiles();
+		
+		String classPath;
+	    for (int i = 0; i < listOfFiles.length; i++) {
+	      if (listOfFiles[i].isFile()) {
+	    	  classPath = listOfFiles[i].toString();
+	        classes.add(prefix+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
+	        System.out.println(classes.get(i));
+	      } 
+	    }
+	    
+		return classes;
 	}
 }

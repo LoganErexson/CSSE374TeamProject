@@ -14,13 +14,13 @@ public class DesignParser {
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
 	 * 
-	 * @param args
-	 *            : the names of the classes, separated by spaces. For example: java DesignParser
-	 *            java.lang.String edu.rosehulman.csse374.ClassFieldVisitor java.lang.Math
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		
+		//Modify input here to change which folder is converted
+		//For project files: ("./src/problem/asm", "problem.asm")
+		//For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
 	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
 	    
 		List<ClassData> classDatas = new ArrayList<>();

@@ -1,0 +1,42 @@
+digraph G {
+fontname = " Bitstream Vera San"
+fontsize =8
+node [
+fontname = "Bitstream Vera Sans"
+fontsize =8
+shape = "record"]
+edge [
+fontname = "Bitstream Vera Sans"
+fontsize =8
+]
+AppLauncher [
+label = "{AppLauncher|- watcher : java.nio.file.WatchService\l- dir : java.nio.file.Path\l- stop : boolean\l- processes : java.util.List\l|+ init(java.nio.file.Path) : void\l+ run() : void\l# clearEverything() : void\l+ stopGracefully() : void\l+ isRunning() : boolean\l+ getApplicationsCount() : int\l+ handleDirectoryEvent(java.lang.String, java.nio.file.Path) : void\l+ main(java.lang.String[]) : void\l}"
+]
+IDirectoryEventHandler [
+label = "{IDirectoryEventHandler||+ handleDirectoryEvent(java.nio.file.Path) : java.lang.Process\l}"
+]
+ModifyEventHandler [
+label = "{ModifyEventHandler||+ init() : void\l+ handleDirectoryEvent(java.nio.file.Path) : java.lang.Process\l}"
+]
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+ModifyEventHandler -> lab1_3/IDirectoryEventHandlerObserver [
+label = "{Observer||+ update() : void\l}"
+]
+OpenEventHandler [
+label = "{OpenEventHandler|- args : java.util.HashMap\l|+ init() : void\l+ handleDirectoryEvent(java.nio.file.Path) : java.lang.Process\l}"
+]
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+OpenEventHandler -> lab1_3/IDirectoryEventHandlerRemovalEventHandler [
+label = "{RemovalEventHandler||+ init() : void\l+ handleDirectoryEvent(java.nio.file.Path) : java.lang.Process\l}"
+]
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+RemovalEventHandler -> lab1_3/IDirectoryEventHandler}

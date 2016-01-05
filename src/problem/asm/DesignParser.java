@@ -21,7 +21,7 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
+	    List<String> classes = getClasses("./src/lab1_3", "lab1_3");
 	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {

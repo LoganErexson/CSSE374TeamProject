@@ -20,9 +20,9 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		if (args.length > 0)
-			CLASSES = args;
+		
 	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
+	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
@@ -40,7 +40,7 @@ public class DesignParser {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
 		}
-		GraphVisPrinter.makeUML("./input_output/out.txt", classDatas);
+		GraphVisPrinter.makeUML("./input_output/Diagram.gv", classDatas);
 	}
 	
 	public static List<String> getClasses(String folder, String prefix)

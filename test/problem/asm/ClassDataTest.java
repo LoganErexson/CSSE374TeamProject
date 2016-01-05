@@ -1,6 +1,7 @@
 package problem.asm;
 
 import static org.junit.Assert.*;
+import org.objectweb.asm.Type;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +67,20 @@ public class ClassDataTest {
 		assertEquals("edge [ \n" + "arrowhead = \"empty\"\n]\n"
 				+ "ClassMethodVisitor -> AbstractClassDataVisitor\n", 
 				methodVisitor.getClassData().getSuperClassString(classDatas));
+	}
+	
+	@Test
+	public final void testToStringBase() {
+		ClassData c = new ClassData();
+		c.setName("Test");
+		String[] inters = {"Interface"};
+		c.setInterfaces(inters);
+		c.setSuperClass("Super");
+		c.addField(new FieldData("AField", "+", "java.lang.String"));
+		Type[] t = {};
+		c.addMethod(new MethodData("AMEthod", "void", "+", t));
+		
+		assertEquals("Test [\n" + "label = " + "\"{Test|+ AField : java.lang.String\\l|+ AMEthod() : void\\l"
+				+ "}\"\n" + "]\n", c.toString());
 	}
 }

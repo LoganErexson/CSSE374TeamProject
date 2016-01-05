@@ -21,7 +21,7 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-	    List<String> classes = getClasses("./src/lab1_3", "lab1_3");
+	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
 	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {
@@ -55,7 +55,6 @@ public class DesignParser {
 	      if (listOfFiles[i].isFile()) {
 	    	  classPath = listOfFiles[i].toString();
 	        classes.add(prefix+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
-	        System.out.println(classes.get(i));
 	      } 
 	    }
 	    

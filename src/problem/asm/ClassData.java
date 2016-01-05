@@ -1,6 +1,7 @@
 package problem.asm;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClassData {
 	private String name;
@@ -54,6 +55,38 @@ public class ClassData {
 			sb.append(md.toString());
 		}
 		sb.append("}\"\n]\n");
+		return sb.toString();
+	}
+	
+	public String getInterfacesString(){
+		StringBuilder sb = new StringBuilder();
+		if(this.getInterfaces().length!=0){
+			sb.append("edge [ \n");
+			sb.append("arrowhead = \"empty\"\n");
+			sb.append("style = \"dashed\"\n]\n");
+			for(String curInterface : this.getInterfaces()){
+				sb.append(this.getName()+" -> "+ curInterface.substring(curInterface.lastIndexOf("/")+1)+"\n");
+			}
+		}
+		return sb.toString();
+	}
+	public String getSuperClassString(List<ClassData> classes) {
+		StringBuilder sb = new StringBuilder();
+		if(!this.getSuperClass().equals("Object")){
+			boolean inClassFolder = false;
+			for(ClassData curData: classes){
+				if(curData.getName().equals(this.getSuperClass()))
+				{
+					inClassFolder = true;
+					break;
+				}
+			}
+			if(inClassFolder){
+				sb.append("edge [ \n");
+				sb.append("arrowhead = \"empty\"\n]\n");
+				sb.append(this.getName()+" -> "+ this.getSuperClass()+ "\n");
+			}
+		}
 		return sb.toString();
 	}
 }

@@ -28,30 +28,8 @@ public class GraphVisPrinter {
 			sb.append("]\n");
 			for(ClassData currentData: classes){
 				sb.append(currentData.toString());
-				if(currentData.getInterfaces().length!=0){
-					sb.append("edge [ \n");
-					sb.append("arrowhead = \"empty\"\n");
-					sb.append("style = \"dashed\"\n]\n");
-					for(String curInterface : currentData.getInterfaces()){
-						sb.append(currentData.getName()+" -> "+ curInterface);
-					}
-				}
-				if(!currentData.getSuperClass().equals("Object")){
-					boolean inClassFolder = false;
-					for(ClassData curData: classes){
-						if(curData.getName().equals(currentData.getSuperClass()))
-						{
-							inClassFolder = true;
-							break;
-						}
-					}
-					if(inClassFolder){
-						sb.append("edge [ \n");
-						sb.append("arrowhead = \"empty\"\n]\n");
-						sb.append(currentData.getName()+" -> "+ currentData.getSuperClass()+ "\n");
-					}
-				}
-				
+				sb.append(currentData.getSuperClassString(classes));
+				sb.append(currentData.getInterfacesString());
 			}
 			sb.append("}\n");
 			out.write(sb.toString().getBytes());

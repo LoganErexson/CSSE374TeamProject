@@ -42,14 +42,8 @@ public class ClassData {
 	}
     public void addMethod(MethodData m) {
 		this.methods.add(m);
-		String returnType;
-		if(m.getType().contains("<")&&m.getType().contains(">"))
-		{
-			returnType = m.getType().substring(m.getType().indexOf('<')+1, m.getType().lastIndexOf('>'));
-		}
-		else{
-			returnType = m.getType();
-		}
+		String returnType= m.getType();
+
 		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))){
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
 		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))) {
@@ -59,11 +53,9 @@ public class ClassData {
 		for(Type parameter : m.getArgs()){
 			
 			String paramType; 
-			
-			if(parameter.getClassName().contains("<")&&parameter.getClassName().contains(">"))
+			if(parameter.getClassName()!="void"&&parameter.getElementType()!=null)
 			{
-				paramType = parameter.getClassName().substring(parameter.getClassName().indexOf('<'),
-					parameter.getClassName().lastIndexOf('>'));
+				paramType = parameter.getElementType().getClassName();
 			}
 			else
 			{

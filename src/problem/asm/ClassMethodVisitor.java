@@ -18,7 +18,11 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 				signature, exceptions);
 		
 		addAccessLevel(access);
-		String type= Type.getReturnType(desc).getClassName();
+		String type;
+		if(Type.getReturnType(desc).getClassName()!="void"&&Type.getReturnType(desc).getElementType()!=null)
+			type = Type.getReturnType(desc).getElementType().getClassName();
+		else
+			type = Type.getReturnType(desc).getClassName();
 		this.classData.addMethod(new MethodData(name, type, this.level, Type.getArgumentTypes(desc)));
 		return toDecorate;
 	}

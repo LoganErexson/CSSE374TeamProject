@@ -4,13 +4,13 @@ import org.objectweb.asm.Type;
 
 public class MethodData {
 	private String name;
-	private String type;
+	private Type type;
 	private String access;
 	private Type[] args;
-	
-	public MethodData(String name, String type, String level, Type[] args){
-		this.name=name;
-		this.type=type;
+
+	public MethodData(String name, Type type, String level, Type[] args) {
+		this.name = name;
+		this.type = type;
 		this.access = level;
 		this.setArgs(args);
 	}
@@ -23,11 +23,11 @@ public class MethodData {
 		this.name = name;
 	}
 
-	public String getType() {
+	public Type getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -46,19 +46,19 @@ public class MethodData {
 	public void setArgs(Type[] args) {
 		this.args = args;
 	}
-	
+
 	@Override
-	public String toString(){
-		if(this.name.contains("<"))
+	public String toString() {
+		if (this.name.contains("<"))
 			this.name = this.name.substring(1, this.name.length() - 1);
-		String result = this.access+" "+this.name+"(";
-		for(Type arg: this.args){
-			result += arg.getClassName()+ ", ";
+		String result = this.access + " " + this.name + "(";
+		for (Type arg : this.args) {
+			result += arg.getClassName() + ", ";
 		}
-		if(this.args.length!=0){
-			result = result.substring(0, result.length()-2);
+		if (this.args.length != 0) {
+			result = result.substring(0, result.length() - 2);
 		}
-		result+=") : " + this.type+"\\l";
+		result += ") : " + this.type.getClassName() + "\\l";
 		return result;
 	}
 }

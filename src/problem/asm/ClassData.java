@@ -42,7 +42,13 @@ public class ClassData {
 	}
     public void addMethod(MethodData m) {
 		this.methods.add(m);
-		String returnType= m.getType();
+		String returnType;
+		if (m.getType().getClassName().equals("void") && m.getType().getSort() == Type.ARRAY) {
+			returnType = m.getType().getElementType().getClassName();
+		} else {
+			returnType = m.getType().getClassName();
+		}		
+		
 		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))){
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
 		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))) {

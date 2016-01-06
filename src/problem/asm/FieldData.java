@@ -12,15 +12,15 @@ public class FieldData {
 	}
 	
 	public String getFieldName() {
-		return fieldName;
+		return this.fieldName;
 	}
 	
 	public String getAccessLevel() {
-		return access;
+		return this.access;
 	}
 	
 	public String getType() {
-		return type;
+		return this.type;
 	}
 	
 	@Override

@@ -18,8 +18,6 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 				signature, exceptions);
 		
 		addAccessLevel(access);
-		addReturnType(desc);
-		addArguments(desc);
 		String type= Type.getReturnType(desc).getClassName();
 		this.classData.addMethod(new MethodData(name, type, this.level, Type.getArgumentTypes(desc)));
 		return toDecorate;
@@ -38,17 +36,5 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		// TODO: ADD this information to your representation of the current method.
 	}
 
-	void addReturnType(String desc) {
-		String returnType = Type.getReturnType(desc).getClassName();
-		// TODO: ADD this information to your representation of the current method.
-	}
-
-	void addArguments(String desc) {
-		Type[] args = Type.getArgumentTypes(desc);
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i].getClassName();
-			// TODO: ADD this information to your representation of the current method.
-		}
-	}
 
 }

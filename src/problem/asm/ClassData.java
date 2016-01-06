@@ -50,8 +50,10 @@ public class ClassData {
 		else{
 			returnType = m.getType();
 		}
-		if(!this.usedClasses.contains(returnType)){
-			this.usedClasses.add(returnType);
+		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))){
+			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
+		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))) {
+			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('/')+1));
 		}
 		
 		for(Type parameter : m.getArgs()){

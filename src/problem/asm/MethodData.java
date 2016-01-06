@@ -53,12 +53,25 @@ public class MethodData {
 			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access + " " + this.name + "(";
 		for (Type arg : this.args) {
-			result += arg.getClassName() + ", ";
+			if (arg.getClassName() != "void" && arg.getSort() == Type.ARRAY) {
+				String temp = arg.getClassName() + arg.getElementType().getClassName();
+				result += temp + ", ";
+			} else {
+				result += arg.getClassName() + ", ";
+			}
 		}
 		if (this.args.length != 0) {
 			result = result.substring(0, result.length() - 2);
 		}
-		result += ") : " + this.type.getClassName() + "\\l";
+
+		if (this.type.getClassName() != "void"
+				&& this.type.getSort() == Type.ARRAY) {
+			result += ") : " + this.type.getClassName() + this.type.getElementType().getClassName()
+					+ "\\l";
+		} else {
+			result += ") : " + this.type.getClassName() + "\\l";
+		}
+
 		return result;
 	}
 }

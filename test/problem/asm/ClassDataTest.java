@@ -1,18 +1,15 @@
 package problem.asm;
 
-import static org.junit.Assert.*;
-import org.objectweb.asm.Type;
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
-import problem.asm.AbstractClassDataVisitor;
-import problem.asm.ClassData;
-import problem.asm.ClassDeclarationVisitor;
-import problem.asm.ClassFieldVisitor;
-import problem.asm.ClassMethodVisitor;
+import org.objectweb.asm.Type;
 
 public class ClassDataTest {
 	@Test
@@ -38,7 +35,7 @@ public class ClassDataTest {
 				fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		assertEquals("edge [ \n" + "arrowhead = \"empty\"\n"
-				+ "style = \"dashed\"\n]\nHTMLBehavior -> Behavior\n", methodVisitor.getClassData().getInterfacesString());
+				+ "style = \"dashed\"\n]\nHTMLBehavior -> Behavior\n", methodVisitor.getClassData().getInheritsArrows());
 	}
 	
 	@Test
@@ -64,9 +61,10 @@ public class ClassDataTest {
 				fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
+		List<String> classNames = GraphVisPrinter.getClassNames(classDatas);
 		assertEquals("edge [ \n" + "arrowhead = \"empty\"\n]\n"
 				+ "ClassMethodVisitor -> AbstractClassDataVisitor\n", 
-				methodVisitor.getClassData().getSuperClassString(classDatas));
+				methodVisitor.getClassData().getExtendsArrow(classNames));
 	}
 	
 	@Test

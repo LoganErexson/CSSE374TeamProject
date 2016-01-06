@@ -19,7 +19,7 @@ public class DesignParser {
 		//Modify input here to change which folder is converted
 		//For project files: ("./src/problem/asm", "problem.asm")
 		//For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
-	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
+	    List<String> classes = getClasses("./src/lab1_3", "lab1_3");
 	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {

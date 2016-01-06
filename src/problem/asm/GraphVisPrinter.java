@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GraphVisPrinter {
@@ -26,10 +27,12 @@ public class GraphVisPrinter {
 			sb.append("fontname = \"Bitstream Vera Sans\"\n");
 			sb.append("fontsize =8\n");
 			sb.append("]\n");
+			List<String> classNames = getClassNames(classes);
 			for(ClassData currentData: classes){
 				sb.append(currentData.toString());
-				sb.append(currentData.getSuperClassString(classes));
-				sb.append(currentData.getInterfacesString());
+				sb.append(currentData.getExtendsArrow(classNames));
+				sb.append(currentData.getInheritsArrows());
+				sb.append(currentData.getUsesArrows(classNames));
 			}
 			sb.append("}\n");
 			out.write(sb.toString().getBytes());
@@ -37,6 +40,14 @@ public class GraphVisPrinter {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
+	}
+	
+	public static List<String> getClassNames(List<ClassData> classes){
+		List<String> classNames = new ArrayList<>();
+		for(ClassData clazz: classes){
+			classNames.add(clazz.getName());
+		}
+		return classNames;
 	}
 
 }

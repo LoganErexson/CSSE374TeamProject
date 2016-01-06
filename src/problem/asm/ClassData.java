@@ -43,7 +43,9 @@ public class ClassData {
     public void addMethod(MethodData m) {
 		this.methods.add(m);
 		String returnType;
-		if (m.getType().getClassName().equals("void") && m.getType().getSort() == Type.ARRAY) {
+		if (m.getType().getClassName().equals("void") && (m.getType().getSort() == Type.ARRAY||
+				(m.getType().getSort() == Type.OBJECT && m.getType().getDimensions() > 0 &&
+				m.getType().getElementType().getClassName()!=null))) {
 			returnType = m.getType().getElementType().getClassName();
 		} else {
 			returnType = m.getType().getClassName();
@@ -57,7 +59,9 @@ public class ClassData {
 		
 		for(Type parameter : m.getArgs()){
 			String paramType; 
-			if(parameter.getClassName()!="void"&&parameter.getSort()==Type.ARRAY)
+			if(parameter.getClassName() != "void" && (parameter.getSort() == Type.ARRAY ||
+					(parameter.getSort() == Type.OBJECT && parameter.getDimensions() > 0 &&
+					parameter.getElementType().getClassName() != null)))
 			{
 				paramType = parameter.getElementType().getClassName();
 			}

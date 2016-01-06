@@ -40,7 +40,7 @@ public class MethodData {
 	}
 
 	public Type[] getArgs() {
-		return args;
+		return this.args;
 	}
 
 	public void setArgs(Type[] args) {
@@ -55,7 +55,7 @@ public class MethodData {
 		for(Type arg: this.args){
 			result += arg.getClassName()+ ", ";
 		}
-		if(args.length!=0){
+		if(this.args.length!=0){
 			result = result.substring(0, result.length()-2);
 		}
 		result+=") : " + this.type+"\\l";

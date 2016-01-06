@@ -75,11 +75,12 @@ public class ClassDataTest {
 		inters.add("Interface");
 		c.setInterfaces(inters);
 		c.setSuperClass("Super");
-		c.addField(new FieldData("AField", "+", "java.lang.String"));
+		Type f = Type.CHAR_TYPE;
+		c.addField(new FieldData("AField", "+", f));
 		Type[] t = {};
 		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t));
 		
-		assertEquals("Test [\n" + "label = " + "\"{Test|+ AField : java.lang.String\\l|+ AMEthod() : void\\l"
+		assertEquals("Test [\n" + "label = " + "\"{Test|+ AField : C\\l|+ AMEthod() : void\\l"
 				+ "}\"\n" + "]\n", c.toString());
 	}
 }

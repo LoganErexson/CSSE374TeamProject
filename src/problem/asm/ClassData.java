@@ -76,8 +76,8 @@ public class ClassData {
 		}
 	}
     
-	public ArrayList<FieldData> getMethods() {
-		return this.fields;
+	public ArrayList<MethodData> getMethods() {
+		return this.methods;
 	}
 	
 	@Override

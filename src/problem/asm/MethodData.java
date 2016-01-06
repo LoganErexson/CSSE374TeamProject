@@ -7,12 +7,22 @@ public class MethodData {
 	private Type type;
 	private String access;
 	private Type[] args;
+	private String signature;
 
-	public MethodData(String name, Type type, String level, Type[] args) {
+	public MethodData(String name, Type type, String level, Type[] args, String sig) {
+		this.signature = sig;
 		this.name = name;
 		this.type = type;
 		this.access = level;
 		this.setArgs(args);
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	public String getName() {

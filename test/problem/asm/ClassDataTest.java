@@ -76,9 +76,9 @@ public class ClassDataTest {
 		c.setInterfaces(inters);
 		c.setSuperClass("Super");
 		Type f = Type.CHAR_TYPE;
-		c.addField(new FieldData("AField", "+", f));
+		c.addField(new FieldData("AField", "+", f, null));
 		Type[] t = {};
-		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t));
+		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t, ""));
 		
 		assertEquals("Test [\n" + "label = " + "\"{Test|+ AField : C\\l|+ AMEthod() : void\\l"
 				+ "}\"\n" + "]\n", c.toString());

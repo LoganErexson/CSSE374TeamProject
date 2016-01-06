@@ -10,16 +10,23 @@ import org.objectweb.asm.Opcodes;
 
 public class DesignParser {
 	/**
+	 * Determine which folder to get classes from. Prefix here is the package name.
+	 * 
+	 * For project files: FOLDER_PATH = "./src/problem/asm"; FILE_PREFIX = "problem.asm";
+	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
+	 * 
+	 */
+	public static final String FOLDER_PATH = "./src/problem/asm";
+	public static final String FILE_PREFIX = "problem.asm";
+	
+	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
 	 * 
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		//Modify input here to change which folder is converted
-		//For project files: ("./src/problem/asm", "problem.asm")
-		//For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
-	    List<String> classes = getClasses("./src/problem/asm", "problem.asm");
+	    List<String> classes = getClasses(FOLDER_PATH, FILE_PREFIX);
 	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {

@@ -65,9 +65,12 @@ public class ClassData {
 			{
 				paramType = parameter.getClassName();
 			}
-			if(!this.usedClasses.contains(paramType))
-			{
-				this.usedClasses.add(paramType);
+			if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
+					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))){
+				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
+			} else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
+					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))) {
+				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
 			}
 		}
 	}

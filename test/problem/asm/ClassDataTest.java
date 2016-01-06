@@ -76,7 +76,7 @@ public class ClassDataTest {
 		c.setSuperClass("Super");
 		c.addField(new FieldData("AField", "+", "java.lang.String"));
 		Type[] t = {};
-		c.addMethod(new MethodData("AMEthod", "void", "+", t));
+		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t));
 		
 		assertEquals("Test [\n" + "label = " + "\"{Test|+ AField : java.lang.String\\l|+ AMEthod() : void\\l"
 				+ "}\"\n" + "]\n", c.toString());

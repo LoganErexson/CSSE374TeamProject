@@ -16,6 +16,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+AbstractClassDataVisitor -> AbstractClassDataVisitor
 AbstractClassDataVisitor -> ClassData
 ClassData [
 label = "{ClassData|- name : java.lang.String\l- superClass : java.lang.String\l- interfaces : java.lang.String[]\l- fields : java.util.ArrayList\l- methods : java.util.ArrayList\l- usedClasses : java.util.Set\l- associatedClasses : java.util.Set\l|+ init() : void\l+ getName() : java.lang.String\l+ setName(java.lang.String) : void\l+ getSuperClass() : java.lang.String\l+ setSuperClass(java.lang.String) : void\l+ getInterfaces() : java.lang.String[]\l+ setInterfaces(java.lang.String[]) : void\l+ addField(problem.asm.FieldData) : void\l+ getFields() : java.util.ArrayList\l+ addMethod(problem.asm.MethodData) : void\l+ getMethods() : java.util.ArrayList\l+ toString() : java.lang.String\l+ getInheritsArrows() : java.lang.String\l+ getExtendsArrow(java.util.List) : java.lang.String\l+ getUsesArrows(java.util.List) : java.lang.String\l}"
@@ -24,6 +25,8 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+ClassData -> FieldData
+ClassData -> MethodData
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visit(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : void\l}"
 ]
@@ -35,6 +38,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+ClassDeclarationVisitor -> AbstractClassDataVisitor
 ClassFieldVisitor [
 label = "{ClassFieldVisitor|- level : java.lang.String\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitField(int, java.lang.String, java.lang.String, java.lang.String, java.lang.Object) : org.objectweb.asm.FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
@@ -46,6 +50,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+ClassFieldVisitor -> AbstractClassDataVisitor
 ClassMethodVisitor [
 label = "{ClassMethodVisitor|- level : java.lang.String\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitMethod(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : org.objectweb.asm.MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
@@ -57,6 +62,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+ClassMethodVisitor -> AbstractClassDataVisitor
 DesignParser [
 label = "{DesignParser||+ init() : void\l+ main(java.lang.String[]) : void\l+ getClasses(java.lang.String, java.lang.String) : java.util.List\l}"
 ]

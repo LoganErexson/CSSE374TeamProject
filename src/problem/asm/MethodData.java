@@ -18,7 +18,7 @@ public class MethodData {
 	}
 
 	public String getSignature() {
-		return signature;
+		return this.signature;
 	}
 
 	public void setSignature(String signature) {
@@ -62,26 +62,29 @@ public class MethodData {
 		if (this.name.contains("<"))
 			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access + " " + this.name + "(";
-		for (Type arg : this.args) {
-			if (arg.getClassName() != "void"
-					&& (arg.getSort() == Type.OBJECT
-							&& arg.getDimensions() > 0 && arg.getElementType()
-							.getClassName() != null)) {
-				result += arg.getClassName() + arg.getInternalName() + ", ";
-			} else {
-				result += arg.getClassName() + ", ";
+		if(this.signature!=null){
+		
+			for (Type arg : this.args) {
+				if (this.signature!=null) {
+	//				result += arg.getClassName() + this.signature.substring(this.signature.lastIndexOf("/"), 
+	//						this.signature.indexOf(";")) + ", ";
+				} else {
+					result += arg.getClassName() + ", ";
+				}
 			}
 		}
 		if (this.args.length != 0) {
 			result = result.substring(0, result.length() - 2);
 		}
 
-		if (this.type.getClassName() != "void"
-				&& (this.type.getSort() == Type.OBJECT
-						&& this.type.getDimensions() > 0 && this.type
-						.getElementType().getClassName() != null)) {
-			result += ") : " + this.type.getClassName() + this.type.getInternalName()  + "\\l";
-		} else {
+		if (this.getSignature()!=null) {
+			String returnSig = this.signature.substring(this.signature.indexOf('(')+1, this.signature.lastIndexOf(')'));
+			if(returnSig.equals("()")){
+				result += ") : " + this.type.getClassName() + returnSig.substring(returnSig.lastIndexOf('/')+1, 
+						returnSig.indexOf(';'))  + "\\l";
+			}
+		} 
+		else {
 			result += ") : " + this.type.getClassName() + "\\l";
 		}
 

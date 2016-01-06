@@ -9,7 +9,8 @@ public class MethodData {
 	private Type[] args;
 	private String signature;
 
-	public MethodData(String name, Type type, String level, Type[] args, String sig) {
+	public MethodData(String name, Type type, String level, Type[] args,
+			String sig) {
 		this.signature = sig;
 		this.name = name;
 		this.type = type;
@@ -62,29 +63,40 @@ public class MethodData {
 		if (this.name.contains("<"))
 			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access + " " + this.name + "(";
-		if(this.signature!=null){
-		
+		if (this.signature != null) {
+			String returnArgs = this.signature.substring(
+					this.signature.indexOf("("), this.signature.indexOf(")"));
 			for (Type arg : this.args) {
-				if (this.signature!=null) {
-	//				result += arg.getClassName() + this.signature.substring(this.signature.lastIndexOf("/"), 
-	//						this.signature.indexOf(";")) + ", ";
-				} else {
-					result += arg.getClassName() + ", ";
-				}
+				result += returnArgs.substring(this.signature.indexOf("/") + 1,
+								this.signature.indexOf(";")) + ", ";
+				returnArgs = returnArgs.substring(returnArgs.indexOf(";") + 1);
 			}
+		} else {
+			for (Type arg : this.args) {
+				if (arg.getClassName().contains("."))
+					result += arg.getClassName().substring(
+							arg.getClassName().lastIndexOf(".") + 1)
+							+ ", ";
+				else if (arg.getClassName().contains("/"))
+					result += arg.getClassName().substring(
+							arg.getClassName().lastIndexOf("/") + 1)
+							+ ", ";
+				else
+					result += arg.getClassName() + ", ";
+			}
+
 		}
 		if (this.args.length != 0) {
 			result = result.substring(0, result.length() - 2);
 		}
 
-		if (this.getSignature()!=null) {
-			String returnSig = this.signature.substring(this.signature.indexOf('(')+1, this.signature.lastIndexOf(')'));
-			if(returnSig.equals("()")){
-				result += ") : " + this.type.getClassName() + returnSig.substring(returnSig.lastIndexOf('/')+1, 
-						returnSig.indexOf(';'))  + "\\l";
-			}
-		} 
-		else {
+		if (this.getSignature() != null) {
+			String returnSig = this.signature.substring(
+					this.signature.lastIndexOf('/') + 1,
+					this.signature.lastIndexOf(';'));
+			result += ") : " + this.type.getClassName() + returnSig
+					+ "\\l";
+		} else {
 			result += ") : " + this.type.getClassName() + "\\l";
 		}
 

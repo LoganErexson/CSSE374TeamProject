@@ -43,7 +43,6 @@ public class ClassData {
     public void addMethod(MethodData m) {
 		this.methods.add(m);
 		String returnType= m.getType();
-
 		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))){
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
 		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))) {
@@ -51,9 +50,8 @@ public class ClassData {
 		}
 		
 		for(Type parameter : m.getArgs()){
-			
 			String paramType; 
-			if(parameter.getClassName()!="void"&&parameter.getElementType()!=null)
+			if(parameter.getClassName()!="void"&&parameter.getSort()==Type.ARRAY)
 			{
 				paramType = parameter.getElementType().getClassName();
 			}

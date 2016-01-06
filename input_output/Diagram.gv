@@ -9,59 +9,85 @@ edge [
 fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
-AppLauncher [
-label = "{AppLauncher|- watcher : java.nio.file.WatchService\l- dir : java.nio.file.Path\l- stop : boolean\l- processes : java.util.List\l|+ init(java.nio.file.Path) : void\l+ run() : void\l# clearEverything() : void\l+ stopGracefully() : void\l+ isRunning() : boolean\l+ getApplicationsCount() : int\l+ handleDirectoryEvent(java.lang.String, java.nio.file.Path) : void\l+ main(java.lang.String[]) : void\l}"
+AbstractClassDataVisitor [
+label = "{AbstractClassDataVisitor|# classData : problem.asm.ClassData\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ getClassData() : problem.asm.ClassData\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-Behavior [
-label = "{Behavior||+ launch(java.lang.String) : java.lang.String\l}"
+AbstractClassDataVisitor -> ClassData
+ClassData [
+label = "{ClassData|- name : java.lang.String\l- superClass : java.lang.String\l- interfaces : java.lang.String[]\l- fields : java.util.ArrayList\l- methods : java.util.ArrayList\l- usedClasses : java.util.Set\l- associatedClasses : java.util.Set\l|+ init() : void\l+ getName() : java.lang.String\l+ setName(java.lang.String) : void\l+ getSuperClass() : java.lang.String\l+ setSuperClass(java.lang.String) : void\l+ getInterfaces() : java.lang.String\l+ setInterfaces(java.lang.String[]) : void\l+ addField(problem.asm.FieldData) : void\l+ getFields() : java.util.ArrayList\l+ addMethod(problem.asm.MethodData) : void\l+ getMethods() : java.util.ArrayList\l+ toString() : java.lang.String\l+ getInheritsArrows() : java.lang.String\l+ getExtendsArrow(java.util.List) : java.lang.String\l+ getUsesArrows(java.util.List) : java.lang.String\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-Handler [
-label = "{Handler|- behavior : lab1_3.Behavior\l- filename : java.lang.String\l|+ init(java.nio.file.Path) : void\l+ handleDirectoryEvent(java.util.List, java.lang.String, java.nio.file.Path) : void\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-HTMLBehavior [
-label = "{HTMLBehavior||+ init() : void\l+ launch(java.lang.String) : java.lang.String\l}"
+ClassDeclarationVisitor [
+label = "{ClassDeclarationVisitor||+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visit(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
-style = "dashed"
 ]
-HTMLBehavior -> Behavior
+ClassDeclarationVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-PDFBehavior [
-label = "{PDFBehavior||+ init() : void\l+ launch(java.lang.String) : java.lang.String\l}"
+ClassFieldVisitor [
+label = "{ClassFieldVisitor|- level : java.lang.String\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitField(int, java.lang.String, java.lang.String, java.lang.String, java.lang.Object) : org.objectweb.asm.FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
-style = "dashed"
 ]
-PDFBehavior -> Behavior
+ClassFieldVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-TXTBehavior [
-label = "{TXTBehavior||+ init() : void\l+ launch(java.lang.String) : java.lang.String\l}"
+ClassMethodVisitor [
+label = "{ClassMethodVisitor|- level : java.lang.String\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitMethod(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : org.objectweb.asm.MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
+]
+ClassMethodVisitor -> AbstractClassDataVisitor
+edge [ 
+arrowhead = "vee"
 style = "dashed"
 ]
-TXTBehavior -> Behavior
+DesignParser [
+label = "{DesignParser||+ init() : void\l+ main(java.lang.String[]) : void\l+ getClasses(java.lang.String, java.lang.String) : java.util.List\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+FieldData [
+label = "{FieldData|- fieldName : java.lang.String\l- access : java.lang.String\l- type : java.lang.String\l|+ init(java.lang.String, java.lang.String, java.lang.String) : void\l+ getFieldName() : java.lang.String\l+ getAccessLevel() : java.lang.String\l+ getType() : java.lang.String\l+ toString() : java.lang.String\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+FirstASM [
+label = "{FirstASM|+ myField : java.lang.String\l|+ clinit() : void\l+ init() : void\l+ main(java.lang.String[]) : void\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+GraphVisPrinter [
+label = "{GraphVisPrinter||+ init() : void\l+ makeUML(java.lang.String, java.util.List) : void\l+ getClassNames(java.util.List) : java.util.List\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+MethodData [
+label = "{MethodData|- name : java.lang.String\l- type : java.lang.String\l- access : java.lang.String\l- args : org.objectweb.asm.Type[]\l|+ init(java.lang.String, java.lang.String, java.lang.String, org.objectweb.asm.Type[]) : void\l+ getName() : java.lang.String\l+ setName(java.lang.String) : void\l+ getType() : java.lang.String\l+ setType(java.lang.String) : void\l+ getAccess() : java.lang.String\l+ setAccess(java.lang.String) : void\l+ getArgs() : org.objectweb.asm.Type\l+ setArgs(org.objectweb.asm.Type[]) : void\l+ toString() : java.lang.String\l}"
+]
 edge [ 
 arrowhead = "vee"
 style = "dashed"

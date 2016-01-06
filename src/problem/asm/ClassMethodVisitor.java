@@ -19,7 +19,7 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		
 		addAccessLevel(access);
 		String type;
-		if(Type.getReturnType(desc).getClassName()!="void"&&Type.getReturnType(desc).getElementType()!=null)
+		if(Type.getReturnType(desc).getClassName()!="void"&&Type.getReturnType(desc).getSort()==Type.ARRAY)
 			type = Type.getReturnType(desc).getElementType().getClassName();
 		else
 			type = Type.getReturnType(desc).getClassName();

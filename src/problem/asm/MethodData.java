@@ -53,9 +53,11 @@ public class MethodData {
 			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access + " " + this.name + "(";
 		for (Type arg : this.args) {
-			if (arg.getClassName() != "void" && arg.getSort() == Type.ARRAY) {
-				String temp = arg.getClassName() + arg.getElementType().getClassName();
-				result += temp + ", ";
+			if (arg.getClassName() != "void"
+					&& (arg.getSort() == Type.OBJECT
+							&& arg.getDimensions() > 0 && arg.getElementType()
+							.getClassName() != null)) {
+				result += arg.getClassName() + arg.getInternalName() + ", ";
 			} else {
 				result += arg.getClassName() + ", ";
 			}
@@ -65,9 +67,10 @@ public class MethodData {
 		}
 
 		if (this.type.getClassName() != "void"
-				&& this.type.getSort() == Type.ARRAY) {
-			result += ") : " + this.type.getClassName() + this.type.getElementType().getClassName()
-					+ "\\l";
+				&& (this.type.getSort() == Type.OBJECT
+						&& this.type.getDimensions() > 0 && this.type
+						.getElementType().getClassName() != null)) {
+			result += ") : " + this.type.getClassName() + this.type.getInternalName()  + "\\l";
 		} else {
 			result += ") : " + this.type.getClassName() + "\\l";
 		}

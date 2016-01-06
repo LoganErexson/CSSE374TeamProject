@@ -36,6 +36,20 @@ public class ClassData {
 	}
 	public void addField(FieldData f) {
 		this.fields.add(f);
+		String fieldType;
+		if (f.getType().getClassName().equals("void") && (f.getType().getSort() == Type.ARRAY||
+				(f.getType().getSort() == Type.OBJECT && f.getType().getDimensions() > 0 &&
+				f.getType().getElementType().getClassName()!=null))) {
+			fieldType = f.getType().getElementType().getClassName();
+		} else {
+			fieldType = f.getType().getClassName();
+		}		
+		
+		if(!this.associatedClasses.contains(fieldType.substring(fieldType.lastIndexOf('.')+1))){
+			this.associatedClasses.add(fieldType.substring(fieldType.lastIndexOf('.')+1));
+		} else if (!this.associatedClasses.contains(fieldType.substring(fieldType.lastIndexOf('/')+1))) {
+			this.associatedClasses.add(fieldType.substring(fieldType.lastIndexOf('/')+1));
+		}
 	}
 	public List<FieldData> getFields() {
 		return this.fields;
@@ -136,6 +150,21 @@ public class ClassData {
 			sb.append("edge [ \n");
 			sb.append("arrowhead = \"vee\"\n");
 			sb.append("style = \"dashed\"\n]\n");
+			for(String curClass : this.usedClasses){
+				if(classNames.contains(curClass))
+				{
+					sb.append(this.getName()+" -> "+ curClass.substring(curClass.lastIndexOf("/")+1)+"\n");
+				}
+			}
+		}
+		return sb.toString();
+	}
+	
+	public String getAssociationArrows(List<String> classNames){
+		StringBuilder sb = new StringBuilder();
+		if(this.associatedClasses.size()!=0){
+			sb.append("edge [ \n");
+			sb.append("arrowhead = \"vee\"\n]\n");
 			for(String curClass : this.usedClasses){
 				if(classNames.contains(curClass))
 				{

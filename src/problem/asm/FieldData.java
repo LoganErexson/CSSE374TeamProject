@@ -1,11 +1,13 @@
 package problem.asm;
 
+import org.objectweb.asm.Type;
+
 public class FieldData {
 	private String fieldName;
 	private String access;
-	private String type;
+	private Type type;
 	
-	public FieldData(String name, String access, String type) {
+	public FieldData(String name, String access, Type type) {
 		this.fieldName = name;
 		this.access = access;
 		this.type = type;
@@ -19,7 +21,7 @@ public class FieldData {
 		return this.access;
 	}
 	
-	public String getType() {
+	public Type getType() {
 		return this.type;
 	}
 	

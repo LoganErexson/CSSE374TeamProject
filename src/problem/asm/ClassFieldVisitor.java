@@ -17,7 +17,7 @@ public class ClassFieldVisitor extends AbstractClassDataVisitor {
 			String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc,
 				signature, value);
-		String type = Type.getType(desc).getClassName();
+		Type type = Type.getType(desc);
 		
 		addAccessLevel(access);
 		

@@ -1,5 +1,8 @@
 package problem.asm;
 
+import java.util.Arrays;
+
+
 
 public class ClassDeclarationVisitor extends AbstractClassDataVisitor {
 	
@@ -12,7 +15,7 @@ public class ClassDeclarationVisitor extends AbstractClassDataVisitor {
 			String superName, String[] interfaces) {
 		this.classData.setName(name.substring(name.lastIndexOf("/")+1));
 		this.classData.setSuperClass(superName.substring(superName.lastIndexOf("/")+1));
-		this.classData.setInterfaces(interfaces);
+		this.classData.setInterfaces(Arrays.asList(interfaces));
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 }

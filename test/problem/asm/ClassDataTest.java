@@ -71,7 +71,8 @@ public class ClassDataTest {
 	public final void testToStringBase() {
 		ClassData c = new ClassData();
 		c.setName("Test");
-		String[] inters = {"Interface"};
+		List<String> inters = new ArrayList<>();
+		inters.add("Interface");
 		c.setInterfaces(inters);
 		c.setSuperClass("Super");
 		c.addField(new FieldData("AField", "+", "java.lang.String"));

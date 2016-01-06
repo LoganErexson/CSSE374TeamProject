@@ -10,9 +10,9 @@ import org.objectweb.asm.Type;
 public class ClassData {
 	private String name;
 	private String superClass;
-	private String[] interfaces;
-	private ArrayList<FieldData> fields = new ArrayList<>();
-	private ArrayList<MethodData> methods = new ArrayList<>();
+	private List<String> interfaces;
+	private List<FieldData> fields = new ArrayList<>();
+	private List<MethodData> methods = new ArrayList<>();
 	private Set<String> usedClasses = new HashSet<>();
 	private Set<String> associatedClasses = new HashSet<>();
 	
@@ -28,16 +28,16 @@ public class ClassData {
 	public void setSuperClass(String superClass) {
 		this.superClass = superClass;
 	}
-	public String[] getInterfaces() {
+	public List<String> getInterfaces() {
 		return this.interfaces;
 	}
-	public void setInterfaces(String[] interfaces) {
+	public void setInterfaces(List<String> interfaces) {
 		this.interfaces = interfaces;
 	}
 	public void addField(FieldData f) {
 		this.fields.add(f);
 	}
-	public ArrayList<FieldData> getFields() {
+	public List<FieldData> getFields() {
 		return this.fields;
 	}
     public void addMethod(MethodData m) {
@@ -66,16 +66,22 @@ public class ClassData {
 				paramType = parameter.getClassName();
 			}
 			if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
-					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))){
+					!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+					!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
+			{
 				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
 			} else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
-					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))) {
+					!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+					!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
+			{
 				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
 			}
 		}
 	}
     
-	public ArrayList<MethodData> getMethods() {
+	public List<MethodData> getMethods() {
 		return this.methods;
 	}
 	
@@ -98,7 +104,7 @@ public class ClassData {
 	
 	public String getInheritsArrows(){
 		StringBuilder sb = new StringBuilder();
-		if(this.getInterfaces().length!=0){
+		if(this.getInterfaces().size()!=0){
 			sb.append("edge [ \n");
 			sb.append("arrowhead = \"empty\"\n");
 			sb.append("style = \"dashed\"\n]\n");

@@ -33,6 +33,7 @@ public class GraphVisPrinter {
 				sb.append(currentData.getExtendsArrow(classNames));
 				sb.append(currentData.getInheritsArrows());
 				sb.append(currentData.getUsesArrows(classNames));
+				sb.append(currentData.getAssociationArrows(classNames));
 			}
 			sb.append("}\n");
 			out.write(sb.toString().getBytes());

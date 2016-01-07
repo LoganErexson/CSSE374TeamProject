@@ -1,5 +1,6 @@
 # CSSE374TeamProject
 
+Milestone 1:
 This tool creates a .gv file usable for GVEdit for the classes in the folder
 specified in the driver class. This file is used by GVEdit to create a UML. 
 The tool works by compiling a list of classes to include in the diagram and using a
@@ -35,5 +36,33 @@ Jack:
 To use this tool, set the parameters for the call to getClasses in the main function
 in DesignParser to the desired folder.
 For project files: ("./src/problem/asm", "problem.asm")
+For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
+Run the DesignParser
+
+Milestone 2:
+Adding uses and association did not require large modifications to the design. 
+The only large modifications were in the ClassData, MethodData, and FieldData classes. 
+The primary design change was a move of the arrow drawing methods in the GraphVizPrinter 
+to ClassData. This allowed all of the primary changes to be made to classData for the actual
+implementation of the uses and association arrows. 
+
+Jack: 
+- Added getAssociationArrows method and functionality to ClassData.
+- Adjusted FieldData's toString to produce optimized output for ClassData and GraphViz.
+- Added tests for associations and uses
+- Added M2 report to the Readme
+- Revised handmade UML diagram.
+
+Logan:
+- Changed how collections are checked for in ClassData
+- Handled uses and association arrows not pointing to extraneaus classes
+- Handled folder selection for DesignParser 
+- Fixed minor issues in GraphViz input
+- Fixed minor issues with the way arrows format.
+
+To use this tool, set the parameters for the call to getClasses in the main function
+in DesignParser to the desired folder.
+For project files: ("./src/problem/asm", "problem.asm")
+For pizzaaf files: ("./src/headfirst/factory/pizzaf", "headfirst.factory.pizzaf")
 For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
 Run the DesignParser

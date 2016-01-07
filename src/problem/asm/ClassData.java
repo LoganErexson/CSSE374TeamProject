@@ -36,19 +36,34 @@ public class ClassData {
 	}
 	public void addField(FieldData f) {
 		this.fields.add(f);
-		String fieldType;
-		if (f.getType().getClassName().equals("void") && (f.getType().getSort() == Type.ARRAY||
-				(f.getType().getSort() == Type.OBJECT && f.getType().getDimensions() > 0 &&
-				f.getType().getElementType().getClassName()!=null))) {
-			fieldType = f.getType().getElementType().getClassName();
-		} else {
-			fieldType = f.getType().getClassName();
+		String signature;
+		if(f.getSignature()!=null){
+			String returnSig = f.getSignature().substring(f.getSignature().lastIndexOf(')') + 1);
+			if(returnSig.contains("<")){
+				signature = returnSig.substring(returnSig.lastIndexOf('<')+1, 
+						returnSig.indexOf(';'));
+			}
+			else{
+				signature = f.getType().getClassName();
+			}
+		}
+		else{
+			signature = f.getType().getClassName();
 		}		
 		
-		if(!this.associatedClasses.contains(fieldType.substring(fieldType.lastIndexOf('.')+1))){
-			this.associatedClasses.add(fieldType.substring(fieldType.lastIndexOf('.')+1));
-		} else if (!this.associatedClasses.contains(fieldType.substring(fieldType.lastIndexOf('/')+1))) {
-			this.associatedClasses.add(fieldType.substring(fieldType.lastIndexOf('/')+1));
+		if(!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('.')+1))&&
+				!this.name.equals(signature.substring(signature.lastIndexOf('.')+1))&&
+				!this.superClass.equals(signature.substring(signature.lastIndexOf('.')+1))&&
+				!this.interfaces.contains(signature.substring(signature.lastIndexOf('.')+1)))
+		{
+			this.associatedClasses.add(signature.substring(signature.lastIndexOf('.')+1));
+		} 
+		else if (!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('/')+1))&&
+				!this.name.equals(signature.substring(signature.lastIndexOf('/')+1))&&
+				!this.superClass.equals(signature.substring(signature.lastIndexOf('/')+1))&&
+				!this.interfaces.contains(signature.substring(signature.lastIndexOf('/')+1))) 
+		{
+			this.associatedClasses.add(signature.substring(signature.lastIndexOf('/')+1));
 		}
 	}
 	public List<FieldData> getFields() {
@@ -78,7 +93,8 @@ public class ClassData {
 				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('.')+1)))
 		{
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
-		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))&&
+		} 
+		else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.name.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.superClass.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('/')+1))) 
@@ -198,7 +214,8 @@ public class ClassData {
 		StringBuilder sb = new StringBuilder();
 		if(this.associatedClasses.size()!=0){
 			sb.append("edge [ \n");
-			sb.append("arrowhead = \"vee\"\n]\n");
+			sb.append("arrowhead = \"vee\"\n");
+			sb.append("style = \"solid\"\n]\n");
 			for(String curClass : this.associatedClasses){
 				if(classNames.contains(curClass))
 				{

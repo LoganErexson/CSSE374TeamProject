@@ -16,7 +16,7 @@ public class FieldData {
 	}
 	
 	public String getSignature() {
-		return signature;
+		return this.signature;
 	}
 
 	public void setSignature(String signature) {
@@ -38,7 +38,7 @@ public class FieldData {
 	@Override
 	public String toString() {
 		String result = this.access+" "+this.fieldName+" : ";
-		String typeString = this.type.getClassName().substring(this.type.getClassName().lastIndexOf("."));
+		String typeString = this.type.getClassName().substring(this.type.getClassName().lastIndexOf(".")+1);
 		if (this.getSignature() != null) {
 			String f = this.getSignature();
 			if(f.contains("<")){

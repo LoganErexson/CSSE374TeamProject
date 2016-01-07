@@ -65,26 +65,23 @@ public class MethodData {
 		String result = this.access + " " + this.name + "(";
 		if (this.signature != null) {
 			String[] returnArgs = this.signature.substring(
-					this.signature.indexOf("("), this.signature.indexOf(")")).split(";");
-			String element;
-			for(String arg : returnArgs){
-				if(arg.contains(">")){
-					continue;
-				}
-				else if(arg.contains("<")){
-					element = arg.substring(arg.lastIndexOf('/')+1);
-					arg = arg.substring(0, arg.indexOf('<'));
-					result+= arg.substring(arg.lastIndexOf('/')+1)+" "+element+" , ";
-				}
-				else{
-					result+= arg.substring(arg.lastIndexOf('/')+1) +", ";
+					this.signature.indexOf("(")+1, this.signature.indexOf(")")).split(";");
+			if(returnArgs[0]!=""){
+				String element;
+				for(String arg : returnArgs){
+					if(arg.contains(">")){
+						continue;
+					}
+					else if(arg.contains("<")){
+						element = arg.substring(arg.lastIndexOf('/')+1);
+						arg = arg.substring(0, arg.indexOf('<'));
+						result+= arg.substring(arg.lastIndexOf('/')+1)+" "+element+" , ";
+					}
+					else{
+						result+= arg.substring(arg.lastIndexOf('/')+1) +", ";
+					}
 				}
 			}
-//			for (Type arg : this.args) {
-//				result += returnArgs.substring(this.signature.indexOf("/") + 1,
-//								this.signature.indexOf(";")) + ", ";
-//				returnArgs = returnArgs.substring(returnArgs.indexOf(";") + 1);
-//			}
 		} else {
 			for (Type arg : this.args) {
 				if (arg.getClassName().contains("."))

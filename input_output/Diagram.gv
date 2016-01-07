@@ -35,6 +35,8 @@ edge [
 arrowhead = "vee"
 style = "solid"
 ]
+ClassData -> FieldData
+ClassData -> MethodData
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ init(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
@@ -43,10 +45,6 @@ arrowhead = "empty"
 style = "solid"
 ]
 ClassDeclarationVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
 ClassFieldVisitor [
 label = "{ClassFieldVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]

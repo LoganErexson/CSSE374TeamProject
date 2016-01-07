@@ -24,7 +24,7 @@ public class ClassDataTest {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		assertEquals(
 				"GraphVisPrinter [\n"
-						+ "label = \"{GraphVisPrinter||+ init() : void\\l+ makeUML(java.lang.String, java.util.List) : void\\l+ getClassNames(java.util.List) : java.util.List\\l}\"\n"
+						+ "label = \"{GraphVisPrinter||+ init() : void\\l+ makeUML(String, List ClassData ) : void\\l+ getClassNames(List ClassData ) : List String\\l}\"\n"
 						+ "]\n", methodVisitor.getClassData().toString());
 	}
 
@@ -88,10 +88,10 @@ public class ClassDataTest {
 		Type f = Type.CHAR_TYPE;
 		c.addField(new FieldData("AField", "+", f, null));
 		Type[] t = {};
-		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t, ""));
+		c.addMethod(new MethodData("AMEthod", Type.VOID_TYPE, "+", t, null));
 
 		assertEquals("Test [\n" + "label = "
-				+ "\"{Test|+ AField : C\\l|+ AMEthod() : void\\l" + "}\"\n"
+				+ "\"{Test|+ AField : char\\l|+ AMEthod() : void\\l" + "}\"\n"
 				+ "]\n", c.toString());
 	}
 

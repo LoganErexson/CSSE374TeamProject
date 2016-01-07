@@ -51,19 +51,23 @@ public class ClassData {
 			signature = f.getType().getClassName();
 		}		
 		
-		if(!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('.')+1))&&
+		if(signature.contains(".")&&!this.associatedClasses.contains(
+				signature.substring(signature.lastIndexOf('.')+1))&&
 				!this.name.equals(signature.substring(signature.lastIndexOf('.')+1))&&
 				!this.superClass.equals(signature.substring(signature.lastIndexOf('.')+1))&&
 				!this.interfaces.contains(signature.substring(signature.lastIndexOf('.')+1)))
 		{
 			this.associatedClasses.add(signature.substring(signature.lastIndexOf('.')+1));
 		} 
-		else if (!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('/')+1))&&
+		else if (signature.contains("/")&&!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('/')+1))&&
 				!this.name.equals(signature.substring(signature.lastIndexOf('/')+1))&&
 				!this.superClass.equals(signature.substring(signature.lastIndexOf('/')+1))&&
 				!this.interfaces.contains(signature.substring(signature.lastIndexOf('/')+1))) 
 		{
 			this.associatedClasses.add(signature.substring(signature.lastIndexOf('/')+1));
+		}
+		else if(!this.associatedClasses.contains(signature)){
+			this.associatedClasses.add(signature);
 		}
 	}
 	public List<FieldData> getFields() {
@@ -87,62 +91,77 @@ public class ClassData {
 			returnType = m.getType().getClassName();
 		}		
 		
-		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))&&
+		if(returnType.contains(".")&&!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))&&
 				!this.name.equals(returnType.substring(returnType.lastIndexOf('.')+1))&&
 				!this.superClass.equals(returnType.substring(returnType.lastIndexOf('.')+1))&&
 				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('.')+1)))
 		{
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
 		} 
-		else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))&&
+		else if (returnType.contains("/")&&!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.name.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.superClass.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
 				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('/')+1))) 
 		{
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('/')+1));
 		}
+		else if(this.usedClasses.contains(returnType))
+		{
+			this.usedClasses.add(returnType);
+		}
 		String paramType;
 		if(m.getSignature()!=null){
-			String[] returnArgs = m.getSignature().substring(m.getSignature().indexOf("("), 
+			String[] args = m.getSignature().substring(m.getSignature().indexOf("("), 
 					m.getSignature().indexOf(")")).split(";");
-			for(String arg: returnArgs)
-			{
-				if(!arg.contains(">")){		
-					paramType = arg.substring(arg.lastIndexOf('/')+1);
-					if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
-							!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
-							!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
-							!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
-					{
-						this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
-					} 
-					else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
-							!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
-							!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
-							!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
-					{
-						this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+			if(!args[0].equals("(")){
+				for(String arg: args)
+				{
+					if(!arg.contains(">")){		
+						paramType = arg.substring(arg.lastIndexOf('/')+1);
+						if(paramType.contains(".")&&!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
+								!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+								!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+								!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
+						{
+							this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
+						} 
+						else if (paramType.contains("/")&&!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
+								!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+								!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+								!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
+						{
+							this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+						}
+						else if(!this.usedClasses.contains(paramType))
+						{
+							this.usedClasses.add(paramType);
+						}
 					}
 				}
 			}
+			
 		}
 		else{
 			for(Type parameter : m.getArgs()){ 
 				
 				paramType = parameter.getClassName();
-				if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
+				if(paramType.contains("/")&&!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
 						!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
 						!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
 						!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
 				{
 					this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
 				} 
-				else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
+				else if (paramType.contains("/")&&!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
 						!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
 						!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
 						!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
 				{
 					this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+				}
+				else if(this.usedClasses.contains(paramType))
+				{
+					this.usedClasses.add(paramType);
 				}
 			}
 		}

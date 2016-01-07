@@ -38,7 +38,12 @@ public class FieldData {
 	@Override
 	public String toString() {
 		String result = this.access+" "+this.fieldName+" : ";
-		String typeString = this.type.getClassName().substring(this.type.getClassName().lastIndexOf("."));
+		String typeString = this.type.getClassName();
+		if (typeString.contains(".")) {
+			typeString = typeString.substring(this.type.getClassName().lastIndexOf("."));
+		} else if (typeString.contains("/")) {
+			typeString = typeString.substring(this.type.getClassName().lastIndexOf("/"));
+		}
 		if (this.getSignature() != null) {
 			String f = this.getSignature();
 			if(f.contains("<")){

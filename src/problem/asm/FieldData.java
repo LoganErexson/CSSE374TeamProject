@@ -37,11 +37,23 @@ public class FieldData {
 	
 	@Override
 	public String toString() {
+		String result = this.access+" "+this.fieldName+" : ";
+		String typeString = this.type.getClassName().substring(this.type.getClassName().lastIndexOf("."));
 		if (this.getSignature() != null) {
-			
-			return this.access+" "+this.fieldName+" : " + "" + "\\l";
+			String f = this.getSignature();
+			if(f.contains("<")){
+				f = f.substring(f.lastIndexOf('<')+1, 
+						f.lastIndexOf('>'));
+				result+= typeString + " " + f.substring(f.lastIndexOf("/")+1, f.lastIndexOf(';')) + "\\l";
+			}
+//			else{
+//				result+= ") : "+ f.substring(f.lastIndexOf('/')+1) +"\\l";
+//			}
+//				}
+			 
+			return result;
 		} else {
-			return this.access+" "+this.fieldName+" : " + this.type + "\\l";
+			return result + typeString + "\\l";
 		}
 	}
 }

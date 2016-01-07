@@ -13,11 +13,12 @@ public class DesignParser {
 	 * Determine which folder to get classes from. Prefix here is the package name.
 	 * 
 	 * For project files: FOLDER_PATH = "./src/problem/asm"; FILE_PREFIX = "problem.asm";
+	 * For pizzaaf files: FOLDER_PATH = "./src/headfirst/factory/pizzaaf"; FILE_PREFIX = "headfirst.factory.pizzaaf";
 	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
 	 * 
 	 */
-	public static final String FOLDER_PATH = "./src/problem/asm";
-	public static final String FILE_PREFIX = "problem.asm";
+	public static final String FOLDER_PATH = "./src/headfirst/factory/pizzaaf";
+	public static final String FILE_PREFIX = "headfirst.factory.pizzaaf";
 	
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.

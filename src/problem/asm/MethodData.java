@@ -118,7 +118,7 @@ public class MethodData {
 							+"\\l";
 				}
 				else{
-					result+= ") : "+ returnSig.substring(returnSig.lastIndexOf('/')+1) +"\\l";
+					result+= ") : "+ returnSig.substring(returnSig.lastIndexOf('/')+1, returnSig.lastIndexOf(';')) +"\\l";
 				}
 			}
 		} 

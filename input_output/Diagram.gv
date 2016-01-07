@@ -10,15 +10,20 @@ fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
 AbstractClassDataVisitor [
-label = "{AbstractClassDataVisitor|# classData : Lproblem/asm/ClassData;\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ getClassData() : problem.asm.ClassData\l}"
+label = "{AbstractClassDataVisitor|# classData : ClassData\l|+ init(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
 AbstractClassDataVisitor -> ClassData
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+AbstractClassDataVisitor -> ClassData
 ClassData [
-label = "{ClassData|- name : Ljava/lang/String;\l- superClass : Ljava/lang/String;\l- interfaces : Ljava/util/List;\l- fields : Ljava/util/List;\l- methods : Ljava/util/List;\l- usedClasses : Ljava/util/Set;\l- associatedClasses : Ljava/util/Set;\l|+ init() : void\l+ getName() : java.lang.String\l+ setName(java.lang.String) : void\l+ getSuperClass() : java.lang.String\l+ setSuperClass(java.lang.String) : void\l+ getInterfaces(+ setInterfaces(java.util.List+ addField(problem.asm.FieldData) : void\l+ getFields(+ addMethod(problem.asm.MethodData) : void\l+ getMethods(+ toString() : java.lang.String\l+ getInheritsArrows() : java.lang.String\l+ getExtendsArrow(java.util.List+ getUsesArrows(java.util.List+ getAssociationArrows(java.util.List}"
+label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List String\l- fields : List FieldData\l- methods : List MethodData\l- usedClasses : Set String\l- associatedClasses : Set String\l|+ init() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces(, ) : List String\l+ setInterfaces(List String ) : void\l+ addField(FieldData) : void\l+ getFields(, ) : List FieldData\l+ addMethod(MethodData) : void\l+ getMethods(, ) : List MethodData\l+ toString() : String\l+ getInheritsArrows() : String\l+ getExtendsArrow(List String ) : String\l+ getUsesArrows(List String ) : String\l+ getAssociationArrows(List String ) : String\l}"
 ]
 edge [ 
 arrowhead = "vee"
@@ -26,11 +31,16 @@ style = "dashed"
 ]
 ClassData -> FieldData
 ClassData -> MethodData
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
 ClassDeclarationVisitor [
-label = "{ClassDeclarationVisitor||+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visit(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : void\l}"
+label = "{ClassDeclarationVisitor||+ init(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
+style = "solid"
 ]
 ClassDeclarationVisitor -> AbstractClassDataVisitor
 edge [ 
@@ -38,53 +48,76 @@ arrowhead = "vee"
 style = "dashed"
 ]
 ClassFieldVisitor [
-label = "{ClassFieldVisitor|- level : Ljava/lang/String;\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitField(int, java.lang.String, java.lang.String, java.lang.String, java.lang.Object) : org.objectweb.asm.FieldVisitor\l+ addAccessLevel(int) : void\l}"
+label = "{ClassFieldVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
+style = "solid"
 ]
 ClassFieldVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
 ClassMethodVisitor [
-label = "{ClassMethodVisitor|- level : Ljava/lang/String;\l|+ init(int, problem.asm.AbstractClassDataVisitor) : void\l+ visitMethod(int, java.lang.String, java.lang.String, java.lang.String, java.lang.String[]) : org.objectweb.asm.MethodVisitor\l+ addAccessLevel(int) : void\l}"
+label = "{ClassMethodVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
+style = "solid"
 ]
 ClassMethodVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
 DesignParser [
-label = "{DesignParser|+ FOLDER_PATH : Ljava/lang/String;\l+ FILE_PREFIX : Ljava/lang/String;\l|+ init() : void\l+ main(java.lang.String[]) : void\l+ getClasses(java.lang.String, java.lang.String}"
+label = "{DesignParser|+ FOLDER_PATH : String\l+ FILE_PREFIX : String\l|+ init() : void\l+ main(String[]) : void\l+ getClasses(String, String) : List String\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
+]
+edge [ 
+arrowhead = "vee"
+style = "solid"
 ]
 FieldData [
-label = "{FieldData|- fieldName : Ljava/lang/String;\l- signature : Ljava/lang/String;\l- access : Ljava/lang/String;\l- type : Lorg/objectweb/asm/Type;\l|+ init(java.lang.String, java.lang.String, org.objectweb.asm.Type, java.lang.String) : void\l+ getSignature() : java.lang.String\l+ setSignature(java.lang.String) : void\l+ getFieldName() : java.lang.String\l+ getAccessLevel() : java.lang.String\l+ getType() : org.objectweb.asm.Type\l+ toString() : java.lang.String\l}"
+label = "{FieldData|- fieldName : String\l- signature : String\l- access : String\l- type : Type\l|+ init(String, String, Type, String) : void\l+ getSignature() : String\l+ setSignature(String) : void\l+ getFieldName() : String\l+ getAccessLevel() : String\l+ getType() : Type\l+ toString() : String\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
+]
+edge [ 
+arrowhead = "vee"
+style = "solid"
 ]
 GraphVisPrinter [
-label = "{GraphVisPrinter||+ init() : void\l+ makeUML(java.lang.String, java.util.List+ getClassNames(java.util.List}"
+label = "{GraphVisPrinter||+ init() : void\l+ makeUML(String, List ClassData ) : void\l+ getClassNames(List ClassData ) : List String\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
+GraphVisPrinter -> ClassData
 MethodData [
-label = "{MethodData|- name : Ljava/lang/String;\l- type : Lorg/objectweb/asm/Type;\l- access : Ljava/lang/String;\l- args : [Lorg/objectweb/asm/Type;\l- signature : Ljava/lang/String;\l|+ init(java.lang.String, org.objectweb.asm.Type, java.lang.String, org.objectweb.asm.Type[], java.lang.String) : void\l+ getSignature() : java.lang.String\l+ setSignature(java.lang.String) : void\l+ getName() : java.lang.String\l+ setName(java.lang.String) : void\l+ getType() : org.objectweb.asm.Type\l+ setType(org.objectweb.asm.Type) : void\l+ getAccess() : java.lang.String\l+ setAccess(java.lang.String) : void\l+ getArgs() : org.objectweb.asm.Type[]\l+ setArgs(org.objectweb.asm.Type[]) : void\l+ toString() : java.lang.String\l}"
+label = "{MethodData|- name : String\l- type : Type\l- access : String\l- args : Type[]\l- signature : String\l|+ init(String, Type, String, Type[], String) : void\l+ getSignature() : String\l+ setSignature(String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : Type\l+ setType(Type) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : Type[]\l+ setArgs(Type[]) : void\l+ toString() : String\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
+]
+edge [ 
+arrowhead = "vee"
+style = "solid"
 ]
 }

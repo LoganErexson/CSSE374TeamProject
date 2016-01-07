@@ -52,8 +52,8 @@ public class FieldData {
 //				}
 			 
 			return result;
-		} else {
-			return result + typeString + "\\l";
 		}
+		
+		return result + typeString + "\\l";
 	}
 }

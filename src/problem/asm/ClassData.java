@@ -187,7 +187,8 @@ public class ClassData {
 		if(!this.getSuperClass().equals("Object")){
 			if(classNames.contains(this.getSuperClass())){
 				sb.append("edge [ \n");
-				sb.append("arrowhead = \"empty\"\n]\n");
+				sb.append("arrowhead = \"empty\"\n");
+				sb.append("style = \"solid\"\n]\n");
 				sb.append(this.getName()+" -> "+ this.getSuperClass()+ "\n");
 			}
 		}

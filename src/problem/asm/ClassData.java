@@ -165,7 +165,7 @@ public class ClassData {
 		if(this.associatedClasses.size()!=0){
 			sb.append("edge [ \n");
 			sb.append("arrowhead = \"vee\"\n]\n");
-			for(String curClass : this.usedClasses){
+			for(String curClass : this.associatedClasses){
 				if(classNames.contains(curClass))
 				{
 					sb.append(this.getName()+" -> "+ curClass.substring(curClass.lastIndexOf("/")+1)+"\n");

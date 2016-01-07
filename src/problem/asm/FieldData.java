@@ -36,7 +36,12 @@ public class FieldData {
 	}
 	
 	@Override
-	public String toString(){
-		return this.access+" "+this.fieldName+" : " +this.type+ "\\l";
+	public String toString() {
+		if (this.getSignature() != null) {
+			
+			return this.access+" "+this.fieldName+" : " + "" + "\\l";
+		} else {
+			return this.access+" "+this.fieldName+" : " + this.type + "\\l";
+		}
 	}
 }

@@ -126,7 +126,16 @@ public class MethodData {
 			}
 		} 
 		else {
-			result += ") : " + this.type.getClassName() + "\\l";
+			if (this.type.getClassName().contains("."))
+				result += ") : " +this.type.getClassName().substring(
+						this.type.getClassName().lastIndexOf(".") + 1)
+						+ "\\l";
+			else if (this.type.getClassName().contains("/"))
+				result += ") : " +this.type.getClassName().substring(
+						this.type.getClassName().lastIndexOf("/") + 1)
+						+ "\\l";
+			else
+				result += ") : " +this.type.getClassName() + "\\l";
 		}
 
 		return result;

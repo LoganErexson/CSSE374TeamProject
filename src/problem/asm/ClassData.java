@@ -56,47 +56,81 @@ public class ClassData {
 	}
     public void addMethod(MethodData m) {
 		this.methods.add(m);
+		
 		String returnType;
-		if (m.getType().getClassName().equals("void") && (m.getType().getSort() == Type.ARRAY||
-				(m.getType().getSort() == Type.OBJECT && m.getType().getDimensions() > 0 &&
-				m.getType().getElementType().getClassName()!=null))) {
-			returnType = m.getType().getElementType().getClassName();
-		} else {
+		if(m.getSignature()!=null){
+			String returnSig = m.getSignature().substring(m.getSignature().lastIndexOf(')') + 1);
+			if(returnSig.contains("<")){
+				returnType = returnSig.substring(returnSig.lastIndexOf('<')+1, 
+						returnSig.indexOf(';'));
+			}
+			else{
+				returnType = m.getType().getClassName();
+			}
+		}
+		else{
 			returnType = m.getType().getClassName();
 		}		
 		
-		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))){
+		if(!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))&&
+				!this.name.equals(returnType.substring(returnType.lastIndexOf('.')+1))&&
+				!this.superClass.equals(returnType.substring(returnType.lastIndexOf('.')+1))&&
+				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('.')+1)))
+		{
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('.')+1));
-		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))) {
+		} else if (!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('/')+1))&&
+				!this.name.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
+				!this.superClass.equals(returnType.substring(returnType.lastIndexOf('/')+1))&&
+				!this.interfaces.contains(returnType.substring(returnType.lastIndexOf('/')+1))) 
+		{
 			this.usedClasses.add(returnType.substring(returnType.lastIndexOf('/')+1));
 		}
-		
-		for(Type parameter : m.getArgs()){
-			String paramType; 
-			if(parameter.getClassName() != "void" && (parameter.getSort() == Type.ARRAY ||
-					(parameter.getSort() == Type.OBJECT && parameter.getDimensions() > 0 &&
-					parameter.getElementType().getClassName() != null)))
+		String paramType;
+		if(m.getSignature()!=null){
+			String[] returnArgs = m.getSignature().substring(m.getSignature().indexOf("("), 
+					m.getSignature().indexOf(")")).split(";");
+			for(String arg: returnArgs)
 			{
-				paramType = parameter.getElementType().getClassName();
-			}
-			else
-			{
-				paramType = parameter.getClassName();
-			}
-			if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
-					!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
-					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
-					!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
-			{
-				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
-			} else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
-					!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
-					!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
-					!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
-			{
-				this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+				if(!arg.contains(">")){		
+					paramType = arg.substring(arg.lastIndexOf('/')+1);
+					if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
+							!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+							!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+							!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
+					{
+						this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
+					} 
+					else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
+							!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+							!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+							!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
+					{
+						this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+					}
+				}
 			}
 		}
+		else{
+			for(Type parameter : m.getArgs()){ 
+				
+				paramType = parameter.getClassName();
+				if(!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
+						!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+						!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
+						!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('.')+1)))
+				{
+					this.usedClasses.add(paramType.substring(paramType.lastIndexOf('.')+1));
+				} 
+				else if (!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('/')+1))&&
+						!this.name.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+						!this.superClass.equals(paramType.substring(paramType.lastIndexOf('/')+1))&&
+						!this.interfaces.contains(paramType.substring(paramType.lastIndexOf('/')+1))) 
+				{
+					this.usedClasses.add(paramType.substring(paramType.lastIndexOf('/')+1));
+				}
+			}
+		}
+		
 	}
     
 	public List<MethodData> getMethods() {

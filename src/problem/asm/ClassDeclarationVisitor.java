@@ -14,8 +14,8 @@ public class ClassDeclarationVisitor extends AbstractClassDataVisitor {
 	public void visit(int version, int access, String name, String signature,
 			String superName, String[] interfaces) {
 		this.classData.setName(name.substring(name.lastIndexOf("/")+1));
-		this.classData.setSuperClass(superName.substring(superName.lastIndexOf("/")+1));
-		this.classData.setInterfaces(Arrays.asList(interfaces));
+		this.getClassData().setSuperClass(superName.substring(superName.lastIndexOf("/")+1));
+		this.getClassData().setInterfaces(Arrays.asList(interfaces));
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 }

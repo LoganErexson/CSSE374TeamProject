@@ -3,7 +3,7 @@ package problem.asm;
 import org.objectweb.asm.ClassVisitor;
 
 public abstract class AbstractClassDataVisitor extends ClassVisitor{
-	protected ClassData classData;
+	protected IData classData;
 	
 	public AbstractClassDataVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
@@ -17,7 +17,7 @@ public abstract class AbstractClassDataVisitor extends ClassVisitor{
 	}
 
 	public ClassData getClassData() {
-		return this.classData;
+		return (ClassData) this.classData;
 	}
 
 }

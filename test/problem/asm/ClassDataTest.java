@@ -71,7 +71,7 @@ public class ClassDataTest {
 				Opcodes.ASM5, fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
-		List<String> classNames = GraphVisPrinter.getClassNames(classDatas);
+		List<String> classNames = StringParser.getClassNames(classDatas);
 		assertEquals("edge [ \n" + "arrowhead = \"empty\"\n]\n"
 				+ "ClassMethodVisitor -> AbstractClassDataVisitor\n",
 				methodVisitor.getClassData().getExtendsArrow(classNames));
@@ -123,7 +123,7 @@ public class ClassDataTest {
 				Opcodes.ASM5, fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
-		List<String> classNames = GraphVisPrinter.getClassNames(classDatas);
+		List<String> classNames = StringParser.getClassNames(classDatas);
 		assertEquals("edge [ \n" + "arrowhead = \"vee\"\n"
 				+ "style = \"dashed\"\n]\n" + "ClassData -> FieldData\n"
 				+ "ClassData -> MethodData\n", methodVisitor.getClassData()
@@ -158,7 +158,7 @@ public class ClassDataTest {
 				Opcodes.ASM5, fieldVisitor);
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
-		List<String> classNames = GraphVisPrinter.getClassNames(classDatas);
+		List<String> classNames = StringParser.getClassNames(classDatas);
 		assertEquals("edge [ \n" + "arrowhead = \"vee\"\n"
 				+"]\n" + "FieldData -> ClassData\n",
 				methodVisitor.getClassData().getAssociationArrows(classNames));

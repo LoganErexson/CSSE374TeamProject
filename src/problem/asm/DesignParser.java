@@ -19,6 +19,7 @@ public class DesignParser {
 	 */
 	public static final String FOLDER_PATH = "./src/problem/asm";
 	public static final String FILE_PREFIX = "problem.asm";
+	public static final String OUTPUT_FILE = "./input_output/Diagram.gv";
 	
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
@@ -27,7 +28,18 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-	    List<String> classes = getClasses(FOLDER_PATH, FILE_PREFIX);
+		List<String> classes = new ArrayList<>();
+		
+		File classesFolder = new File(FOLDER_PATH);
+		File[] listOfFiles = classesFolder.listFiles();
+		
+		String classPath;
+	    for (int i = 0; i < listOfFiles.length; i++) {
+	      if (listOfFiles[i].isFile()) {
+	    	  classPath = listOfFiles[i].toString();
+	        classes.add(FILE_PREFIX+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
+	      } 
+	    }
 	    
 		List<ClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {
@@ -47,24 +59,6 @@ public class DesignParser {
 			classDatas.add(methodVisitor.getClassData());
 		}
 		IClassStructurePrinter gPrinter = new GraphVisPrinter();
-		gPrinter.printToFile("./input_output/Diagram.gv", classDatas);
-	}
-	
-	public static List<String> getClasses(String folder, String prefix)
-	{
-		List<String> classes = new ArrayList<>();
-		
-		File classesFolder = new File(folder);
-		File[] listOfFiles = classesFolder.listFiles();
-		
-		String classPath;
-	    for (int i = 0; i < listOfFiles.length; i++) {
-	      if (listOfFiles[i].isFile()) {
-	    	  classPath = listOfFiles[i].toString();
-	        classes.add(prefix+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
-	      } 
-	    }
-	    
-		return classes;
+		gPrinter.printToFile(OUTPUT_FILE, classDatas);
 	}
 }

@@ -3,7 +3,7 @@ package problem.asm;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringParser {
+public class StringParser{
 	
 	public static String parseClassName(String classString){
 		if(classString==null)

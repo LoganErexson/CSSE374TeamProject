@@ -9,118 +9,53 @@ edge [
 fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
-Cheese [
-label = "{Cheese||+ toString() : String\l}"
+AbstractClassDataVisitor [
+label = "{AbstractClassDataVisitor|# classData : IData\l|+ init(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l}"
 ]
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-ChicagoPizzaIngredientFactory [
-label = "{ChicagoPizzaIngredientFactory||+ init() : void\l+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
+AbstractClassDataVisitor -> ClassData
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+AbstractClassDataVisitor -> IData
+ClassData [
+label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List String\l- fields : List IData\l- methods : List IData\l- usedClasses : Set String\l- associatedClasses : Set String\l|+ init() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces(, ) : List String\l+ setInterfaces(List String ) : void\l+ addField(FieldData) : void\l+ getFields(, ) : List IData\l+ addMethod(MethodData) : void\l+ getMethods(, ) : List IData\l+ toString() : String\l+ getInheritsArrows() : String\l+ getExtendsArrow(List String ) : String\l+ getUsesArrows(List String ) : String\l+ getAssociationArrows(List String ) : String\l+ setSignature(String) : void\l+ getSignature() : String\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-ChicagoPizzaIngredientFactory -> PizzaIngredientFactory
+ClassData -> IClassData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-ChicagoPizzaIngredientFactory -> Sauce
-ChicagoPizzaIngredientFactory -> Dough
-ChicagoPizzaIngredientFactory -> Cheese
-ChicagoPizzaIngredientFactory -> Clams
-Clams [
-label = "{Clams||+ toString() : String\l}"
-]
+ClassData -> IData
 edge [ 
 arrowhead = "vee"
-style = "dashed"
+style = "solid"
 ]
-Dough [
-label = "{Dough||+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-FreshClams [
-label = "{FreshClams||+ init() : void\l+ toString() : String\l}"
+ClassData -> IData
+ClassDeclarationVisitor [
+label = "{ClassDeclarationVisitor||+ init(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
-style = "dashed"
+style = "solid"
 ]
-FreshClams -> Clams
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-FrozenClams [
-label = "{FrozenClams||+ init() : void\l+ toString() : String\l}"
+ClassDeclarationVisitor -> AbstractClassDataVisitor
+ClassFieldVisitor [
+label = "{ClassFieldVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
-style = "dashed"
+style = "solid"
 ]
-FrozenClams -> Clams
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-MarinaraSauce [
-label = "{MarinaraSauce||+ init() : void\l+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-MarinaraSauce -> Sauce
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-MozzarellaCheese [
-label = "{MozzarellaCheese||+ init() : void\l+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-MozzarellaCheese -> Cheese
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-NYPizzaIngredientFactory [
-label = "{NYPizzaIngredientFactory||+ init() : void\l+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-NYPizzaIngredientFactory -> PizzaIngredientFactory
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-NYPizzaIngredientFactory -> Sauce
-NYPizzaIngredientFactory -> Dough
-NYPizzaIngredientFactory -> Cheese
-NYPizzaIngredientFactory -> Clams
-NYPizzaStore [
-label = "{NYPizzaStore||+ init() : void\l# createPizza(String) : Pizza\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-NYPizzaStore -> Pizza
-Pizza [
-label = "{Pizza|+ name : String\l+ dough : Dough\l+ sauce : Sauce\l+ cheese : Cheese\l+ clam : Clams\l|+ init() : void\l+ prepare() : void\l+ bake() : void\l+ cut() : void\l+ box() : void\l+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
-]
+ClassFieldVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
@@ -129,74 +64,140 @@ edge [
 arrowhead = "vee"
 style = "solid"
 ]
-Pizza -> Sauce
-Pizza -> Dough
-Pizza -> Cheese
-Pizza -> Clams
-PizzaIngredientFactory [
-label = "{PizzaIngredientFactory||+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
+ClassMethodVisitor [
+label = "{ClassMethodVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
+edge [ 
+arrowhead = "empty"
+style = "solid"
+]
+ClassMethodVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-PizzaIngredientFactory -> Sauce
-PizzaIngredientFactory -> Dough
-PizzaIngredientFactory -> Cheese
-PizzaIngredientFactory -> Clams
-PlumTomatoSauce [
-label = "{PlumTomatoSauce||+ init() : void\l+ toString() : String\l}"
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+DesignParser [
+label = "{DesignParser|+ FOLDER_PATH : String\l+ FILE_PREFIX : String\l+ OUTPUT_FILE : String\l|+ init() : void\l+ main(String[]) : void\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+FieldData [
+label = "{FieldData|- fieldName : String\l- signature : String\l- access : String\l- type : Type\l|+ init(String, String, Type, String) : void\l+ getSignature() : String\l+ setSignature(String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : Type\l+ toString() : String\l+ setName(String) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-PlumTomatoSauce -> Sauce
+FieldData -> IFieldData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-ReggianoCheese [
-label = "{ReggianoCheese||+ init() : void\l+ toString() : String\l}"
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+GraphVisPrinter [
+label = "{GraphVisPrinter||+ init() : void\l+ printToFile(String, List ClassData ) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-ReggianoCheese -> Cheese
+GraphVisPrinter -> IClassStructurePrinter
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-Sauce [
-label = "{Sauce||+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-ThickCrustDough [
-label = "{ThickCrustDough||+ init() : void\l+ toString() : String\l}"
+GraphVisPrinter -> ClassData
+IClassData [
+label = "{IClassData||+ setSuperClass(String) : void\l+ getSuperClass() : String\l+ getInterfaces(, ) : List String\l+ setInterfaces(List String ) : void\l+ addField(FieldData) : void\l+ getFields(, ) : List IData\l+ addMethod(MethodData) : void\l+ getMethods(, ) : List IData\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-ThickCrustDough -> Dough
+IClassData -> IData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-ThinCrustDough [
-label = "{ThinCrustDough||+ init() : void\l+ toString() : String\l}"
+IClassData -> IData
+IClassStructurePrinter [
+label = "{IClassStructurePrinter||+ printToFile(String, List ClassData ) : void\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+IClassStructurePrinter -> ClassData
+IData [
+label = "{IData||+ setSignature(String) : void\l+ getSignature() : String\l+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+IFieldData [
+label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : Type\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-ThinCrustDough -> Dough
+IFieldData -> IData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
+IMethodData [
+label = "{IMethodData||+ getType() : Type\l+ setType(Type) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : Type[]\l+ setArgs(Type[]) : void\l}"
+]
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+IMethodData -> IData
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+IParser [
+label = "{IParser||+ parseClassName(String) : String\l+ parametersFromSignature(String) : List String\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List ClassData ) : List String\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+IParser -> ClassData
+MethodData [
+label = "{MethodData|- name : String\l- type : Type\l- access : String\l- args : Type[]\l- signature : String\l|+ init(String, Type, String, Type[], String) : void\l+ getSignature() : String\l+ setSignature(String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : Type\l+ setType(Type) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : Type[]\l+ setArgs(Type[]) : void\l+ toString() : String\l}"
+]
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+MethodData -> IMethodData
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+StringParser [
+label = "{StringParser||+ init() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List String\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List ClassData ) : List String\l}"
+]
+edge [ 
+arrowhead = "vee"
+style = "dashed"
+]
+StringParser -> ClassData
 }

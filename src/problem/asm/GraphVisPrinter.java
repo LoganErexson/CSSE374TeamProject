@@ -7,9 +7,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphVisPrinter {
+public class GraphVisPrinter implements IClassStructurePrinter{
 	
-	public static void makeUML(String file, List<ClassData> classes ){
+	@Override
+	public void printToFile(String file, List<ClassData> classes ){
 		try {
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));

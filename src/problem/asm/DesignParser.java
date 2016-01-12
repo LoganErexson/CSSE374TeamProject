@@ -17,8 +17,8 @@ public class DesignParser {
 	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
 	 * 
 	 */
-	public static final String FOLDER_PATH = "./src/headfirst/factory/pizzaaf";
-	public static final String FILE_PREFIX = "headfirst.factory.pizzaaf";
+	public static final String FOLDER_PATH = "./src/problem/asm";
+	public static final String FILE_PREFIX = "problem.asm";
 	
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
@@ -46,7 +46,8 @@ public class DesignParser {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
 		}
-		GraphVisPrinter.makeUML("./input_output/Diagram.gv", classDatas);
+		IClassStructurePrinter gPrinter = new GraphVisPrinter();
+		gPrinter.printToFile("./input_output/Diagram.gv", classDatas);
 	}
 	
 	public static List<String> getClasses(String folder, String prefix)

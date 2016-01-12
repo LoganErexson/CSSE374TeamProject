@@ -2,7 +2,7 @@ package problem.asm;
 
 import org.objectweb.asm.Type;
 
-public class FieldData implements IData {
+public class FieldData implements IFieldData {
 	private String fieldName;
 	private String signature;
 	private String access;

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.objectweb.asm.Type;
 
-public class ClassData implements IData{
+public class ClassData implements IClassData{
 	private String name;
 	private String superClass;
 	private List<String> interfaces;
@@ -214,13 +214,13 @@ public class ClassData implements IData{
 		return sb.toString();
 	}
 	
-	public String getUsesArrows(List<String> classNames){
+	public String getUsesArrows(List<String> classNames) {
 		StringBuilder sb = new StringBuilder();
-		if(this.usedClasses.size()!=0){
+		if (this.usedClasses.size()!=0) {
 			sb.append("edge [ \n");
 			sb.append("arrowhead = \"vee\"\n");
 			sb.append("style = \"dashed\"\n]\n");
-			for(String curClass : this.usedClasses){
+			for (String curClass : this.usedClasses) {
 				if(classNames.contains(curClass))
 				{
 					sb.append(this.getName()+" -> "+ curClass.substring(curClass.lastIndexOf("/")+1)+"\n");

@@ -8,4 +8,6 @@ public interface IData {
 	public void setName(String nm);
 	
 	public String getName();
+	
+	public String toString();
 }

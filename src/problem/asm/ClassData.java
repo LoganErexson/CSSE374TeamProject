@@ -16,64 +16,48 @@ public class ClassData implements IClassData{
 	private Set<String> usedClasses = new HashSet<>();
 	private Set<String> associatedClasses = new HashSet<>();
 	
+	@Override
 	public String getName() {
 		return this.name;
 	}
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
 	public String getSuperClass() {
 		return this.superClass;
 	}
+	@Override
 	public void setSuperClass(String superClass) {
 		this.superClass = superClass;
 	}
+	@Override
 	public List<String> getInterfaces() {
 		return this.interfaces;
 	}
+	@Override
 	public void setInterfaces(List<String> interfaces) {
 		this.interfaces = interfaces;
 	}
+	@Override
 	public void addField(FieldData f) {
 		this.fields.add(f);
-		String signature;
-		if(f.getSignature()!=null){
-			String returnSig = f.getSignature().substring(f.getSignature().lastIndexOf(')') + 1);
-			if(returnSig.contains("<")){
-				signature = returnSig.substring(returnSig.lastIndexOf('<')+1, 
-						returnSig.indexOf(';'));
-			}
-			else{
-				signature = f.getType().getClassName();
-			}
-		}
-		else{
-			signature = f.getType().getClassName();
+		String fieldType = f.getType();
+		if(fieldType.contains("<")){
+			fieldType = fieldType.substring(fieldType.indexOf('<'), fieldType.indexOf('>'));
 		}		
 		
-		if(signature.contains(".")&&!this.associatedClasses.contains(
-				signature.substring(signature.lastIndexOf('.')+1))&&
-				!this.name.equals(signature.substring(signature.lastIndexOf('.')+1))&&
-				!this.superClass.equals(signature.substring(signature.lastIndexOf('.')+1))&&
-				!this.interfaces.contains(signature.substring(signature.lastIndexOf('.')+1)))
-		{
-			this.associatedClasses.add(signature.substring(signature.lastIndexOf('.')+1));
-		} 
-		else if (signature.contains("/")&&!this.associatedClasses.contains(signature.substring(signature.lastIndexOf('/')+1))&&
-				!this.name.equals(signature.substring(signature.lastIndexOf('/')+1))&&
-				!this.superClass.equals(signature.substring(signature.lastIndexOf('/')+1))&&
-				!this.interfaces.contains(signature.substring(signature.lastIndexOf('/')+1))) 
-		{
-			this.associatedClasses.add(signature.substring(signature.lastIndexOf('/')+1));
-		}
-		else if(!this.associatedClasses.contains(signature)){
-			this.associatedClasses.add(signature);
+		if(!this.associatedClasses.contains(fieldType)&&this.name!=fieldType){
+			this.associatedClasses.add(fieldType);
 		}
 	}
+	@Override
 	public List<IData> getFields() {
 		return this.fields;
 	}
-    public void addMethod(MethodData m) {
+    @Override
+	public void addMethod(MethodData m) {
 		this.methods.add(m);
 		
 		String returnType;
@@ -168,7 +152,8 @@ public class ClassData implements IClassData{
 		
 	}
     
-    public List<IData> getMethods() {
+    @Override
+	public List<IData> getMethods() {
 		return this.methods;
 	}
 	

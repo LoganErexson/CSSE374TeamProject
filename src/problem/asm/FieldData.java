@@ -6,55 +6,49 @@ public class FieldData implements IFieldData {
 	private String fieldName;
 	private String signature;
 	private String access;
-	private Type type;
+	private String type;
 	
 	public FieldData(String name, String access, Type type, String sig) {
 		this.fieldName = name;
 		this.access = access;
-		this.type = type;
+		if(sig!=null){
+			this.type = StringParser.fieldTypeFromSignature(sig);
+		}
+		else{
+			this.type = StringParser.parseClassName(type.getClassName());
+		}
 		this.signature = sig;
 	}
 	
+	@Override
 	public String getSignature() {
 		return this.signature;
 	}
 
+	@Override
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
 
+	@Override
 	public String getName() {
 		return this.fieldName;
 	}
 	
+	@Override
 	public String getAccessLevel() {
 		return this.access;
 	}
 	
-	public Type getType() {
+	@Override
+	public String getType() {
 		return this.type;
 	}
 	
 	@Override
 	public String toString() {
 		String result = this.access+" "+this.fieldName+" : ";
-		String typeString = this.type.getClassName().substring(this.type.getClassName().lastIndexOf(".")+1);
-		if (this.getSignature() != null) {
-			String f = this.getSignature();
-			if(f.contains("<")){
-				f = f.substring(f.lastIndexOf('<')+1, 
-						f.lastIndexOf('>'));
-				result+= typeString + " " + f.substring(f.lastIndexOf("/")+1, f.lastIndexOf(';')) + "\\l";
-			}
-//			else{
-//				result+= ") : "+ f.substring(f.lastIndexOf('/')+1) +"\\l";
-//			}
-//				}
-			 
-			return result;
-		}
-		
-		return result + typeString + "\\l";
+		return result + this.type + "\\l";
 	}
 
 	@Override

@@ -18,42 +18,52 @@ public class MethodData implements IMethodData{
 		this.setArgs(args);
 	}
 
+	@Override
 	public String getSignature() {
 		return this.signature;
 	}
 
+	@Override
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public Type getType() {
 		return this.type;
 	}
 
+	@Override
 	public void setType(Type type) {
 		this.type = type;
 	}
 
+	@Override
 	public String getAccess() {
 		return this.access;
 	}
 
+	@Override
 	public void setAccess(String access) {
 		this.access = access;
 	}
 
+	@Override
 	public Type[] getArgs() {
 		return this.args;
 	}
 
+	@Override
 	public void setArgs(Type[] args) {
 		this.args = args;
 	}

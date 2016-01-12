@@ -1,21 +1,32 @@
 package problem.asm;
 
+import java.util.List;
+
 import org.objectweb.asm.Type;
 
 public class MethodData implements IMethodData{
 	private String name;
 	private String type;
 	private String access;
-	private Type[] args;
+	private List<String> args;
 	private String signature;
 
 	public MethodData(String name, Type type, String level, Type[] args,
 			String sig) {
 		this.signature = sig;
 		this.name = name;
-		this.type = type.getClassName();
+		if(sig!=null){
+			this.type = StringParser.returnTypeFromSignature(sig);
+			setArgs(StringParser.parametersFromSignature(sig));
+		}
+		else{
+			this.type = StringParser.parseClassName(type.getClassName());
+			
+		}
+		//this.type = type.getClassName();
 		this.access = level;
-		this.setArgs(args);
+		
+		//this.setArgs(args);
 	}
 
 	@Override
@@ -59,12 +70,12 @@ public class MethodData implements IMethodData{
 	}
 
 	@Override
-	public Type[] getArgs() {
+	public List<String> getArgs() {
 		return this.args;
 	}
 
 	@Override
-	public void setArgs(Type[] args) {
+	public void setArgs(List<String> args) {
 		this.args = args;
 	}
 

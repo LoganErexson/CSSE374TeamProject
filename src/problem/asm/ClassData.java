@@ -126,9 +126,9 @@ public class ClassData implements IClassData{
 			
 		}
 		else{
-			for(Type parameter : m.getArgs()){ 
+			for(String parameter : m.getArgs()){ 
 				
-				paramType = parameter.getClassName();
+				paramType = parameter;
 				if(paramType.contains("/")&&!this.usedClasses.contains(paramType.substring(paramType.lastIndexOf('.')+1))&&
 						!this.name.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&
 						!this.superClass.equals(paramType.substring(paramType.lastIndexOf('.')+1))&&

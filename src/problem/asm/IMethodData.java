@@ -1,5 +1,7 @@
 package problem.asm;
 
+import java.util.List;
+
 import org.objectweb.asm.Type;
 
 public interface IMethodData extends IData{
@@ -7,6 +9,6 @@ public interface IMethodData extends IData{
 	public void setType(String type);
 	public String getAccess();
 	public void setAccess(String access);
-	public Type[] getArgs();
-	public void setArgs(Type[] args);
+	public List<String> getArgs();
+	public void setArgs(List<String> args);
 }

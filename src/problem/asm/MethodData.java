@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.objectweb.asm.Type;
@@ -21,22 +22,16 @@ public class MethodData implements IMethodData{
 		}
 		else{
 			this.type = StringParser.parseClassName(type.getClassName());
-			
+			List<String> temp = new ArrayList<String>();
+			for (Type param : args) {
+				temp.add(StringParser.parseClassName(param.getClassName()));
+			}
+			setArgs(temp);
 		}
 		//this.type = type.getClassName();
 		this.access = level;
 		
 		//this.setArgs(args);
-	}
-
-	@Override
-	public String getSignature() {
-		return this.signature;
-	}
-
-	@Override
-	public void setSignature(String signature) {
-		this.signature = signature;
 	}
 
 	@Override
@@ -77,6 +72,15 @@ public class MethodData implements IMethodData{
 	@Override
 	public void setArgs(List<String> args) {
 		this.args = args;
+	}
+	
+	@Override
+	public String toString() {
+		String result = this.access + " " + this.name + "(";
+		for(String arg : this.getArgs()){
+			result+= arg +", ";
+		}
+		return result;
 	}
 
 //	@Override

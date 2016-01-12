@@ -4,7 +4,6 @@ import org.objectweb.asm.Type;
 
 public class FieldData implements IFieldData {
 	private String fieldName;
-	private String signature;
 	private String access;
 	private String type;
 	
@@ -17,17 +16,6 @@ public class FieldData implements IFieldData {
 		else{
 			this.type = StringParser.parseClassName(type.getClassName());
 		}
-		this.signature = sig;
-	}
-	
-	@Override
-	public String getSignature() {
-		return this.signature;
-	}
-
-	@Override
-	public void setSignature(String signature) {
-		this.signature = signature;
 	}
 
 	@Override

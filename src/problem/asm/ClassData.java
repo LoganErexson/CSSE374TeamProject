@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.objectweb.asm.Type;
-
 public class ClassData implements IClassData{
 	private String name;
 	private String superClass;
@@ -229,16 +227,5 @@ public class ClassData implements IClassData{
 			}
 		}
 		return sb.toString();
-	}
-	
-	@Override
-	public void setSignature(String sig) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getSignature() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

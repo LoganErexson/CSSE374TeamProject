@@ -2,7 +2,7 @@ package problem.asm;
 
 import org.objectweb.asm.Type;
 
-public class MethodData {
+public class MethodData implements IData{
 	private String name;
 	private Type type;
 	private String access;

@@ -7,12 +7,12 @@ import java.util.Set;
 
 import org.objectweb.asm.Type;
 
-public class ClassData {
+public class ClassData implements IData{
 	private String name;
 	private String superClass;
 	private List<String> interfaces;
-	private List<FieldData> fields = new ArrayList<>();
-	private List<MethodData> methods = new ArrayList<>();
+	private List<IData> fields = new ArrayList<>();
+	private List<IData> methods = new ArrayList<>();
 	private Set<String> usedClasses = new HashSet<>();
 	private Set<String> associatedClasses = new HashSet<>();
 	
@@ -70,7 +70,7 @@ public class ClassData {
 			this.associatedClasses.add(signature);
 		}
 	}
-	public List<FieldData> getFields() {
+	public List<IData> getFields() {
 		return this.fields;
 	}
     public void addMethod(MethodData m) {
@@ -168,7 +168,7 @@ public class ClassData {
 		
 	}
     
-	public List<MethodData> getMethods() {
+    public List<IData> getMethods() {
 		return this.methods;
 	}
 	
@@ -178,11 +178,11 @@ public class ClassData {
 		sb.append(this.name + " [\n");
 		sb.append("label = \"{"+this.name);
 		sb.append("|");
-		for(FieldData fd : this.fields) {
+		for(IData fd : this.fields) {
 			sb.append(fd.toString());
 		}
 		sb.append("|");
-		for(MethodData md : this.methods) {
+		for(IData md : this.methods) {
 			sb.append(md.toString());
 		}
 		sb.append("}\"\n]\n");
@@ -244,5 +244,16 @@ public class ClassData {
 			}
 		}
 		return sb.toString();
+	}
+	
+	@Override
+	public void setSignature(String sig) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getSignature() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

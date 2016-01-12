@@ -2,7 +2,7 @@ package problem.asm;
 
 import org.objectweb.asm.Type;
 
-public class FieldData {
+public class FieldData implements IData {
 	private String fieldName;
 	private String signature;
 	private String access;
@@ -23,7 +23,7 @@ public class FieldData {
 		this.signature = signature;
 	}
 
-	public String getFieldName() {
+	public String getName() {
 		return this.fieldName;
 	}
 	
@@ -55,5 +55,10 @@ public class FieldData {
 		}
 		
 		return result + typeString + "\\l";
+	}
+
+	@Override
+	public void setName(String nm) {
+		this.fieldName = nm;
 	}
 }

@@ -72,7 +72,7 @@ public class ClassDataTest {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
 		List<String> classNames = StringParser.getClassNames(classDatas);
-		assertEquals("edge [ \n" + "arrowhead = \"empty\"\n]\n"
+		assertEquals("edge [ \n" + "arrowhead = \"empty\"\nstyle = \"solid\"\n]\n"
 				+ "ClassMethodVisitor -> AbstractClassDataVisitor\n",
 				methodVisitor.getClassData().getExtendsArrow(classNames));
 	}
@@ -159,7 +159,7 @@ public class ClassDataTest {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		classDatas.add(methodVisitor.getClassData());
 		List<String> classNames = StringParser.getClassNames(classDatas);
-		assertEquals("edge [ \n" + "arrowhead = \"vee\"\n"
+		assertEquals("edge [ \n" + "arrowhead = \"vee\"\nstyle = \"solid\"\n"
 				+"]\n" + "FieldData -> ClassData\n",
 				methodVisitor.getClassData().getAssociationArrows(classNames));
 	}

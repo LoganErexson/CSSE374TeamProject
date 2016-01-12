@@ -68,11 +68,11 @@ public class ClassData implements IClassData{
 						returnSig.indexOf(';'));
 			}
 			else{
-				returnType = m.getType().getClassName();
+				returnType = m.getType();
 			}
 		}
 		else{
-			returnType = m.getType().getClassName();
+			returnType = m.getType();
 		}		
 		
 		if(returnType.contains(".")&&!this.usedClasses.contains(returnType.substring(returnType.lastIndexOf('.')+1))&&

@@ -62,10 +62,18 @@ public class StringParser {
 	public static String fieldTypeFromSignature(String signature){
 		if(signature.contains("<")){
 			String elementType = parseClassName(signature);
-			signature = signature.substring(0, signature.indexOf('<'));
-			return parseClassName(signature)+"<"+elementType+">";
+			String fieldType = signature.substring(0, signature.indexOf('<'));
+			return parseClassName(fieldType)+"<"+elementType+">";
 		}
 		return signature;
+	}
+	
+	public static List<String> getClassNames(List<ClassData> classes){
+		List<String> classNames = new ArrayList<>();
+		for(ClassData clazz: classes){
+			classNames.add(clazz.getName());
+		}
+		return classNames;
 	}
 
 }

@@ -27,7 +27,6 @@ public class MethodBodyVisitor extends MethodVisitor{
 	@Override
 	public void visitTypeInsn(int op, String type) {
 		super.visitTypeInsn(op, type);
-		this.method.setType(StringParser.parseClassName(type));
 		if(op == Opcodes.NEW) {
 			this.method.addUsedClass(StringParser.parseClassName(type));
 		}
@@ -35,6 +34,6 @@ public class MethodBodyVisitor extends MethodVisitor{
 	
 	@Override
 	public void visitVarInsn(int op, int var) {
-		super.visitVarInsn(op, var);;
+		super.visitVarInsn(op, var);
 	}
 }

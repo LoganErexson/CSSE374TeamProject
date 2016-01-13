@@ -14,6 +14,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	private Map<String, String> classToSuperclass = new HashMap<>();
 	private Map<String, List<String>> classToUsedClasses = new HashMap<>();
 	private Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
+	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
 	private List<IClassData> classes;
 	
@@ -48,6 +49,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 				this.classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
 				this.classToUsedClasses.put(currentData.getName(), currentData.getUsedClasses());
 				this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+				this.classToMethods.put(currentData.getName(), currentData.getMethods());
 			}
 			sb.append(this.createArrows());
 			sb.append("}\n");
@@ -87,8 +89,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 		for(String className: this.classToAssociatedClasses.keySet()){
 			for(String assocClass: this.classToAssociatedClasses.get(className)){
 				if(this.classNames.contains(assocClass)
-						&&!this.classToInterfaces.get(className).contains(assocClass)
-						&&!this.classToSuperclass.get(className).equals(assocClass))
+						&&!this.classToInterfaces.get(className).contains(assocClass))
 				{
 					sb.append(className+" -> "+assocClass+"\n");
 				}

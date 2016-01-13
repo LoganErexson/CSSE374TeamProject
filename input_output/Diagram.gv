@@ -36,6 +36,7 @@ arrowhead = "vee"
 style = "dashed"
 ]
 ClassData -> FieldData
+ClassData -> IData
 ClassData -> MethodData
 edge [ 
 arrowhead = "vee"
@@ -127,6 +128,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+GraphVisPrinter -> ClassData
 IClassData [
 label = "{IClassData||+ setSuperClass(String) : void\l+ getSuperClass() : String\l+ getInterfaces() : List[String]\l+ setInterfaces(List[String]) : void\l+ addField(FieldData) : void\l+ getFields() : List[IData]\l+ addMethod(MethodData) : void\l+ getMethods() : List[IData]\l}"
 ]
@@ -140,6 +142,7 @@ arrowhead = "vee"
 style = "dashed"
 ]
 IClassData -> FieldData
+IClassData -> IData
 IClassData -> MethodData
 IClassStructurePrinter [
 label = "{IClassStructurePrinter||+ printToFile(String, List[ClassData]) : void\l}"
@@ -148,6 +151,7 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+IClassStructurePrinter -> ClassData
 IData [
 label = "{IData||+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
 ]
@@ -202,4 +206,5 @@ edge [
 arrowhead = "vee"
 style = "dashed"
 ]
+StringParser -> ClassData
 }

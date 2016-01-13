@@ -27,6 +27,14 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		String methPath = "";
+		int depth = 5;
+		if (args.length == 1) {
+			methPath = args[0];
+		} else if (args.length == 2) {
+			methPath = args[0];
+			depth = Integer.parseInt(args[1]);
+		}
 		
 		List<String> classes = new ArrayList<>();
 		

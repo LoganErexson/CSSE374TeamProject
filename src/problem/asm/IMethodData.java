@@ -2,8 +2,6 @@ package problem.asm;
 
 import java.util.List;
 
-import org.objectweb.asm.Type;
-
 public interface IMethodData extends IData {
 	public String getType();
 

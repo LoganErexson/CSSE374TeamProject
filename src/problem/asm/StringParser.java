@@ -20,6 +20,10 @@ public class StringParser{
 		if(cleanClassName.contains(";")){
 			cleanClassName = cleanClassName.substring(0, cleanClassName.indexOf(';'));
 		}
+		if(cleanClassName.contains("<"))
+		{
+			cleanClassName = cleanClassName.replace("<", "\\<").replace(">", "\\>");
+		}
 		return cleanClassName;
 	}
 	

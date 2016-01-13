@@ -174,9 +174,4 @@ public class ClassDataTest {
 		assertEquals("List\\<String\\>", StringParser.returnTypeFromSignature(signature));
 		
 	}
-	
-	@Test
-	public final void testMethodBodyVisitor(){
-		
-	}
 }

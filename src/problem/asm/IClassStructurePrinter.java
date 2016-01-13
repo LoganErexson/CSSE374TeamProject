@@ -1,8 +1,9 @@
 package problem.asm;
 
-import java.util.List;
 
 public interface IClassStructurePrinter {
 	
-	public void printToFile(String file, List<IClassData> classes );
+	public void printToFile(String file);
+	
+	public String createArrows();
 }

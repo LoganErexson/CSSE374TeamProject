@@ -34,7 +34,11 @@ public class ClassData implements IClassData{
 	}
 	@Override
 	public void setInterfaces(List<String> interfaces) {
-		this.interfaces = interfaces;
+		List<String> list = new ArrayList<>();
+		for(String inter: interfaces){
+			list.add(StringParser.parseClassName(inter));
+		}
+		this.interfaces = list;
 	}
 	@Override
 	public void addField(IFieldData f) {
@@ -120,14 +124,14 @@ public class ClassData implements IClassData{
 	}
 	public String getExtendsArrow(List<String> classNames) {
 		StringBuilder sb = new StringBuilder();
-		if(!this.getSuperClass().equals("Object")){
-			if(classNames.contains(this.getSuperClass())){
-				sb.append("edge [ \n");
-				sb.append("arrowhead = \"empty\"\n");
-				sb.append("style = \"solid\"\n]\n");
-				sb.append(this.getName()+" -> "+ this.getSuperClass()+ "\n");
-			}
-		}
+//		if(!this.getSuperClass().equals("Object")){
+//			if(classNames.contains(this.getSuperClass())){
+//				sb.append("edge [ \n");
+//				sb.append("arrowhead = \"empty\"\n");
+//				sb.append("style = \"solid\"\n]\n");
+//				sb.append(this.getName()+" -> "+ this.getSuperClass()+ "\n");
+//			}
+//		}
 		return sb.toString();
 	}
 	

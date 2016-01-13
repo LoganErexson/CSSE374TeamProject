@@ -58,7 +58,7 @@ public class DesignParser {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
 		}
-		IClassStructurePrinter gPrinter = new GraphVisPrinter();
-		gPrinter.printToFile(OUTPUT_FILE, classDatas);
+		IClassStructurePrinter gPrinter = new GraphVisPrinter(classDatas);
+		gPrinter.printToFile(OUTPUT_FILE);
 	}
 }

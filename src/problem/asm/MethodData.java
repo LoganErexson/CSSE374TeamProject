@@ -10,11 +10,9 @@ public class MethodData implements IMethodData{
 	private String type;
 	private String access;
 	private List<String> args;
-	private String signature;
 
 	public MethodData(String name, Type type, String level, Type[] args,
 			String sig) {
-		this.signature = sig;
 		this.name = name;
 		if(sig!=null){
 			this.type = StringParser.returnTypeFromSignature(sig);

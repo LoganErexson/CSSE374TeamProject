@@ -12,197 +12,80 @@ fontsize =8
 AbstractClassDataVisitor [
 label = "{AbstractClassDataVisitor|# classData : IClassData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getClassData() : IClassData\l}"
 ]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-AbstractClassDataVisitor -> AbstractClassDataVisitor
-AbstractClassDataVisitor -> IClassData
-edge [ 
-arrowhead = "vee"
-style = "solid"
-]
-AbstractClassDataVisitor -> IClassData
 ClassData [
 label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List\<String\>\l- fields : List\<IFieldData\>\l- methods : List\<IMethodData\>\l- usedClasses : List\<String\>\l- associatedClasses : List\<String\>\l|+ \<init\>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ toString() : String\l+ getInheritsArrows() : String\l+ getExtendsArrow(List\<String\>) : String\l+ getUsesArrows(List\<String\>) : String\l+ getAssociationArrows(List\<String\>) : String\l+ getUsedClasses() : List\<String\>\l+ getAssociatedClasses() : List\<String\>\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-ClassData -> IClassData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-ClassData -> IFieldData
-ClassData -> IMethodData
-edge [ 
-arrowhead = "vee"
-style = "solid"
 ]
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "solid"
-]
-ClassDeclarationVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-ClassDeclarationVisitor -> AbstractClassDataVisitor
 ClassFieldVisitor [
 label = "{ClassFieldVisitor|- level : String\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "solid"
-]
-ClassFieldVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-ClassFieldVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "solid"
 ]
 ClassMethodVisitor [
 label = "{ClassMethodVisitor|- level : String\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "solid"
-]
-ClassMethodVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-ClassMethodVisitor -> AbstractClassDataVisitor
-edge [ 
-arrowhead = "vee"
-style = "solid"
-]
 DesignParser [
 label = "{DesignParser|+ FOLDER_PATH : String\l+ FILE_PREFIX : String\l+ OUTPUT_FILE : String\l|+ \<init\>() : void\l+ main(String[]) : void\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-edge [ 
-arrowhead = "vee"
-style = "solid"
 ]
 FieldData [
 label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ \<init\>(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-FieldData -> IFieldData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-edge [ 
-arrowhead = "vee"
-style = "solid"
-]
 GraphVisPrinter [
-label = "{GraphVisPrinter||+ \<init\>() : void\l+ printToFile(String, List\<IClassData\>) : void\l}"
+label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToUsedClasses : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-GraphVisPrinter -> IClassStructurePrinter
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-GraphVisPrinter -> IClassData
 IClassData [
 label = "{IClassData||+ setSuperClass(String) : void\l+ getSuperClass() : String\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ getExtendsArrow(List\<String\>) : String\l+ getInheritsArrows() : String\l+ getUsesArrows(List\<String\>) : String\l+ getAssociationArrows(List\<String\>) : String\l+ getUsedClasses() : List\<String\>\l+ getAssociatedClasses() : List\<String\>\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-IClassData -> IData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-IClassData -> IFieldData
-IClassData -> IMethodData
 IClassStructurePrinter [
-label = "{IClassStructurePrinter||+ printToFile(String, List\<IClassData\>) : void\l}"
+label = "{IClassStructurePrinter||+ printToFile(String) : void\l+ createArrows() : String\l}"
 ]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-IClassStructurePrinter -> IClassData
 IData [
 label = "{IData||+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "vee"
-style = "dashed"
 ]
 IFieldData [
 label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-IFieldData -> IData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
 IMethodData [
 label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l}"
 ]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-IMethodData -> IData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
 MethodData [
-label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- signature : String\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
-]
-edge [ 
-arrowhead = "empty"
-style = "dashed"
-]
-MethodData -> IMethodData
-edge [ 
-arrowhead = "vee"
-style = "dashed"
-]
-edge [ 
-arrowhead = "vee"
-style = "solid"
+label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
 StringParser [
 label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l}"
 ]
 edge [ 
+arrowhead = "empty"
+style = "solid"
+]
+ClassMethodVisitor -> AbstractClassDataVisitor
+ClassDeclarationVisitor -> AbstractClassDataVisitor
+ClassFieldVisitor -> AbstractClassDataVisitor
+edge [ 
+arrowhead = "empty"
+style = "dashed"
+]
+FieldData -> IFieldData
+ClassData -> IClassData
+GraphVisPrinter -> IClassStructurePrinter
+MethodData -> IMethodData
+IMethodData -> IData
+IClassData -> IData
+IFieldData -> IData
+edge [ 
+arrowhead = "vee"
+style = "solid"
+]
+AbstractClassDataVisitor -> IClassData
+edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
 StringParser -> IClassData
+AbstractClassDataVisitor -> AbstractClassDataVisitor
+ClassData -> IFieldData
+ClassData -> IMethodData
+GraphVisPrinter -> IClassData
+IClassData -> IFieldData
+IClassData -> IMethodData
 }

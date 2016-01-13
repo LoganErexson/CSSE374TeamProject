@@ -38,7 +38,7 @@ public class StringParser{
 			else if(param.contains("<")){
 				elementType = parseClassName(param);
 				param = param.substring(0, param.indexOf('<'));
-				params.add(parseClassName(param)+"<"+elementType+">");
+				params.add(parseClassName(param)+"["+elementType+"]");
 			}
 			else{
 				params.add(parseClassName(param));
@@ -54,7 +54,7 @@ public class StringParser{
 		if(returnType.contains("<")){
 			String elementType = parseClassName(returnType);
 			returnType = returnType.substring(0, returnType.indexOf('<'));
-			return parseClassName(returnType)+"<"+elementType+">";
+			return parseClassName(returnType)+"["+elementType+"]";
 		}
 		else if(returnType.equals("V")){
 			return "void";
@@ -66,7 +66,7 @@ public class StringParser{
 		if(signature.contains("<")){
 			String elementType = parseClassName(signature);
 			String fieldType = signature.substring(0, signature.indexOf('<'));
-			return parseClassName(fieldType)+"<"+elementType+">";
+			return parseClassName(fieldType)+"["+elementType+"]";
 		}
 		return parseClassName(signature);
 	}

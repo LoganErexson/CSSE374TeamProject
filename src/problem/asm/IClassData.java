@@ -9,12 +9,6 @@ public interface IClassData extends IData{
 	public List<String> getInterfaces();
 	public void setInterfaces(List<String> interfaces);
 	
-	public String getExtendsArrow(List<String> classNames);
-	public String getInheritsArrows();
-	public String getUsesArrows(List<String> classNames);
-	public String getAssociationArrows(List<String> classNames);
-	
-	public List<String> getUsedClasses();
 	public List<String> getAssociatedClasses();
 	
 	public void addField(IFieldData f);

@@ -13,7 +13,6 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 
 	private Map<String, List<String>> classToInterfaces = new HashMap<>();
 	private Map<String, String> classToSuperclass = new HashMap<>();
-	private Map<String, List<String>> classToUsedClasses = new HashMap<>();
 	private Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
@@ -48,7 +47,6 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 				sb.append(currentData.toString());
 				this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
 				this.classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
-				this.classToUsedClasses.put(currentData.getName(), currentData.getUsedClasses());
 				this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 				this.classToMethods.put(currentData.getName(), currentData.getMethods());
 			}
@@ -100,17 +98,6 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 		sb.append("edge [ \n");
 		sb.append("arrowhead = \"vee\"\n");
 		sb.append("style = \"dashed\"\n]\n");
-//		for(String className: this.classToUsedClasses.keySet()){
-//			for(String usedClass: this.classToUsedClasses.get(className)){
-//				if(this.classNames.contains(usedClass)
-//						&&!this.classToAssociatedClasses.get(className).contains(usedClass)
-//						&&!this.classToInterfaces.get(className).contains(usedClass)
-//						&&!this.classToSuperclass.get(className).equals(usedClass))
-//				{
-//					sb.append(className+" -> "+usedClass+"\n");
-//				}
-//			}
-//		}
 		sb.append(getUsedClassesArrows());
 		
 		return sb.toString();

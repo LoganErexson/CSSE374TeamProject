@@ -22,7 +22,7 @@ public class MethodData implements IMethodData{
 		}
 		else{
 			this.type = StringParser.parseClassName(type.getClassName());
-			List<String> temp = new ArrayList<String>();
+			List<String> temp = new ArrayList<>();
 			for (Type param : args) {
 				temp.add(StringParser.parseClassName(param.getClassName()));
 			}
@@ -74,7 +74,7 @@ public class MethodData implements IMethodData{
 	@Override
 	public String toString() {
 		if (this.name.contains("<")) //Constructor handling
-			this.name = this.name.substring(1, this.name.length() - 1);
+			this.name = this.name.replace("<", "\\<").replace(">", "\\>");
 		String result = this.access + " " + this.name + "(";
 		for(String arg : this.getArgs()){
 			result+= arg +", ";

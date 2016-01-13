@@ -56,6 +56,9 @@ public class StringParser{
 			returnType = returnType.substring(0, returnType.indexOf('<'));
 			return parseClassName(returnType)+"<"+elementType+">";
 		}
+		else if(returnType.equals("V")){
+			return "void";
+		}
 		return returnType;
 	}
 	

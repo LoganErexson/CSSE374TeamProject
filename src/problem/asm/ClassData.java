@@ -66,7 +66,7 @@ public class ClassData implements IClassData{
 		}
 		for(String parameter : m.getArgs()){ 
 				
-			if(!this.usedClasses.contains(parameter)&&parameter!=this.name&&!this.associatedClasses.contains(parameter))
+			if(!this.usedClasses.contains(parameter)&&parameter!=this.name)
 			{
 				this.usedClasses.add(parameter);
 			}

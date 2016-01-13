@@ -40,8 +40,8 @@ public class ClassData implements IClassData{
 	public void addField(IFieldData f) {
 		this.fields.add(f);
 		String fieldType = f.getType();
-		if(fieldType.contains("[")){
-			fieldType = fieldType.substring(fieldType.indexOf('['), fieldType.indexOf(']'));
+		if(fieldType.contains("\\<")){
+			fieldType = fieldType.substring(fieldType.indexOf("<"), fieldType.lastIndexOf("\\"));
 		}		
 		
 		if(!this.associatedClasses.contains(fieldType)&&this.name!=fieldType){
@@ -57,8 +57,8 @@ public class ClassData implements IClassData{
 		this.methods.add(m);
 		
 		String returnType;
-		if(m.getType().contains("[")){
-			returnType= m.getType().substring(m.getType().indexOf('[')+1, m.getType().indexOf(']'));
+		if(m.getType().contains("\\<")){
+			returnType= m.getType().substring(m.getType().indexOf("<")+1, m.getType().lastIndexOf("\\"));
 		}
 		else{
 			returnType = m.getType();
@@ -70,8 +70,8 @@ public class ClassData implements IClassData{
 		}
 		String paramType;
 		for(String parameter : m.getArgs()){ 
-			if(parameter.contains("[")){
-				paramType = parameter.substring(parameter.indexOf('[')+1, parameter.indexOf(']'));
+			if(parameter.contains("\\<")){
+				paramType = parameter.substring(parameter.indexOf("<")+1, parameter.lastIndexOf("\\"));
 			}
 			else{
 				paramType = parameter;

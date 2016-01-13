@@ -168,10 +168,10 @@ public class ClassDataTest {
 	public final void testSignatureParsing(){
 		String signature = "(Ljava/util/List<Ljava/lang/String;>;Ljava/lang/String;)Ljava/util/List<Ljava/lang/String;>;";
 		List<String> parameters = new ArrayList<>();
-		parameters.add("List[String]");
+		parameters.add("List\\<String\\>");
 		parameters.add("String");
 		assertEquals(parameters, StringParser.parametersFromSignature(signature));
-		assertEquals("List[String]", StringParser.returnTypeFromSignature(signature));
+		assertEquals("List\\<String\\>", StringParser.returnTypeFromSignature(signature));
 		
 	}
 }

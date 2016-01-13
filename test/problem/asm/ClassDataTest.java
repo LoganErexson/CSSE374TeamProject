@@ -50,7 +50,7 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<ClassData> classDatas = new ArrayList<>();
+		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			ClassReader reader = new ClassReader(className);
 			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(
@@ -79,7 +79,7 @@ public class ClassDataTest {
 
 	@Test
 	public final void testToStringBase() {
-		ClassData c = new ClassData();
+		IClassData c = new ClassData();
 		c.setName("Test");
 		List<String> inters = new ArrayList<>();
 		inters.add("Interface");
@@ -102,7 +102,7 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<ClassData> classDatas = new ArrayList<>();
+		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			ClassReader reader = new ClassReader(className);
 			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(
@@ -137,7 +137,7 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.ClassData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<ClassData> classDatas = new ArrayList<>();
+		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			ClassReader reader = new ClassReader(className);
 			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(

@@ -9,7 +9,7 @@ import java.util.List;
 public class GraphVisPrinter implements IClassStructurePrinter{
 	
 	@Override
-	public void printToFile(String file, List<ClassData> classes ){
+	public void printToFile(String file, List<IClassData> classes ){
 		try {
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
@@ -28,7 +28,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append("fontsize =8\n");
 			sb.append("]\n");
 			List<String> classNames = StringParser.getClassNames(classes);
-			for(ClassData currentData: classes){
+			for(IClassData currentData: classes){
 				sb.append(currentData.toString());
 				sb.append(currentData.getExtendsArrow(classNames));
 				sb.append(currentData.getInheritsArrows());

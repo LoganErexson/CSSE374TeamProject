@@ -41,7 +41,7 @@ public class DesignParser {
 	      } 
 	    }
 	    
-		List<ClassData> classDatas = new ArrayList<>();
+		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : classes) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
 			ClassReader reader = new ClassReader(className);

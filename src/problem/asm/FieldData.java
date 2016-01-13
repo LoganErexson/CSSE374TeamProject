@@ -36,6 +36,9 @@ public class FieldData implements IFieldData {
 	@Override
 	public String toString() {
 		String result = this.access+" "+this.fieldName+" : ";
+		if(this.type.contains("<")){
+			return result + this.type.replace('<', '(').replace('>', ')')+ "\\l";
+		}
 		return result + this.type + "\\l";
 	}
 

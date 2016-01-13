@@ -59,7 +59,7 @@ public class StringParser{
 		else if(returnType.equals("V")){
 			return "void";
 		}
-		return returnType;
+		return parseClassName(returnType);
 	}
 	
 	public static String fieldTypeFromSignature(String signature){
@@ -68,13 +68,13 @@ public class StringParser{
 			String fieldType = signature.substring(0, signature.indexOf('<'));
 			return parseClassName(fieldType)+"<"+elementType+">";
 		}
-		return signature;
+		return parseClassName(signature);
 	}
 	
 	public static List<String> getClassNames(List<ClassData> classes){
 		List<String> classNames = new ArrayList<>();
 		for(ClassData clazz: classes){
-			classNames.add(clazz.getName());
+			classNames.add(parseClassName(clazz.getName()));
 		}
 		return classNames;
 	}

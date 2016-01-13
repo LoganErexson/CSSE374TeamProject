@@ -10,7 +10,7 @@ fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
 AbstractClassDataVisitor [
-label = "{AbstractClassDataVisitor|# classData : IData\l|+ <init>(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l}"
+label = "{AbstractClassDataVisitor|# classData : IData\l|+ init(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l}"
 ]
 edge [ 
 arrowhead = "vee"
@@ -24,7 +24,7 @@ style = "solid"
 ]
 AbstractClassDataVisitor -> IData
 ClassData [
-label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List[String]\l- fields : List[IData]\l- methods : List[IData]\l- usedClasses : Set[String]\l- associatedClasses : Set[String]\l|+ <init>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces() : List[String]\l+ setInterfaces(List[String]) : void\l+ addField(FieldData) : void\l+ getFields() : List[IData]\l+ addMethod(MethodData) : void\l+ getMethods() : List[IData]\l+ toString() : String\l+ getInheritsArrows() : String\l+ getExtendsArrow(List[String]) : String\l+ getUsesArrows(List[String]) : String\l+ getAssociationArrows(List[String]) : String\l}"
+label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List[String]\l- fields : List[IData]\l- methods : List[IData]\l- usedClasses : Set[String]\l- associatedClasses : Set[String]\l|+ init() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces() : List[String]\l+ setInterfaces(List[String]) : void\l+ addField(FieldData) : void\l+ getFields() : List[IData]\l+ addMethod(MethodData) : void\l+ getMethods() : List[IData]\l+ toString() : String\l+ getInheritsArrows() : String\l+ getExtendsArrow(List[String]) : String\l+ getUsesArrows(List[String]) : String\l+ getAssociationArrows(List[String]) : String\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -42,7 +42,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 ClassDeclarationVisitor [
-label = "{ClassDeclarationVisitor||+ <init>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
+label = "{ClassDeclarationVisitor||+ init(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -55,7 +55,7 @@ style = "dashed"
 ]
 ClassDeclarationVisitor -> AbstractClassDataVisitor
 ClassFieldVisitor [
-label = "{ClassFieldVisitor|- level : String\l|+ <init>(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
+label = "{ClassFieldVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -72,7 +72,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 ClassMethodVisitor [
-label = "{ClassMethodVisitor|- level : String\l|+ <init>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
+label = "{ClassMethodVisitor|- level : String\l|+ init(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -89,7 +89,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 DesignParser [
-label = "{DesignParser|+ FOLDER_PATH : String\l+ FILE_PREFIX : String\l+ OUTPUT_FILE : String\l|+ <init>() : void\l+ main(String[]) : void\l}"
+label = "{DesignParser|+ FOLDER_PATH : String\l+ FILE_PREFIX : String\l+ OUTPUT_FILE : String\l|+ init() : void\l+ main(String[]) : void\l}"
 ]
 edge [ 
 arrowhead = "vee"
@@ -100,7 +100,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 FieldData [
-label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ <init>(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
+label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ init(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -116,7 +116,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 GraphVisPrinter [
-label = "{GraphVisPrinter||+ <init>() : void\l+ printToFile(String, List[ClassData]) : void\l}"
+label = "{GraphVisPrinter||+ init() : void\l+ printToFile(String, List[ClassData]) : void\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -180,7 +180,7 @@ arrowhead = "vee"
 style = "dashed"
 ]
 MethodData [
-label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List[String]\l- signature : String\l|+ <init>(String, Type, String, Type[], String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List[String]\l+ setArgs(List[String]) : void\l+ toString() : String\l}"
+label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List[String]\l- signature : String\l|+ init(String, Type, String, Type[], String) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List[String]\l+ setArgs(List[String]) : void\l+ toString() : String\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -196,7 +196,7 @@ arrowhead = "vee"
 style = "solid"
 ]
 StringParser [
-label = "{StringParser||+ <init>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List[String]\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List[ClassData]) : List[String]\l}"
+label = "{StringParser||+ init() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List[String]\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List[ClassData]) : List[String]\l}"
 ]
 edge [ 
 arrowhead = "vee"

@@ -28,10 +28,7 @@ public class MethodData implements IMethodData{
 			}
 			setArgs(temp);
 		}
-		//this.type = type.getClassName();
 		this.access = level;
-		
-		//this.setArgs(args);
 	}
 
 	@Override

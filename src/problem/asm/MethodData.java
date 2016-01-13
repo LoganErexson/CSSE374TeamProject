@@ -76,17 +76,15 @@ public class MethodData implements IMethodData{
 	
 	@Override
 	public String toString() {
+		if (this.name.contains("<")) //Constructor handling
+			this.name = this.name.substring(1, this.name.length() - 1);
 		String result = this.access + " " + this.name + "(";
 		for(String arg : this.getArgs()){
-			arg = arg.replace("<", "(");
-			arg = arg.replace(">", ")");
 			result+= arg +", ";
 		}
 		if (this.args.size() != 0) {
 			result = result.substring(0, result.length() - 2);
 		}
-		this.setType(this.getType().replace("<", "("));
-		this.setType(this.getType().replace(">", ")"));
 		result += ") : " + this.getType() + "\\l";
 		
 		return result;

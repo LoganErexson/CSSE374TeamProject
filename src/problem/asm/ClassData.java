@@ -9,8 +9,8 @@ public class ClassData implements IClassData{
 	private String name;
 	private String superClass;
 	private List<String> interfaces;
-	private List<IData> fields = new ArrayList<>();
-	private List<IData> methods = new ArrayList<>();
+	private List<IFieldData> fields = new ArrayList<>();
+	private List<IMethodData> methods = new ArrayList<>();
 	private Set<String> usedClasses = new HashSet<>();
 	private Set<String> associatedClasses = new HashSet<>();
 	
@@ -39,7 +39,7 @@ public class ClassData implements IClassData{
 		this.interfaces = interfaces;
 	}
 	@Override
-	public void addField(FieldData f) {
+	public void addField(IFieldData f) {
 		this.fields.add(f);
 		String fieldType = f.getType();
 		if(fieldType.contains("[")){
@@ -51,11 +51,11 @@ public class ClassData implements IClassData{
 		}
 	}
 	@Override
-	public List<IData> getFields() {
+	public List<IFieldData> getFields() {
 		return this.fields;
 	}
     @Override
-	public void addMethod(MethodData m) {
+	public void addMethod(IMethodData m) {
 		this.methods.add(m);
 		
 		String returnType;
@@ -87,7 +87,7 @@ public class ClassData implements IClassData{
 	}
     
     @Override
-	public List<IData> getMethods() {
+	public List<IMethodData> getMethods() {
 		return this.methods;
 	}
 	

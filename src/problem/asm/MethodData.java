@@ -80,6 +80,11 @@ public class MethodData implements IMethodData{
 		for(String arg : this.getArgs()){
 			result+= arg +", ";
 		}
+		if (this.args.size() != 0) {
+			result = result.substring(0, result.length() - 2);
+		}
+		result += ") : " + this.getType() + "\\l";
+		
 		return result;
 	}
 

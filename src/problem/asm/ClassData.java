@@ -1,9 +1,7 @@
 package problem.asm;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ClassData implements IClassData{
 	private String name;
@@ -11,8 +9,8 @@ public class ClassData implements IClassData{
 	private List<String> interfaces;
 	private List<IFieldData> fields = new ArrayList<>();
 	private List<IMethodData> methods = new ArrayList<>();
-	private Set<String> usedClasses = new HashSet<>();
-	private Set<String> associatedClasses = new HashSet<>();
+	private List<String> usedClasses = new ArrayList<>();
+	private List<String> associatedClasses = new ArrayList<>();
 	
 	@Override
 	public String getName() {
@@ -163,5 +161,13 @@ public class ClassData implements IClassData{
 			}
 		}
 		return sb.toString();
+	}
+	@Override
+	public List<String> getUsedClasses() {
+		return this.usedClasses;
+	}
+	@Override
+	public List<String> getAssociatedClasses() {
+		return this.associatedClasses;
 	}
 }

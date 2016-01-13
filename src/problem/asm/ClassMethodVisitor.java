@@ -14,12 +14,16 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc,
 			String signature, String[] exceptions) {
-		MethodVisitor toDecorate = super.visitMethod(access, name, desc,
-				signature, exceptions);
+		MethodBodyVisitor toDecorate = new MethodBodyVisitor(Opcodes.ASM5, super.visitMethod(access, name, desc,
+				signature, exceptions));
 		
-		addAccessLevel(access);
 		Type type = Type.getReturnType(desc);
-		this.getClassData().addMethod(new MethodData(name, type, this.level, Type.getArgumentTypes(desc), signature));
+		addAccessLevel(access);
+		IMethodData m = new MethodData(name, type, this.level, Type.getArgumentTypes(desc), signature);
+		
+		toDecorate.setMethod(m);
+		
+		this.getClassData().addMethod(m);
 		return toDecorate;
 	}
 

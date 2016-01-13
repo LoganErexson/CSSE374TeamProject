@@ -10,6 +10,7 @@ public class MethodData implements IMethodData{
 	private String type;
 	private String access;
 	private List<String> args;
+	private List<String> usedClasses;
 
 	public MethodData(String name, Type type, String level, Type[] args,
 			String sig) {
@@ -27,6 +28,19 @@ public class MethodData implements IMethodData{
 			setArgs(temp);
 		}
 		this.access = level;
+		this.usedClasses = new ArrayList<>();
+	}
+	
+	public void addUsedClass(String clazz) {
+		this.usedClasses.add(clazz);
+	}
+
+	public List<String> getUsedClasses() {
+		return usedClasses;
+	}
+
+	public void setUsedClasses(List<String> usedClasses) {
+		this.usedClasses = usedClasses;
 	}
 
 	@Override

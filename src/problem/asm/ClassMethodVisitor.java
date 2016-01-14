@@ -12,6 +12,7 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	private String level = "";
 	private String neededMethod;
 	private List<IMethodCallData> calledByNeeded = new ArrayList<>();
+	private IMethodCallData callData;
 	public ClassMethodVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
 	}
@@ -27,6 +28,7 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		IMethodData m = new MethodData(name, type, this.level, Type.getArgumentTypes(desc), signature);
 		toDecorate.setMethod(m);
 		if(this.neededMethod!=null&&this.neededMethod.equals(name)){
+			this.callData.setMethod(m);
 			toDecorate.setMethodCalls(this.calledByNeeded);
 			toDecorate.setClassName(this.classData.getName());
 		}
@@ -57,6 +59,13 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 
 	public List<IMethodCallData> getMethodCalls() {
 		return this.calledByNeeded;
+	}
+
+	public void setCallData(IMethodCallData callData) {
+		this.callData = callData;
+	}
+	public IMethodCallData getCallData(){
+		return this.callData;
 	}
 
 

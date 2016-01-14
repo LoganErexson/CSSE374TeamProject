@@ -39,8 +39,26 @@ public class VisitorManager {
 	    		classes.add(filePrefix+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
 	      } 
 	    }
-	    return classes;
-	      
+	    return classes;  
+	}
+	
+	public static ClassMethodVisitor visitMethods(String className, String methodName, 
+			IMethodCallData callData) throws IOException{
+		ClassReader reader = new ClassReader(className);
+		// make class declaration visitor to get superclass and interfaces
+		AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
+		// DECORATE declaration visitor with field visitor
+		AbstractClassDataVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+				decVisitor);
+		// DECORATE field visitor with method visitor
+		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+				fieldVisitor);
+		methodVisitor.setNeededMethod(methodName);
+		methodVisitor.setCallData(callData);
+		// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
+		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
+		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		return methodVisitor;
 	}
 
 }

@@ -7,16 +7,23 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Opcodes;
+
 public class SDEditPrinter implements IClassStructurePrinter {
 	
 	private List<String> classNames;
 	private List<IClassData> classes;
 	private List<String> usedClasses;
+	private IClassData startClass;
+	private String methodPath;
 
-	public SDEditPrinter(List<IClassData> classes){
+	public SDEditPrinter(List<IClassData> classes, String method){
 		this.classNames = StringParser.getClassNames(classes);
 		this.classes = classes;
 		this.usedClasses = new ArrayList<String>();
+		this.methodPath = method;
+		this.startClass = classes.get(0);
 	}
 
 	@Override
@@ -26,17 +33,17 @@ public class SDEditPrinter implements IClassStructurePrinter {
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
 			List<IFieldData> fields = new ArrayList<>();
 			if (classes.size() == 1) {
-				String nm = classes.get(0).getName();
+				String nm = startClass.getName();
 				sb.append(nm.toLowerCase() + ":" + nm + "[a]\n");
-				fields = classes.get(0).getFields();
 			}
 			
-			for (IFieldData field : fields) {
-				if (!this.usedClasses.contains(field.getType())) {
-					sb.append(field.getName() + ":" + field.getType() + "\n");
-				}
-				sb.append(field.getName() + ":" + field.getType() + "\n");
-			}
+			
+			
+//			for (IFieldData field : fields) {
+//				if (!this.usedClasses.contains(field.getType())) {
+//					sb.append(field.getName() + ":" + field.getType() + "\n");
+//				}
+//			}
 			
 			out.write(sb.toString().getBytes());
 			out.close();
@@ -51,4 +58,19 @@ public class SDEditPrinter implements IClassStructurePrinter {
 		return null;
 	}
 
+	public void visitClass(String className) throws IOException {
+		// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
+		ClassReader reader = new ClassReader(className.substring(0, className.lastIndexOf(".")));
+		// make class declaration visitor to get superclass and interfaces
+		AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
+		// DECORATE declaration visitor with field visitor
+		AbstractClassDataVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+				decVisitor);
+		// DECORATE field visitor with method visitor
+		AbstractClassDataVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+				fieldVisitor);
+		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
+		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		this.classes.add(methodVisitor.getClassData());
+	}
 }

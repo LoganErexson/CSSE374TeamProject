@@ -98,7 +98,7 @@ public class DesignParser {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
 			
-			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas);
+			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas, methodSignature);
 			sdPrinter.printToFile(SD_OUTPUT);
 
 		}

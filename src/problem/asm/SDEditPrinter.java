@@ -36,7 +36,15 @@ public class SDEditPrinter implements IClassStructurePrinter {
 			sb.append(nm.toLowerCase() + ":" + nm + "[a]\n");
 //			}
 			
-			sb.append(classes);
+			for (String name : classNames) {
+				if (!name.equals(nm)) {
+					sb.append("/" + name + ":" + name + "\n");
+				}
+			}
+			
+			for (IMethodCallData meth : classes) {
+				sb.append(meth.toString());
+			}
 			
 //			for (IFieldData field : fields) {
 //				if (!this.usedClasses.contains(field.getType())) {

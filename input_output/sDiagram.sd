@@ -1,7 +1,17 @@
-Collections:Collections[a]
-Random:/Random
+DesignParser:DesignParser[a]
+PrintStream:/PrintStream
+System:/System
+String:/String
+VisitorManager:/VisitorManager
+ArrayList:/ArrayList
 List:/List
 
-Collections:Random.<init>(long)
-Collections:Collections.shuffle(Random)
-Collections:int=List.size()
+DesignParser:PrintStream.println(Object)
+DesignParser:System.exit(int)
+DesignParser:String=String.toLowerCase()
+DesignParser:boolean=String.equals(Object)
+DesignParser:PrintStream.println(Object)
+DesignParser:System.exit(int)
+DesignParser:List<String>=VisitorManager.getClassNames(String, String)
+DesignParser:ArrayList.<init>(Collection<Collection<+TE>)
+DesignParser:Iterator<Iterator<TE>=List.iterator()

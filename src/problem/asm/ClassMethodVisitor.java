@@ -14,6 +14,7 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	private IMethodCallData callData;
 	public ClassMethodVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
+		this.callData = new MethodCallData();
 	}
 
 	@Override

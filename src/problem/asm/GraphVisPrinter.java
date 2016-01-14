@@ -59,6 +59,55 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 		}
 	}
 	
+	public Map<String, List<String>> getClassToInterfaces() {
+		return classToInterfaces;
+	}
+
+	public void setClassToInterfaces(Map<String, List<String>> classToInterfaces) {
+		this.classToInterfaces = classToInterfaces;
+	}
+
+	public Map<String, String> getClassToSuperclass() {
+		return classToSuperclass;
+	}
+
+	public void setClassToSuperclass(Map<String, String> classToSuperclass) {
+		this.classToSuperclass = classToSuperclass;
+	}
+
+	public Map<String, List<String>> getClassToAssociatedClasses() {
+		return classToAssociatedClasses;
+	}
+
+	public void setClassToAssociatedClasses(
+			Map<String, List<String>> classToAssociatedClasses) {
+		this.classToAssociatedClasses = classToAssociatedClasses;
+	}
+
+	public Map<String, List<IMethodData>> getClassToMethods() {
+		return classToMethods;
+	}
+
+	public void setClassToMethods(Map<String, List<IMethodData>> classToMethods) {
+		this.classToMethods = classToMethods;
+	}
+
+	public List<String> getClassNames() {
+		return classNames;
+	}
+
+	public void setClassNames(List<String> classNames) {
+		this.classNames = classNames;
+	}
+
+	public List<IClassData> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<IClassData> classes) {
+		this.classes = classes;
+	}
+
 	@Override
 	public String createArrows(){
 		StringBuilder sb = new StringBuilder();

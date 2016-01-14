@@ -30,6 +30,7 @@ public class SDEditPrinter implements IClassStructurePrinter {
 	@Override
 	public void printToFile(String file) {
 		try {
+			VisitorManager mgr = new VisitorManager();
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
 			if (classes.size() == 1) {
@@ -37,7 +38,7 @@ public class SDEditPrinter implements IClassStructurePrinter {
 				sb.append(nm.toLowerCase() + ":" + nm + "[a]\n");
 			}
 			
-			
+			//this.startClass.
 			
 //			for (IFieldData field : fields) {
 //				if (!this.usedClasses.contains(field.getType())) {

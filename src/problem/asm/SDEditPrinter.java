@@ -17,6 +17,7 @@ public class SDEditPrinter implements IClassStructurePrinter {
 	private List<String> usedClasses;
 	private IClassData startClass;
 	private String methodPath;
+	private int depth;
 
 	public SDEditPrinter(List<IClassData> classes, String method){
 		this.classNames = StringParser.getClassNames(classes);
@@ -31,7 +32,6 @@ public class SDEditPrinter implements IClassStructurePrinter {
 		try {
 			StringBuilder sb = new StringBuilder();
 			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
-			List<IFieldData> fields = new ArrayList<>();
 			if (classes.size() == 1) {
 				String nm = startClass.getName();
 				sb.append(nm.toLowerCase() + ":" + nm + "[a]\n");

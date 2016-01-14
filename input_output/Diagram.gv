@@ -54,8 +54,8 @@ label = "{MethodBodyVisitor|- method : IMethodData\l|+ \<init\>(int, MethodVisit
 MethodData [
 label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- usedClasses : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
-SEEditPrinter [
-label = "{SEEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l}"
+SDEditPrinter [
+label = "{SDEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l}"
 ]
 StringParser [
 label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l}"
@@ -72,13 +72,13 @@ arrowhead = "empty"
 style = "dashed"
 ]
 FieldData -> IFieldData
+SDEditPrinter -> IClassStructurePrinter
 ClassData -> IClassData
 GraphVisPrinter -> IClassStructurePrinter
 MethodData -> IMethodData
 IMethodData -> IData
 IClassData -> IData
 IFieldData -> IData
-SEEditPrinter -> IClassStructurePrinter
 edge [ 
 arrowhead = "vee"
 style = "solid"
@@ -98,6 +98,7 @@ DesignParser -> ClassDeclarationVisitor
 DesignParser -> ClassFieldVisitor
 DesignParser -> ClassMethodVisitor
 DesignParser -> GraphVisPrinter
+DesignParser -> SDEditPrinter
 ClassData -> IFieldData
 ClassData -> IMethodData
 ClassFieldVisitor -> FieldData

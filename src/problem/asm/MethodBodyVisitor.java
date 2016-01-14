@@ -23,8 +23,11 @@ public class MethodBodyVisitor extends MethodVisitor{
 	public void visitMethodInsn(int op, String owner, String name, String desc, boolean imp) {
 		super.visitMethodInsn(op, owner, name, desc, imp);
 		IMethodCallData callData = new MethodCallData();
-		callData.setMethodClass(this.className);
+		callData.setMethodClass(owner);
 		callData.setName(name);
+		if(imp){
+			callData.setDepth(0);
+		}
 		this.methodCalls.add(callData);
 		
 	}

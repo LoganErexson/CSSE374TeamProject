@@ -45,20 +45,29 @@ label = "{IData||+ setName(String) : void\l+ getName() : String\l+ toString() : 
 IFieldData [
 label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l}"
 ]
+IMethodCallData [
+label = "{IMethodCallData||+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l}"
+]
 IMethodData [
 label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l}"
 ]
 MethodBodyVisitor [
 label = "{MethodBodyVisitor|- method : IMethodData\l|+ \<init\>(int, MethodVisitor) : void\l+ setMethod(IMethodData) : void\l+ visitMethodInsn(int, String, String, String, boolean) : void\l+ visitFieldInsn(int, String, String, String) : void\l+ visitTypeInsn(int, String) : void\l+ visitVarInsn(int, int) : void\l}"
 ]
+MethodCallData [
+label = "{MethodCallData|- callingClass : String\l- methodClass : String\l- method : IMethodData\l|+ \<init\>() : void\l+ setName(String) : void\l+ getName() : String\l+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ toString() : String\l}"
+]
 MethodData [
 label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- usedClasses : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
 SDEditPrinter [
-label = "{SDEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l}"
+label = "{SDEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l- usedClasses : List\<String\>\l- startClass : IClassData\l- methodPath : String\l- depth : int\l|+ \<init\>(List\<IClassData\>, String) : void\l+ printToFile(String) : void\l+ createArrows() : String\l+ visitClass(String) : void\l}"
 ]
 StringParser [
 label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l}"
+]
+VisitorManager [
+label = "{VisitorManager||+ \<init\>() : void\l+ visitClass(String) : AbstractClassDataVisitor\l+ getClassNames(String, String) : List\<String\>\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -71,6 +80,8 @@ edge [
 arrowhead = "empty"
 style = "dashed"
 ]
+MethodCallData -> IMethodCallData
+IMethodCallData -> IData
 FieldData -> IFieldData
 SDEditPrinter -> IClassStructurePrinter
 ClassData -> IClassData
@@ -83,8 +94,10 @@ edge [
 arrowhead = "vee"
 style = "solid"
 ]
+MethodCallData -> IMethodData
 AbstractClassDataVisitor -> IClassData
 MethodBodyVisitor -> IMethodData
+SDEditPrinter -> IClassData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
@@ -94,12 +107,12 @@ AbstractClassDataVisitor -> ClassData
 ClassMethodVisitor -> AbstractClassDataVisitor
 ClassMethodVisitor -> MethodBodyVisitor
 ClassMethodVisitor -> MethodData
-DesignParser -> ClassDeclarationVisitor
-DesignParser -> ClassFieldVisitor
-DesignParser -> ClassMethodVisitor
+VisitorManager -> ClassDeclarationVisitor
+VisitorManager -> ClassFieldVisitor
+VisitorManager -> ClassMethodVisitor
 DesignParser -> GraphVisPrinter
 DesignParser -> SDEditPrinter
+IMethodCallData -> IMethodData
 ClassData -> IFieldData
-ClassData -> IMethodData
 ClassFieldVisitor -> FieldData
 }

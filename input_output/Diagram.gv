@@ -9,99 +9,96 @@ edge [
 fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
-Cheese [
-label = "{Cheese||+ toString() : String\l}"
+AbstractClassDataVisitor [
+label = "{AbstractClassDataVisitor|# classData : IClassData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getClassData() : IClassData\l}"
 ]
-ChicagoPizzaIngredientFactory [
-label = "{ChicagoPizzaIngredientFactory||+ \<init\>() : void\l+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
+ClassData [
+label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List\<String\>\l- fields : List\<IFieldData\>\l- methods : List\<IMethodData\>\l- associatedClasses : List\<String\>\l|+ \<init\>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ toString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
 ]
-Clams [
-label = "{Clams||+ toString() : String\l}"
+ClassDeclarationVisitor [
+label = "{ClassDeclarationVisitor||+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
-Dough [
-label = "{Dough||+ toString() : String\l}"
+ClassFieldVisitor [
+label = "{ClassFieldVisitor|- level : String\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
-FreshClams [
-label = "{FreshClams||+ \<init\>() : void\l+ toString() : String\l}"
+ClassMethodVisitor [
+label = "{ClassMethodVisitor|- level : String\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l}"
 ]
-FrozenClams [
-label = "{FrozenClams||+ \<init\>() : void\l+ toString() : String\l}"
+DesignParser [
+label = "{DesignParser|+ DEFAULT_PATH : String\l+ DEFAULT_PREFIX : String\l+ UML_OUTPUT : String\l+ SD_OUTPUT : String\l|+ \<init\>() : void\l+ main(String[]) : void\l}"
 ]
-MarinaraSauce [
-label = "{MarinaraSauce||+ \<init\>() : void\l+ toString() : String\l}"
+FieldData [
+label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ \<init\>(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
 ]
-MozzarellaCheese [
-label = "{MozzarellaCheese||+ \<init\>() : void\l+ toString() : String\l}"
+GraphVisPrinter [
+label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l- getUsedClassesArrows() : String\l}"
 ]
-NYPizzaIngredientFactory [
-label = "{NYPizzaIngredientFactory||+ \<init\>() : void\l+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
+IClassData [
+label = "{IClassData||+ setSuperClass(String) : void\l+ getSuperClass() : String\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ getAssociatedClasses() : List\<String\>\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l}"
 ]
-NYPizzaStore [
-label = "{NYPizzaStore||+ \<init\>() : void\l# createPizza(String) : Pizza\l}"
+IClassStructurePrinter [
+label = "{IClassStructurePrinter||+ printToFile(String) : void\l+ createArrows() : String\l}"
 ]
-Pizza [
-label = "{Pizza|+ name : String\l+ dough : Dough\l+ sauce : Sauce\l+ cheese : Cheese\l+ clam : Clams\l|+ \<init\>() : void\l+ prepare() : void\l+ bake() : void\l+ cut() : void\l+ box() : void\l+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
+IData [
+label = "{IData||+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
 ]
-PizzaIngredientFactory [
-label = "{PizzaIngredientFactory||+ createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createClam() : Clams\l}"
+IFieldData [
+label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l}"
 ]
-PlumTomatoSauce [
-label = "{PlumTomatoSauce||+ \<init\>() : void\l+ toString() : String\l}"
+IMethodData [
+label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l}"
 ]
-ReggianoCheese [
-label = "{ReggianoCheese||+ \<init\>() : void\l+ toString() : String\l}"
+MethodBodyVisitor [
+label = "{MethodBodyVisitor|- method : IMethodData\l|+ \<init\>(int, MethodVisitor) : void\l+ setMethod(IMethodData) : void\l+ visitMethodInsn(int, String, String, String, boolean) : void\l+ visitFieldInsn(int, String, String, String) : void\l+ visitTypeInsn(int, String) : void\l+ visitVarInsn(int, int) : void\l}"
 ]
-Sauce [
-label = "{Sauce||+ toString() : String\l}"
+MethodData [
+label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- usedClasses : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
-ThickCrustDough [
-label = "{ThickCrustDough||+ \<init\>() : void\l+ toString() : String\l}"
+SEEditPrinter [
+label = "{SEEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l}"
 ]
-ThinCrustDough [
-label = "{ThinCrustDough||+ \<init\>() : void\l+ toString() : String\l}"
+StringParser [
+label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l}"
 ]
 edge [ 
 arrowhead = "empty"
 style = "solid"
 ]
+ClassMethodVisitor -> AbstractClassDataVisitor
+ClassDeclarationVisitor -> AbstractClassDataVisitor
+ClassFieldVisitor -> AbstractClassDataVisitor
 edge [ 
 arrowhead = "empty"
 style = "dashed"
 ]
-MarinaraSauce -> Sauce
-ThickCrustDough -> Dough
-NYPizzaIngredientFactory -> PizzaIngredientFactory
-PlumTomatoSauce -> Sauce
-ThinCrustDough -> Dough
-ChicagoPizzaIngredientFactory -> PizzaIngredientFactory
-MozzarellaCheese -> Cheese
-ReggianoCheese -> Cheese
-FrozenClams -> Clams
-FreshClams -> Clams
+FieldData -> IFieldData
+ClassData -> IClassData
+GraphVisPrinter -> IClassStructurePrinter
+MethodData -> IMethodData
+IMethodData -> IData
+IClassData -> IData
+IFieldData -> IData
+SEEditPrinter -> IClassStructurePrinter
 edge [ 
 arrowhead = "vee"
 style = "solid"
 ]
-Pizza -> Dough
-Pizza -> Sauce
-Pizza -> Cheese
-Pizza -> Clams
+AbstractClassDataVisitor -> IClassData
+MethodBodyVisitor -> IMethodData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-PizzaIngredientFactory -> Dough
-PizzaIngredientFactory -> Sauce
-PizzaIngredientFactory -> Cheese
-PizzaIngredientFactory -> Clams
-NYPizzaIngredientFactory -> ThinCrustDough
-NYPizzaIngredientFactory -> MarinaraSauce
-NYPizzaIngredientFactory -> ReggianoCheese
-NYPizzaIngredientFactory -> FreshClams
-ChicagoPizzaIngredientFactory -> ThickCrustDough
-ChicagoPizzaIngredientFactory -> PlumTomatoSauce
-ChicagoPizzaIngredientFactory -> MozzarellaCheese
-ChicagoPizzaIngredientFactory -> FrozenClams
-NYPizzaStore -> NYPizzaIngredientFactory
-NYPizzaStore -> Pizza
+StringParser -> IClassData
+AbstractClassDataVisitor -> ClassData
+ClassMethodVisitor -> AbstractClassDataVisitor
+ClassMethodVisitor -> MethodBodyVisitor
+ClassMethodVisitor -> MethodData
+DesignParser -> ClassDeclarationVisitor
+DesignParser -> ClassFieldVisitor
+DesignParser -> ClassMethodVisitor
+DesignParser -> GraphVisPrinter
+ClassData -> IFieldData
+ClassData -> IMethodData
+ClassFieldVisitor -> FieldData
 }

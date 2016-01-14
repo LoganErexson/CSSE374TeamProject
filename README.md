@@ -60,9 +60,43 @@ Logan:
 - Fixed minor issues in GraphViz input
 - Fixed minor issues with the way arrows format.
 
-To use this tool, set the parameters for the call to getClasses in the main function
-in DesignParser to the desired folder.
-For project files: ("./src/problem/asm", "problem.asm")
-For pizzaaf files: ("./src/headfirst/factory/pizzaf", "headfirst.factory.pizzaf")
-For Lab 1-3 files: ("./src/lab1_3", "lab1_3")
-Run the DesignParser
+Milestone 3:
+For milestone 3, there have been many changes to the design. Firstly, interfaces 
+have been added to avoid violating the dependency inversion principle. FieldData, 
+MethodData, and ClassData all now implement an interface. Each of the interfaces 
+extends the interface IData. Additionally a new class MethodCallData implements an
+interface extending from IData. The new class holds data about individual method calls
+GraphVisPrinter also now implements an interface, IClassStructurePrinter. A new class,
+SDEditPrinter also implements this interface. SDEditPrinter is used for printing into 
+file in the form of a sequence diagram. Two static classes have been created to get rid of 
+duplicate code. StringParser converts strings for class names into something easily 
+readible and parses types out of signatures. VisitorManager handles the code for 
+visiting classes.
+
+Jack: 
+- Added interfaces for ClassData, MethodData, FieldData
+- Updated other classes to use data interfaces
+- Removed reliance on signature in data classes
+- Fixed bug with angle brackets in graphVis
+- Updated and created new tests
+- Created SDEditPrinter and integrated use of MethodCallData into it
+- Updated UMLs
+
+Logan:
+- Added interface for GraphVisPrinter
+- Added StringParser class and update other classes to use it
+- Moved code for creating arrow strings in graphVisPrinter
+- Added MethodBodyVisitor and changed ClassMethodVisitor to use it
+- Added Command line functionality for running program
+- Added MethodCallData and updated  ClassMethodVisitor and MethodBodyVisitor to use it
+- Added VisitorManager
+- Updated DesignParser to use VisitorManager and SDEditPrinter
+
+
+
+To use this tool, run DesignParser with arguments in one of the two following formats:
+uml <path_to_folder_of_classes> <package_name>   #Used for creating .dot files
+sd <method_signature> <depth>                    #Used for creating .sd files. 
+   #"depth" here is optional and will default to 5
+   #<method_signature> is in the format:
+     <package_name>.<class_name>.<method_name>(<parameter_type1>;<parameter_type2>;...)

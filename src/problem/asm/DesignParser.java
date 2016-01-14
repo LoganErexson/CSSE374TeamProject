@@ -73,34 +73,19 @@ public class DesignParser {
 			gPrinter.printToFile(UML_OUTPUT);
 		}
 		else if(args[0].toLowerCase().equals("sd")){
-			if(args.length<3){
+			if(args.length<2){
 				System.out.println("NO ARGUMENTS");
 				System.exit(0);
 			}
+			String methodSignature = args[1];
 			int depth = 5;
-			String className;
-			String methodName;
-			int firstParam = -1;
-			if(args[1].contains("depth=")){
-				depth = Integer.parseInt(args[1].replace("depth=", ""));
-				className = args[2];
-				methodName = args[3];
-				firstParam = 4;
-			}
-			else{
-				className = args[1];
-				methodName = args[2];
-				firstParam = 3;
-			}
-			List<String> parameters = new ArrayList<>();
-			int i = firstParam;
-			while(i<args.length){ 
-				parameters.add(args[i]);
+			if(args.length>=3){
+				depth = Integer.parseInt(args[2]);
 			}
 			
 			List<IClassData> classDatas = new ArrayList<>();
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
-			ClassReader reader = new ClassReader(className);
+			ClassReader reader = new ClassReader(methodSignature.substring(0, methodSignature.lastIndexOf(".") - 1));
 			// make class declaration visitor to get superclass and interfaces
 			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
 			// DECORATE declaration visitor with field visitor
@@ -112,9 +97,10 @@ public class DesignParser {
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
-			
+			System.out.println("WERE ON OUR WAYYY");
 			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas);
 			sdPrinter.printToFile(SD_OUTPUT);
+
 		}
 		else{
 			System.out.println("INVALID COMMAND");

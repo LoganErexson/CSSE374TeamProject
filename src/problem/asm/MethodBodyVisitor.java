@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.objectweb.asm.MethodVisitor;
@@ -7,7 +8,7 @@ import org.objectweb.asm.Opcodes;
 
 public class MethodBodyVisitor extends MethodVisitor{
 	private IMethodData method;
-	private List<IMethodCallData> methodCalls;
+	private List<IMethodCallData> methodCalls = new ArrayList<>();
 	private String className;
 
 	public MethodBodyVisitor(int api, MethodVisitor decorated) {
@@ -21,6 +22,11 @@ public class MethodBodyVisitor extends MethodVisitor{
 	@Override
 	public void visitMethodInsn(int op, String owner, String name, String desc, boolean imp) {
 		super.visitMethodInsn(op, owner, name, desc, imp);
+		IMethodCallData callData = new MethodCallData();
+		callData.setMethodClass(this.className);
+		callData.setName(name);
+		this.methodCalls.add(callData);
+		
 	}
 	
 	@Override

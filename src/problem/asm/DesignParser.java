@@ -69,6 +69,8 @@ public class DesignParser {
 			startingMethod.setMethodClass(classNames.get(0));
 			startingMethod.setCallingClass("");
 			startingMethod.setDepth(depth);
+			startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
+					methodSignature.lastIndexOf("(")));
 			
 			methodQueue.add(startingMethod);
 			
@@ -80,13 +82,16 @@ public class DesignParser {
 				{
 					classNames.add(currentMethod.getCallingClass());
 				}
+				methodVisitor = VisitorManager.visitMethods(currentMethod.getMethodClass(), currentMethod);
 				if(currentMethod.getDepth()==0){
 					break;
 				}
-				methodVisitor = (ClassMethodVisitor) VisitorManager.visitClass(classNames.get(0));
 				classDatas.add(methodVisitor.getClassData());
 				for(IMethodCallData callData: methodVisitor.getMethodCalls()){
-					callData.setDepth(currentMethod.getDepth()-1);
+					if(callData.getDepth()!=0){
+						callData.setDepth(currentMethod.getDepth()-1);
+					}
+					callData.setCallingClass(currentMethod.getMethodClass());
 					methodQueue.add(callData);
 				}
 			}

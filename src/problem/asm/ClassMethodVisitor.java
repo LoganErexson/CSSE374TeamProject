@@ -10,8 +10,7 @@ import org.objectweb.asm.Type;
 public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	
 	private String level = "";
-	private String neededMethod;
-	private List<IMethodCallData> calledByNeeded = new ArrayList<>();
+	private List<IMethodCallData> calledByMethod = new ArrayList<>();
 	private IMethodCallData callData;
 	public ClassMethodVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
@@ -27,10 +26,10 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		addAccessLevel(access);
 		IMethodData m = new MethodData(name, type, this.level, Type.getArgumentTypes(desc), signature);
 		toDecorate.setMethod(m);
-		if(this.neededMethod!=null&&this.neededMethod.equals(name)){
+		if(this.callData.getName()!=null&&this.callData.getName().equals(name)){
 			this.callData.setMethod(m);
-			toDecorate.setMethodCalls(this.calledByNeeded);
-			toDecorate.setClassName(this.classData.getName());
+			toDecorate.setMethodCalls(this.calledByMethod);
+			toDecorate.setClassName(this.callData.getMethodClass());
 		}
 		this.getClassData().addMethod(m);
 		return toDecorate;
@@ -49,16 +48,8 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		// TODO: ADD this information to your representation of the current method.
 	}
 
-	public String getNeededMethod() {
-		return this.neededMethod;
-	}
-
-	public void setNeededMethod(String neededMethod) {
-		this.neededMethod = neededMethod;
-	}
-
 	public List<IMethodCallData> getMethodCalls() {
-		return this.calledByNeeded;
+		return this.calledByMethod;
 	}
 
 	public void setCallData(IMethodCallData callData) {

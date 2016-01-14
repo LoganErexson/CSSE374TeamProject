@@ -42,8 +42,7 @@ public class VisitorManager {
 	    return classes;  
 	}
 	
-	public static ClassMethodVisitor visitMethods(String className, String methodName, 
-			IMethodCallData callData) throws IOException{
+	public static ClassMethodVisitor visitMethods(String className, IMethodCallData callData) throws IOException{
 		ClassReader reader = new ClassReader(className);
 		// make class declaration visitor to get superclass and interfaces
 		AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
@@ -53,7 +52,6 @@ public class VisitorManager {
 		// DECORATE field visitor with method visitor
 		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
 				fieldVisitor);
-		methodVisitor.setNeededMethod(methodName);
 		methodVisitor.setCallData(callData);
 		// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class

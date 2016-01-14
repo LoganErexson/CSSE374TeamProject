@@ -97,6 +97,24 @@ public class DesignParser {
 			while(i<args.length){ 
 				parameters.add(args[i]);
 			}
+			
+			List<IClassData> classDatas = new ArrayList<>();
+			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
+			ClassReader reader = new ClassReader(className);
+			// make class declaration visitor to get superclass and interfaces
+			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
+			// DECORATE declaration visitor with field visitor
+			AbstractClassDataVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+					decVisitor);
+			// DECORATE field visitor with method visitor
+			AbstractClassDataVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+					fieldVisitor);
+			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
+			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			classDatas.add(methodVisitor.getClassData());
+			
+			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas);
+			sdPrinter.printToFile(SD_OUTPUT);
 		}
 		else{
 			System.out.println("INVALID COMMAND");

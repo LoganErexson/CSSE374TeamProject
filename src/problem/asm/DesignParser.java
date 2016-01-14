@@ -91,7 +91,7 @@ public class DesignParser {
 				}
 			}
 			
-			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas, methodSignature);
+			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, classNames);
 			sdPrinter.printToFile(SD_OUTPUT);
 
 		}

@@ -2,8 +2,6 @@ package problem.asm;
 
 import java.util.Arrays;
 
-
-
 public class ClassDeclarationVisitor extends AbstractClassDataVisitor {
 	
 	public ClassDeclarationVisitor(int api, AbstractClassDataVisitor decorated) {

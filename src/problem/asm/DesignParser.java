@@ -85,7 +85,7 @@ public class DesignParser {
 			
 			List<IClassData> classDatas = new ArrayList<>();
 			// ASM's ClassReader does the heavy lifting of parsing the compiled Java class
-			ClassReader reader = new ClassReader(methodSignature.substring(0, methodSignature.lastIndexOf(".") - 1));
+			ClassReader reader = new ClassReader(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
 			// make class declaration visitor to get superclass and interfaces
 			AbstractClassDataVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, null);
 			// DECORATE declaration visitor with field visitor
@@ -97,7 +97,7 @@ public class DesignParser {
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			classDatas.add(methodVisitor.getClassData());
-			System.out.println("WERE ON OUR WAYYY");
+			
 			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas);
 			sdPrinter.printToFile(SD_OUTPUT);
 

@@ -2,11 +2,16 @@ package problem.asm;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
@@ -163,6 +168,58 @@ public class ClassDataTest {
 		parameters.add("String");
 		assertEquals(parameters, StringParser.parametersFromSignature(signature));
 		assertEquals("List\\<String\\>", StringParser.returnTypeFromSignature(signature));
+	}
+	
+	@Test 
+	public final void testMethodCallClassName() throws IOException {
+		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
+				"problem.asm.ClassDeclarationVisitor",
+				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
+				"problem.asm.FieldData", "problem.asm.MethodData",
+				"problem.asm.AbstractClassDataVisitor" };
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}
+		String methodSignature = "problem.asm.DesignParser.main(String[])";
+		List<String> classNames = new ArrayList<>();
+		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
 		
+		IMethodCallData startingMethod = new MethodCallData();
+		startingMethod.setMethodClass(classNames.get(0));
+		startingMethod.setCallingClass("");
+		startingMethod.setDepth(5);
+		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
+				methodSignature.lastIndexOf("(")));
+		
+		assertEquals("problem.asm.DesignParser", startingMethod.getMethodClass());
+	}
+	
+	@Test 
+	public final void testMethodCallInnerMethodCall() throws IOException {
+		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
+				"problem.asm.ClassDeclarationVisitor",
+				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
+				"problem.asm.FieldData", "problem.asm.MethodData",
+				"problem.asm.AbstractClassDataVisitor" };
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}
+		String methodSignature = "problem.asm.DesignParser.main(String[])";
+		//List<IMethodCallData> methodCalls = new ArrayList<>();
+		List<String> classNames = new ArrayList<>();
+		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
+		
+		//Queue<IMethodCallData> methodQueue = new LinkedList<>();
+		
+		IMethodCallData startingMethod = new MethodCallData();
+		startingMethod.setMethodClass(classNames.get(0));
+		startingMethod.setCallingClass("");
+		startingMethod.setDepth(5);
+		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
+				methodSignature.lastIndexOf("(")));
+		
+		assertEquals("", startingMethod.getCallingClass());
 	}
 }

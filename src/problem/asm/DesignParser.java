@@ -17,8 +17,8 @@ public class DesignParser {
 	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
 	 * 
 	 */
-	public static final String FOLDER_PATH = "./src/headfirst/factory/pizzaaf";
-	public static final String FILE_PREFIX = "headfirst.factory.pizzaaf";
+	public static final String FOLDER_PATH = "./src/problem/asm";
+	public static final String FILE_PREFIX = "problem.asm";
 	public static final String OUTPUT_FILE = "./input_output/Diagram.gv";
 	
 	/**

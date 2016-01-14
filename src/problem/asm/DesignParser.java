@@ -73,30 +73,16 @@ public class DesignParser {
 			gPrinter.printToFile(UML_OUTPUT);
 		}
 		else if(args[0].toLowerCase().equals("sd")){
-			if(args.length<3){
+			if(args.length<2){
 				System.out.println("NO ARGUMENTS");
 				System.exit(0);
 			}
+			String methodSignature = args[1];
 			int depth = 5;
-			String className;
-			String methodName;
-			int firstParam = -1;
-			if(args[1].contains("depth=")){
-				depth = Integer.parseInt(args[1].replace("depth=", ""));
-				className = args[2];
-				methodName = args[3];
-				firstParam = 4;
+			if(args.length>=3){
+				depth = Integer.parseInt(args[2]);
 			}
-			else{
-				className = args[1];
-				methodName = args[2];
-				firstParam = 3;
-			}
-			List<String> parameters = new ArrayList<>();
-			int i = firstParam;
-			while(i<args.length){ 
-				parameters.add(args[i]);
-			}
+			
 		}
 		else{
 			System.out.println("INVALID COMMAND");

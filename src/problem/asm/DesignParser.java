@@ -77,10 +77,12 @@ public class DesignParser {
 			ClassMethodVisitor methodVisitor;
 			while(true){
 				IMethodCallData currentMethod = methodQueue.poll();
-				methodCalls.add(currentMethod);
-				if(!classNames.contains(currentMethod.getCallingClass()))
+				if(currentMethod!=startingMethod){
+					methodCalls.add(currentMethod);
+				}
+				if(!classNames.contains(currentMethod.getMethodClass())&&!currentMethod.getMethodClass().isEmpty())
 				{
-					classNames.add(currentMethod.getCallingClass());
+					classNames.add(currentMethod.getMethodClass());
 				}
 				methodVisitor = VisitorManager.visitMethods(currentMethod.getMethodClass(), currentMethod);
 				if(currentMethod.getDepth()==0){

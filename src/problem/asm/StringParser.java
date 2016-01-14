@@ -82,5 +82,14 @@ public class StringParser{
 		}
 		return classNames;
 	}
+	
+	public static String cleanAngleBrackets(String classString){
+		if(classString.contains("\\<")){
+			return classString.replace("\\<", "<").replace("\\>", ">");
+		}
+		else{
+			return classString;
+		}
+	}
 
 }

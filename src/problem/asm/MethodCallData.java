@@ -1,5 +1,6 @@
 package problem.asm;
 
+
 public class MethodCallData implements IMethodCallData{
 	
 	private String callingClass;
@@ -53,17 +54,18 @@ public class MethodCallData implements IMethodCallData{
 	@Override
 	public String toString(){
 		StringBuilder result = new StringBuilder();
-		result.append(this.callingClass+":");
+		result.append(StringParser.parseClassName(this.callingClass)+":");
 		if(this.method!=null&&this.method.getType()!="void"){
-			result.append(this.method.getType()+"=");
+			result.append(StringParser.cleanAngleBrackets(this.method.getType())+"=");
 		}
-		result.append(this.methodClass+"(");
+		result.append(StringParser.parseClassName(this.methodClass));
+		result.append("."+this.methodName+"(");
 		if(this.method!=null){
 			for(String param: this.method.getArgs()){
-				result.append(param+", ");
+				result.append(StringParser.cleanAngleBrackets(param)+", ");
 			}
 			if(this.method.getArgs().size()>0){
-				result.deleteCharAt(result.length()-2);
+				result.delete(result.length()-2, result.length());
 			}
 		}
 		result.append(")");

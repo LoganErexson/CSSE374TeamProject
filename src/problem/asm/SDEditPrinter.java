@@ -37,13 +37,13 @@ public class SDEditPrinter implements IClassStructurePrinter {
 //			}
 			
 			for (String name : classNames) {
-				if (!name.equals(nm)) {
+				if (!name.equals(nm) && !name.isEmpty()) {
 					sb.append("/" + name + ":" + name + "\n");
 				}
 			}
 			
 			for (IMethodCallData meth : classes) {
-				sb.append(meth.toString());
+				sb.append(meth.toString() + "\n");
 			}
 			
 //			for (IFieldData field : fields) {

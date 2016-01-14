@@ -2,7 +2,9 @@ package problem.asm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class DesignParser {
 	/**
@@ -57,9 +59,37 @@ public class DesignParser {
 			}
 			
 			List<IClassData> classDatas = new ArrayList<>();
-			AbstractClassDataVisitor methodVisitor = VisitorManager.visitClass(
-					methodSignature.substring(0, methodSignature.lastIndexOf(".")));
-			classDatas.add(methodVisitor.getClassData());
+			List<IMethodCallData> methodCalls = new ArrayList<>();
+			List<String> classNames = new ArrayList<>();
+			classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
+			
+			Queue<IMethodCallData> methodQueue = new LinkedList<>();
+			
+			IMethodCallData startingMethod = new MethodCallData();
+			startingMethod.setMethodClass(classNames.get(0));
+			startingMethod.setCallingClass("");
+			startingMethod.setDepth(depth);
+			
+			methodQueue.add(startingMethod);
+			
+			ClassMethodVisitor methodVisitor;
+			while(true){
+				IMethodCallData currentMethod = methodQueue.poll();
+				methodCalls.add(currentMethod);
+				if(!classNames.contains(currentMethod.getCallingClass()))
+				{
+					classNames.add(currentMethod.getCallingClass());
+				}
+				if(currentMethod.getDepth()==0){
+					break;
+				}
+				methodVisitor = (ClassMethodVisitor) VisitorManager.visitClass(classNames.get(0));
+				classDatas.add(methodVisitor.getClassData());
+				for(IMethodCallData callData: methodVisitor.getMethodCalls()){
+					callData.setDepth(currentMethod.getDepth()-1);
+					methodQueue.add(callData);
+				}
+			}
 			
 			IClassStructurePrinter sdPrinter = new SDEditPrinter(classDatas, methodSignature);
 			sdPrinter.printToFile(SD_OUTPUT);

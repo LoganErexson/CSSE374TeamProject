@@ -5,6 +5,7 @@ public class MethodCallData implements IMethodCallData{
 	private String callingClass;
 	private String methodClass;
 	private IMethodData method;
+	private int depth;
 	
 	@Override
 	public void setName(String nm) {
@@ -65,5 +66,16 @@ public class MethodCallData implements IMethodCallData{
 		result.append(")");
 		return result.toString();
 		
+	}
+
+	@Override
+	public void setDepth(int depth) {
+		this.depth=depth;
+		
+	}
+
+	@Override
+	public int getDepth() {
+		return this.depth;
 	}
 }

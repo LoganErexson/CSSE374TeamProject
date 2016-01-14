@@ -8,5 +8,7 @@ public interface IMethodCallData extends IData{
 	public IMethodData getMethod();
 	public void setMethodClass(String methodClass);
 	public String getMethodClass();
+	public void setDepth(int depth);
+	public int getDepth();
 	
 }

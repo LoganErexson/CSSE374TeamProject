@@ -1,10 +1,14 @@
 package problem.asm;
 
+import java.util.List;
+
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class MethodBodyVisitor extends MethodVisitor{
 	private IMethodData method;
+	private List<IMethodCallData> methodCalls;
+	private String className;
 
 	public MethodBodyVisitor(int api, MethodVisitor decorated) {
 		super(api, decorated);
@@ -35,5 +39,23 @@ public class MethodBodyVisitor extends MethodVisitor{
 	@Override
 	public void visitVarInsn(int op, int var) {
 		super.visitVarInsn(op, var);
+	}
+
+	public List<IMethodCallData> getMethodCalls(){
+		return this.methodCalls;
+	}
+	
+	public void setMethodCalls(List<IMethodCallData> methodCalls) {
+		this.methodCalls = methodCalls;
+		
+	}
+
+	public String getClassName(){
+		return this.className;
+	}
+	
+	public void setClassName(String name) {
+		this.className = name;
+		
 	}
 }

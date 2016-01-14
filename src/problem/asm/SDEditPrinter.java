@@ -2,12 +2,12 @@ package problem.asm;
 
 import java.util.List;
 
-public class SEEditPrinter implements IClassStructurePrinter {
+public class SDEditPrinter implements IClassStructurePrinter {
 	
 	private List<String> classNames;
 	private List<IClassData> classes;
 
-	public SEEditPrinter(List<IClassData> classes){
+	public SDEditPrinter(List<IClassData> classes){
 		this.classNames = StringParser.getClassNames(classes);
 		this.classes = classes;
 	}

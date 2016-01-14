@@ -94,7 +94,7 @@ public class DesignParser {
 			}
 			List<String> parameters = new ArrayList<>();
 			int i = firstParam;
-			while(i<args.length){
+			while(i<args.length){ 
 				parameters.add(args[i]);
 			}
 		}

@@ -4,7 +4,13 @@ System:/System
 String:/String
 VisitorManager:/VisitorManager
 ArrayList:/ArrayList
-List:/List
+AbstractClassDataVisitor:/AbstractClassDataVisitor
+GraphVisPrinter:/GraphVisPrinter
+Integer:/Integer
+LinkedList:/LinkedList
+MethodCallData:/MethodCallData
+ClassMethodVisitor:/ClassMethodVisitor
+SDEditPrinter:/SDEditPrinter
 
 DesignParser:PrintStream.println(Object)
 DesignParser:System.exit(int)
@@ -14,4 +20,29 @@ DesignParser:PrintStream.println(Object)
 DesignParser:System.exit(int)
 DesignParser:List<String>=VisitorManager.getClassNames(String, String)
 DesignParser:ArrayList.<init>(Collection<Collection<+TE>)
-DesignParser:Iterator<Iterator<TE>=List.iterator()
+DesignParser:AbstractClassDataVisitor=VisitorManager.visitClass(String)
+DesignParser:IClassData=AbstractClassDataVisitor.getClassData()
+DesignParser:GraphVisPrinter.<init>(List<IClassData>)
+DesignParser:String=String.toLowerCase()
+DesignParser:boolean=String.equals(Object)
+DesignParser:PrintStream.println(Object)
+DesignParser:System.exit(int)
+DesignParser:int=Integer.parseInt(String)
+DesignParser:ArrayList.<init>(Collection<Collection<+TE>)
+DesignParser:ArrayList.<init>(Collection<Collection<+TE>)
+DesignParser:ArrayList.<init>(Collection<Collection<+TE>)
+DesignParser:int=String.lastIndexOf(char[], int, int, char[], int, int, int)
+DesignParser:String=String.substring(int, int)
+DesignParser:LinkedList.<init>(Collection<Collection<+TE>)
+DesignParser:MethodCallData.<init>()
+DesignParser:int=String.lastIndexOf(char[], int, int, char[], int, int, int)
+DesignParser:int=String.lastIndexOf(char[], int, int, char[], int, int, int)
+DesignParser:String=String.substring(int, int)
+DesignParser:boolean=String.isEmpty()
+DesignParser:ClassMethodVisitor=VisitorManager.visitMethods(String, IMethodCallData)
+DesignParser:ClassMethodVisitor.getClassData()
+DesignParser:List<IMethodCallData>=ClassMethodVisitor.getMethodCalls()
+DesignParser:SDEditPrinter.<init>(List<IMethodCallData>, List<String>)
+DesignParser:PrintStream.println(Object)
+DesignParser:System.exit(int)
+PrintStream:PrintStream.newLine()

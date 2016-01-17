@@ -92,9 +92,9 @@ public class DesignParser {
 				for(IMethodCallData callData: methodVisitor.getMethodCalls()){
 					if(callData.getDepth()!=0){
 						callData.setDepth(currentMethod.getDepth()-1);
+						methodQueue.add(callData);
 					}
 					callData.setCallingClass(currentMethod.getMethodClass());
-					methodQueue.add(callData);
 				}
 			}
 			

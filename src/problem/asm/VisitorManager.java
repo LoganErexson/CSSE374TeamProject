@@ -58,5 +58,10 @@ public class VisitorManager {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return methodVisitor;
 	}
+	
+	public static List<IMethodCallData> getMethodCalls(IMethodCallData data){
+		List<IMethodCallData> calls = new ArrayList<>();
+		return calls;
+	}
 
 }

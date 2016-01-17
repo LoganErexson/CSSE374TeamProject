@@ -59,8 +59,19 @@ public class VisitorManager {
 		return methodVisitor;
 	}
 	
-	public static List<IMethodCallData> getMethodCalls(IMethodCallData data){
+	public static List<IMethodCallData> getMethodCalls(IMethodCallData data) throws IOException{
 		List<IMethodCallData> calls = new ArrayList<>();
+		ClassMethodVisitor methodVisitor = visitMethods(data.getMethodClass(), data);
+		for(IMethodCallData callData: methodVisitor.getMethodCalls()){
+			callData.setCallingClass(data.getMethodClass());
+			if(callData.getDepth()!=0){
+				callData.setDepth(data.getDepth()-1);
+			}
+			if(callData.getDepth()!=0){
+				calls.add(callData);
+				calls.addAll(getMethodCalls(callData));
+			}
+		}
 		return calls;
 	}
 

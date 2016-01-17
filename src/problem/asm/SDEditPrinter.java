@@ -42,7 +42,7 @@ public class SDEditPrinter implements IClassStructurePrinter {
 				if(!classSet.contains(meth.getMethodClass())){
 					classSet.add(meth.getMethodClass());
 					String name = StringParser.parseClassName(meth.getMethodClass());
-					classesString.append("/" + name + ":" + name + "\n");
+					classesString.append(name + ":" + name + "\n");
 				}
 				sb.append(meth.toString() + "\n");
 			}

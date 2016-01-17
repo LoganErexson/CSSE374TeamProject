@@ -28,7 +28,7 @@ public class SDEditPrinter implements IClassStructurePrinter {
 			for (String name : this.classNames) {
 				name = StringParser.parseClassName(name);
 				if (!name.equals(nm) && !name.isEmpty()) {
-					sb.append(name + ":/" + name + "\n");
+					sb.append("/" + name + ":" + name + "\n");
 				}
 			}
 			sb.append("\n");

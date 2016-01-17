@@ -73,30 +73,8 @@ public class DesignParser {
 					methodSignature.lastIndexOf("(")));
 			
 			methodQueue.add(startingMethod);
-			
-			ClassMethodVisitor methodVisitor;
-			while(true){
-				IMethodCallData currentMethod = methodQueue.poll();
-				if(currentMethod!=startingMethod){
-					methodCalls.add(currentMethod);
-				}
-				if(!classNames.contains(currentMethod.getMethodClass())&&!currentMethod.getMethodClass().isEmpty())
-				{
-					classNames.add(currentMethod.getMethodClass());
-				}
-				methodVisitor = VisitorManager.visitMethods(currentMethod.getMethodClass(), currentMethod);
-				if(currentMethod.getDepth()==0){
-					break;
-				}
-				classDatas.add(methodVisitor.getClassData());
-				for(IMethodCallData callData: methodVisitor.getMethodCalls()){
-					if(callData.getDepth()!=0){
-						callData.setDepth(currentMethod.getDepth()-1);
-						methodQueue.add(callData);
-					}
-					callData.setCallingClass(currentMethod.getMethodClass());
-				}
-			}
+		
+			methodCalls = VisitorManager.getMethodCalls(startingMethod);
 			
 			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, classNames);
 			sdPrinter.printToFile(SD_OUTPUT);

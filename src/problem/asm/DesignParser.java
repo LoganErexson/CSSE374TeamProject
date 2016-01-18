@@ -45,8 +45,8 @@ public class DesignParser {
 				File[] files = fc.getSelectedFiles();
 				classes = new ArrayList<>();
 				for(File file: files){
-					String filePath = file.getPath().replaceAll("\\\\", ".");
-					classes.add(filePath.substring(filePath.lastIndexOf("src.")+4, filePath.lastIndexOf(".java")));
+					String filePath = file.getPath();
+					classes.add(filePath.substring(filePath.lastIndexOf("src\\")+4, filePath.lastIndexOf(".java")));
 				}
 			}
 			else{

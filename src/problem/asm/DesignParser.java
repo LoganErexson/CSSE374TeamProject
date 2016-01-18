@@ -1,10 +1,13 @@
 package problem.asm;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import javax.swing.JFileChooser;
 
 public class DesignParser {
 	/**
@@ -31,13 +34,26 @@ public class DesignParser {
 			System.exit(0);
 		}
 		if(args[0].toLowerCase().equals("uml")){
-			if(args.length<3){
-				System.out.println("NOT ENOUGH ARGUMENTS");
-				System.exit(0);
+			
+			List<String> classes; 
+			
+			JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
+			fc.setMultiSelectionEnabled(true);
+			
+			int returnVal = fc.showOpenDialog(null);
+			if(returnVal == JFileChooser.APPROVE_OPTION){
+				File[] files = fc.getSelectedFiles();
+				classes = new ArrayList<>();
+				for(File file: files){
+					String filePath = file.getPath().replaceAll("\\\\", ".");
+					classes.add(filePath.substring(filePath.lastIndexOf("src.")+4, filePath.lastIndexOf(".java")));
+				}
 			}
-			String folderPath = args[1];
-			String filePrefix = args[2];
-			List<String> classes = VisitorManager.getClassNames(folderPath, filePrefix);
+			else{
+				String folderPath = DEFAULT_PATH;
+				String filePrefix = DEFAULT_PREFIX;
+				classes = VisitorManager.getClassNames(folderPath, filePrefix);
+			}
 		    
 			List<IClassData> classDatas = new ArrayList<>();
 			for (String className : classes) {
@@ -58,7 +74,6 @@ public class DesignParser {
 				depth = Integer.parseInt(args[2]);
 			}
 			
-			List<IClassData> classDatas = new ArrayList<>();
 			List<IMethodCallData> methodCalls = new ArrayList<>();
 			List<String> classNames = new ArrayList<>();
 			classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));

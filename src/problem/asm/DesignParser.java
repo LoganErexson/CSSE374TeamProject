@@ -3,6 +3,7 @@ package problem.asm;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -18,8 +19,12 @@ public class DesignParser {
 	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
 	 * 
 	 */
-	public static final String DEFAULT_PATH = "./src/headfirst/factory/pizzaaf";
-	public static final String DEFAULT_PREFIX = "headfirst.factory.pizzaaf";
+	public static final String[] DEFAULT_CLASSES = {"problem.asm.AbstractClassDataVisitor", "problem.asm.ClassData", 
+		"problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor", "problem.asm.ClassMethodVisitor",
+		"problem.asm.DesignParser", "problem.asm.FieldData", "problem.asm.GraphVisPrinter", "problem.asm.IClassData",
+		"problem.asm.IFieldData", "problem.asm.IClassStructurePrinter", "problem.asm.IData", "problem.asm.IMethodCallData",
+		"problem.asm.IMethodData", "problem.asm.MethodBodyVisitor", "problem.asm.MethodCallData", "problem.asm.MethodData",
+		"problem.asm.SDEditPrinter", "problem.asm.StringParser", "problem.asm.VisitorManager"};
 	public static final String UML_OUTPUT = "./input_output/Diagram.gv";
 	public static final String SD_OUTPUT = "./input_output/sDiagram.sd";
 	
@@ -50,9 +55,7 @@ public class DesignParser {
 				}
 			}
 			else{
-				String folderPath = DEFAULT_PATH;
-				String filePrefix = DEFAULT_PREFIX;
-				classes = VisitorManager.getClassNames(folderPath, filePrefix);
+				classes = Arrays.asList(DEFAULT_CLASSES);
 			}
 		    
 			List<IClassData> classDatas = new ArrayList<>();

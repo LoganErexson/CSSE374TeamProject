@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,21 +24,6 @@ public class VisitorManager {
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return methodVisitor;
-	}
-	public static List<String> getClassNames(String folderPath, String filePrefix){
-		List<String> classes = new ArrayList<>();
-		
-		File classesFolder = new File(folderPath);
-		File[] listOfFiles = classesFolder.listFiles();
-		
-		String classPath;
-	    for (int i = 0; i < listOfFiles.length; i++) {
-	    	if (listOfFiles[i].isFile()) {
-	    		classPath = listOfFiles[i].toString();
-	    		classes.add(filePrefix+"."+classPath.substring(classPath.lastIndexOf("\\")+1, classPath.length()-5));
-	      } 
-	    }
-	    return classes;  
 	}
 	
 	public static ClassMethodVisitor visitMethods(String className, IMethodCallData callData) throws IOException{

@@ -51,7 +51,7 @@ public class VisitorManager {
 			if(callData.getDepth()!=0){
 				callData.setDepth(data.getDepth()-1);
 			}
-			if(callData.getDepth()!=0){
+			if(callData.getDepth()>0){
 				calls.add(callData);
 				calls.addAll(getMethodCalls(callData));
 			}

@@ -84,7 +84,7 @@ public class DesignParser {
 			IMethodCallData startingMethod = new MethodCallData();
 			startingMethod.setMethodClass(classNames.get(0));
 			startingMethod.setCallingClass("");
-			startingMethod.setDepth(depth);
+			startingMethod.setDepth(depth + 1);
 			startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
 					methodSignature.lastIndexOf("(")));
 		

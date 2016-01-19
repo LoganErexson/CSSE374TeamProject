@@ -28,6 +28,9 @@ public class MethodBodyVisitor extends MethodVisitor{
 		if(imp){
 			callData.setDepth(0);
 		}
+		else if((owner!= null)&&owner.contains("[")){
+			callData.setDepth(0);
+		}
 		this.methodCalls.add(callData);
 		
 	}

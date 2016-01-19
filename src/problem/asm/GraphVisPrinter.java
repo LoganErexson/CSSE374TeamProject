@@ -108,7 +108,6 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 		this.classes = classes;
 	}
 
-	@Override
 	public String createArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [ \n");

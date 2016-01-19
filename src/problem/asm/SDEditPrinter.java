@@ -29,23 +29,17 @@ public class SDEditPrinter implements IClassStructurePrinter {
 			Set<String> classSet = new HashSet<>();
 			String nm = StringParser.parseClassName(this.classNames.get(0));
 			classesString.append(nm + ":" + nm + "[a]\n");
-			
-//			for (String name : this.classNames) {
-//				name = StringParser.parseClassName(name);
-//				if (!name.equals(nm) && !name.isEmpty()) {
-//					sb.append("/" + name + ":" + name + "\n");
-//				}
-//			}
-			sb.append("\n");
+			classSet.add(nm);
 			
 			for (IMethodCallData meth : this.classes) {
-				if(!classSet.contains(meth.getMethodClass())){
-					classSet.add(meth.getMethodClass());
-					String name = StringParser.parseClassName(meth.getMethodClass());
+				String name = StringParser.parseClassName(meth.getMethodClass());
+				if(!classSet.contains(name)){
+					classSet.add(name);
 					classesString.append(name + ":" + name + "\n");
 				}
 				sb.append(meth.toString() + "\n");
 			}
+			classesString.append("\n");
 			classesString.append(sb.toString());
 			out.write(classesString.toString().getBytes());
 			out.close();
@@ -54,9 +48,4 @@ public class SDEditPrinter implements IClassStructurePrinter {
 		}
 	}
 
-	@Override
-	public String createArrows() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

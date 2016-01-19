@@ -81,16 +81,12 @@ public class DesignParser {
 			List<String> classNames = new ArrayList<>();
 			classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
 			
-			Queue<IMethodCallData> methodQueue = new LinkedList<>();
-			
 			IMethodCallData startingMethod = new MethodCallData();
 			startingMethod.setMethodClass(classNames.get(0));
 			startingMethod.setCallingClass("");
 			startingMethod.setDepth(depth);
 			startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
 					methodSignature.lastIndexOf("(")));
-			
-			methodQueue.add(startingMethod);
 		
 			methodCalls = VisitorManager.getMethodCalls(startingMethod);
 			

@@ -13,6 +13,7 @@ usable by GVEdit. It does this by calling functions in ClassData that build stri
 for representing the class itself, its interfaces, and its superclass.
 
 ![alt tag](httpes://raw.github.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Handmade UML Designs.pdf)
+![alt tag](httpes://raw.github.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Diagram.png)
 
 Logan:
 - Created ClassData class and String building methods in ClassData

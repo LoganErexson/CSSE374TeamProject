@@ -12,7 +12,7 @@ GraphVisPrinter, which organizes the information in about the classes into a for
 usable by GVEdit. It does this by calling functions in ClassData that build strings
 for representing the class itself, its interfaces, and its superclass.
 
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Handmade UML Designs.pdf)
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM1.png)
 ![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Diagram.png)
 
 Logan:
@@ -50,7 +50,8 @@ to ClassData. This allowed all of the primary changes to be made to classData fo
 implementation of the uses and association arrows. 
 
 ![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
-![alt tag](httpes://raw.github.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UML Design M2.pdf)
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UUMLdesignM2.png)
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
 
 Jack: 
 - Added getAssociationArrows method and functionality to ClassData.

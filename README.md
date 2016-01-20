@@ -12,6 +12,8 @@ GraphVisPrinter, which organizes the information in about the classes into a for
 usable by GVEdit. It does this by calling functions in ClassData that build strings
 for representing the class itself, its interfaces, and its superclass.
 
+![alt tag](CSSE374TeamProject/docs/Handmade UML Designs.pdf)
+
 Logan:
 - Created ClassData class and String building methods in ClassData
 - Added GraphVisPrinter class for GVEdit formating and printing into document
@@ -45,6 +47,9 @@ The only large modifications were in the ClassData, MethodData, and FieldData cl
 The primary design change was a move of the arrow drawing methods in the GraphVizPrinter 
 to ClassData. This allowed all of the primary changes to be made to classData for the actual
 implementation of the uses and association arrows. 
+
+![alt tag](CSSE374TeamProject/docs/Milestone-2-Revised-Generated-code.png)
+![alt tag](CSSE374TeamProject/docs/UML Design M2.pdf)
 
 Jack: 
 - Added getAssociationArrows method and functionality to ClassData.

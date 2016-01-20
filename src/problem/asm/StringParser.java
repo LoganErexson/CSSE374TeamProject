@@ -75,9 +75,9 @@ public class StringParser{
 		return parseClassName(signature);
 	}
 	
-	public static List<String> getClassNames(List<IClassData> classes){
+	public static List<String> getClassNames(List<AbstractClassDataVisitor> classes){
 		List<String> classNames = new ArrayList<>();
-		for(IClassData clazz: classes){
+		for(AbstractClassDataVisitor clazz: classes){
 			classNames.add(parseClassName(clazz.getName()));
 		}
 		return classNames;
@@ -87,9 +87,7 @@ public class StringParser{
 		if(classString.contains("\\<")){
 			return classString.replace("\\<", "<").replace("\\>", ">");
 		}
-		else{
-			return classString;
-		}
+		return classString;
 	}
 
 }

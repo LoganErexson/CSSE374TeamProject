@@ -32,7 +32,7 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 			toDecorate.setMethodCalls(this.calledByMethod);
 			toDecorate.setClassName(this.callData.getMethodClass());
 		}
-		this.getClassData().addMethod(m);
+		this.addMethod(m);
 		return toDecorate;
 	}
 

@@ -23,6 +23,7 @@ public class VisitorManager {
 		// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		methodVisitor.updateFromDecorated();
 		return methodVisitor;
 	}
 	
@@ -40,6 +41,7 @@ public class VisitorManager {
 		// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		methodVisitor.updateFromDecorated();
 		return methodVisitor;
 	}
 	

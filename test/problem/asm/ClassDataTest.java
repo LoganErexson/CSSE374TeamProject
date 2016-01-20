@@ -2,9 +2,13 @@ package problem.asm;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilterInputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -221,5 +225,35 @@ public class ClassDataTest {
 				methodSignature.lastIndexOf("(")));
 		
 		assertEquals("", startingMethod.getCallingClass());
+	}
+	
+	@Test
+	public final void testDepthOf5withSimpleClasses() throws IOException {
+		File file = new File("./test/new.sd");
+		InputStream in = null;
+		
+		String[] CLASSES = { "problem.asm.A", "problem.asm.B", "problem.asm.C",  "problem.asm.D", "problem.asm.E"};
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}
+		String methodSignature = "problem.asm.A.doB()";
+		List<String> classNames = new ArrayList<>();
+		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
+		List<IMethodCallData> methodCalls = new ArrayList<>();
+		
+		IMethodCallData startingMethod = new MethodCallData();
+		startingMethod.setMethodClass(classNames.get(0));
+		startingMethod.setCallingClass("");
+		startingMethod.setDepth(5);
+		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
+				methodSignature.lastIndexOf("(")));
+		
+		methodCalls = VisitorManager.getMethodCalls(startingMethod);
+		
+		IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, classNames);
+		sdPrinter.printToFile(file.getAbsolutePath());
+		in = new FileInputStream(file);
+		assertEquals("", in);
 	}
 }

@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import javax.swing.JFileChooser;
 
@@ -78,11 +76,10 @@ public class DesignParser {
 			}
 			
 			List<IMethodCallData> methodCalls = new ArrayList<>();
-			List<String> classNames = new ArrayList<>();
-			classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
+			String firstClass = methodSignature.substring(0, methodSignature.lastIndexOf("."));
 			
 			IMethodCallData startingMethod = new MethodCallData();
-			startingMethod.setMethodClass(classNames.get(0));
+			startingMethod.setMethodClass(firstClass);
 			startingMethod.setCallingClass("");
 			startingMethod.setDepth(depth + 1);
 			startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
@@ -90,7 +87,7 @@ public class DesignParser {
 		
 			methodCalls = VisitorManager.getMethodCalls(startingMethod);
 			
-			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, classNames);
+			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, firstClass);
 			sdPrinter.printToFile(SD_OUTPUT);
 
 		}

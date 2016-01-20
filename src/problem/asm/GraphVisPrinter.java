@@ -16,9 +16,9 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	private Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
-	private List<IClassData> classes;
+	private List<AbstractClassDataVisitor> classes;
 	
-	public GraphVisPrinter(List<IClassData> classes){
+	public GraphVisPrinter(List<AbstractClassDataVisitor> classes){
 		this.classNames = StringParser.getClassNames(classes);
 		this.classes = classes;
 	}
@@ -43,10 +43,10 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append("fontsize =8\n");
 			sb.append("]\n");
 			
-			for(IClassData currentData: this.classes){
+			for(AbstractClassDataVisitor currentData: this.classes){
 				sb.append(currentData.toString());
 				this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-				this.classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
+				this.classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 				this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 				this.classToMethods.put(currentData.getName(), currentData.getMethods());
 			}
@@ -60,7 +60,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 	
 	public Map<String, List<String>> getClassToInterfaces() {
-		return classToInterfaces;
+		return this.classToInterfaces;
 	}
 
 	public void setClassToInterfaces(Map<String, List<String>> classToInterfaces) {
@@ -68,7 +68,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 
 	public Map<String, String> getClassToSuperclass() {
-		return classToSuperclass;
+		return this.classToSuperclass;
 	}
 
 	public void setClassToSuperclass(Map<String, String> classToSuperclass) {
@@ -76,7 +76,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 
 	public Map<String, List<String>> getClassToAssociatedClasses() {
-		return classToAssociatedClasses;
+		return this.classToAssociatedClasses;
 	}
 
 	public void setClassToAssociatedClasses(
@@ -85,7 +85,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 
 	public Map<String, List<IMethodData>> getClassToMethods() {
-		return classToMethods;
+		return this.classToMethods;
 	}
 
 	public void setClassToMethods(Map<String, List<IMethodData>> classToMethods) {
@@ -93,22 +93,21 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 
 	public List<String> getClassNames() {
-		return classNames;
+		return this.classNames;
 	}
 
 	public void setClassNames(List<String> classNames) {
 		this.classNames = classNames;
 	}
 
-	public List<IClassData> getClasses() {
-		return classes;
+	public List<AbstractClassDataVisitor> getClasses() {
+		return this.classes;
 	}
 
-	public void setClasses(List<IClassData> classes) {
+	public void setClasses(List<AbstractClassDataVisitor> classes) {
 		this.classes = classes;
 	}
 
-	@Override
 	public String createArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [ \n");

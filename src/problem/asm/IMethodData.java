@@ -2,7 +2,7 @@ package problem.asm;
 
 import java.util.List;
 
-public interface IMethodData extends IData {
+public interface IMethodData{
 	public String getType();
 
 	public void setType(String type);
@@ -20,4 +20,8 @@ public interface IMethodData extends IData {
 	public List<String> getUsedClasses();
 
 	public void setUsedClasses(List<String> usedClasses);
+
+	public void setName(String name);
+	
+	public String getName();
 }

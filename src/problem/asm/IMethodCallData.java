@@ -1,6 +1,6 @@
 package problem.asm;
 
-public interface IMethodCallData extends IData{
+public interface IMethodCallData{
 	
 	public void setCallingClass(String callingClass);
 	public String getCallingClass();
@@ -10,5 +10,7 @@ public interface IMethodCallData extends IData{
 	public String getMethodClass();
 	public void setDepth(int depth);
 	public int getDepth();
+	public void setName(String name);
+	public String getName();
 	
 }

@@ -21,7 +21,7 @@ public class ClassFieldVisitor extends AbstractClassDataVisitor {
 		
 		addAccessLevel(access);
 		
-		this.getClassData().addField(new FieldData(name, this.level, type, signature));
+		this.addField(new FieldData(name, this.level, type, signature));
 		//appendToField(name + " : " + type + "'\'l");
 		// TODO: add this field to your internal representation of the current class.
 		// What is a good way to know what the current class is?

@@ -31,24 +31,26 @@ public class MethodData implements IMethodData{
 		this.usedClasses = new ArrayList<>();
 	}
 	
+	@Override
 	public void addUsedClass(String clazz) {
 		this.usedClasses.add(clazz);
 	}
 
+	@Override
 	public List<String> getUsedClasses() {
-		return usedClasses;
+		return this.usedClasses;
 	}
 
+	@Override
 	public void setUsedClasses(List<String> usedClasses) {
 		this.usedClasses = usedClasses;
 	}
 
-	@Override
+	
 	public String getName() {
 		return this.name;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}

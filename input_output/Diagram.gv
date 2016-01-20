@@ -10,10 +10,7 @@ fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
 AbstractClassDataVisitor [
-label = "{AbstractClassDataVisitor|# classData : IClassData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getClassData() : IClassData\l}"
-]
-ClassData [
-label = "{ClassData|- name : String\l- superClass : String\l- interfaces : List\<String\>\l- fields : List\<IFieldData\>\l- methods : List\<IMethodData\>\l- associatedClasses : List\<String\>\l|+ \<init\>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ toString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
+label = "{AbstractClassDataVisitor|# className : String\l# superClass : String\l# implementedClasses : List\<String\>\l# fields : List\<IFieldData\>\l# methods : List\<IMethodData\>\l# associatedClasses : List\<String\>\l# decorated : AbstractClassDataVisitor\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getImplementedClasses() : List\<String\>\l+ setImplementedClasses(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ toString() : String\l+ getAssociatedClasses() : List\<String\>\l+ updateFromDecorated() : void\l}"
 ]
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
@@ -22,52 +19,46 @@ ClassFieldVisitor [
 label = "{ClassFieldVisitor|- level : String\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitField(int, String, String, String, Object) : FieldVisitor\l+ addAccessLevel(int) : void\l}"
 ]
 ClassMethodVisitor [
-label = "{ClassMethodVisitor|- level : String\l- neededMethod : String\l- calledByNeeded : List\<IMethodCallData\>\l- callData : IMethodCallData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l+ getNeededMethod() : String\l+ setNeededMethod(String) : void\l+ getMethodCalls() : List\<IMethodCallData\>\l+ setCallData(IMethodCallData) : void\l+ getCallData() : IMethodCallData\l}"
+label = "{ClassMethodVisitor|- level : String\l- calledByMethod : List\<IMethodCallData\>\l- callData : IMethodCallData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l+ getMethodCalls() : List\<IMethodCallData\>\l+ setCallData(IMethodCallData) : void\l+ getCallData() : IMethodCallData\l}"
 ]
 DesignParser [
-label = "{DesignParser|+ DEFAULT_PATH : String\l+ DEFAULT_PREFIX : String\l+ UML_OUTPUT : String\l+ SD_OUTPUT : String\l|+ \<init\>() : void\l+ main(String[]) : void\l}"
+label = "{DesignParser|+ DEFAULT_CLASSES : String[]\l+ UML_OUTPUT : String\l+ SD_OUTPUT : String\l|+ \<clinit\>() : void\l+ \<init\>() : void\l+ main(String[]) : void\l}"
 ]
 FieldData [
 label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ \<init\>(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
 ]
 GraphVisPrinter [
-label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(String) : void\l+ createArrows() : String\l- getUsedClassesArrows() : String\l}"
-]
-IClassData [
-label = "{IClassData||+ setSuperClass(String) : void\l+ getSuperClass() : String\l+ getInterfaces() : List\<String\>\l+ setInterfaces(List\<String\>) : void\l+ getAssociatedClasses() : List\<String\>\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l}"
+label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- classes : List\<AbstractClassDataVisitor\>\l|+ \<init\>(List\<AbstractClassDataVisitor\>) : void\l+ printToFile(String) : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ getClasses() : List\<AbstractClassDataVisitor\>\l+ setClasses(List\<AbstractClassDataVisitor\>) : void\l+ createArrows() : String\l- getUsedClassesArrows() : String\l}"
 ]
 IClassStructurePrinter [
-label = "{IClassStructurePrinter||+ printToFile(String) : void\l+ createArrows() : String\l}"
-]
-IData [
-label = "{IData||+ setName(String) : void\l+ getName() : String\l+ toString() : String\l}"
+label = "{IClassStructurePrinter||+ printToFile(String) : void\l}"
 ]
 IFieldData [
-label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l}"
+label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IMethodCallData [
-label = "{IMethodCallData||+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ setDepth(int) : void\l+ getDepth() : int\l}"
+label = "{IMethodCallData||+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ setDepth(int) : void\l+ getDepth() : int\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IMethodData [
-label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l}"
+label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 MethodBodyVisitor [
 label = "{MethodBodyVisitor|- method : IMethodData\l- methodCalls : List\<IMethodCallData\>\l- className : String\l|+ \<init\>(int, MethodVisitor) : void\l+ setMethod(IMethodData) : void\l+ visitMethodInsn(int, String, String, String, boolean) : void\l+ visitFieldInsn(int, String, String, String) : void\l+ visitTypeInsn(int, String) : void\l+ visitVarInsn(int, int) : void\l+ getMethodCalls() : List\<IMethodCallData\>\l+ setMethodCalls(List\<IMethodCallData\>) : void\l+ getClassName() : String\l+ setClassName(String) : void\l}"
 ]
 MethodCallData [
-label = "{MethodCallData|- callingClass : String\l- methodClass : String\l- method : IMethodData\l- depth : int\l|+ \<init\>() : void\l+ setName(String) : void\l+ getName() : String\l+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ toString() : String\l+ setDepth(int) : void\l+ getDepth() : int\l}"
+label = "{MethodCallData|- callingClass : String\l- methodClass : String\l- method : IMethodData\l- depth : int\l- methodName : String\l|+ \<init\>() : void\l+ setName(String) : void\l+ getName() : String\l+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ toString() : String\l+ setDepth(int) : void\l+ getDepth() : int\l}"
 ]
 MethodData [
 label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- usedClasses : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
 SDEditPrinter [
-label = "{SDEditPrinter|- classNames : List\<String\>\l- classes : List\<IClassData\>\l- usedClasses : List\<String\>\l- startClass : IClassData\l- methodPath : String\l- depth : int\l|+ \<init\>(List\<IClassData\>, String) : void\l+ printToFile(String) : void\l+ createArrows() : String\l+ visitClass(String) : void\l}"
+label = "{SDEditPrinter|- firstClass : String\l- methodCalls : List\<IMethodCallData\>\l|+ \<init\>(List\<IMethodCallData\>, String) : void\l+ printToFile(String) : void\l}"
 ]
 StringParser [
-label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l}"
+label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<AbstractClassDataVisitor\>) : List\<String\>\l+ cleanAngleBrackets(String) : String\l}"
 ]
 VisitorManager [
-label = "{VisitorManager||+ \<init\>() : void\l+ visitClass(String) : AbstractClassDataVisitor\l+ getClassNames(String, String) : List\<String\>\l+ visitMethods(String, String, IMethodCallData) : ClassMethodVisitor\l}"
+label = "{VisitorManager||+ \<init\>() : void\l+ visitClass(String) : AbstractClassDataVisitor\l+ visitMethods(String, IMethodCallData) : ClassMethodVisitor\l+ getMethodCalls(IMethodCallData) : List\<IMethodCallData\>\l}"
 ]
 edge [ 
 arrowhead = "empty"
@@ -81,31 +72,26 @@ arrowhead = "empty"
 style = "dashed"
 ]
 MethodCallData -> IMethodCallData
-IMethodCallData -> IData
 FieldData -> IFieldData
 SDEditPrinter -> IClassStructurePrinter
-ClassData -> IClassData
 GraphVisPrinter -> IClassStructurePrinter
 MethodData -> IMethodData
-IMethodData -> IData
-IClassData -> IData
-IFieldData -> IData
 edge [ 
 arrowhead = "vee"
 style = "solid"
 ]
 MethodCallData -> IMethodData
-AbstractClassDataVisitor -> IClassData
+AbstractClassDataVisitor -> AbstractClassDataVisitor
 ClassMethodVisitor -> IMethodCallData
 MethodBodyVisitor -> IMethodData
-SDEditPrinter -> IClassData
 edge [ 
 arrowhead = "vee"
 style = "dashed"
 ]
-StringParser -> IClassData
-AbstractClassDataVisitor -> ClassData
-ClassMethodVisitor -> AbstractClassDataVisitor
+StringParser -> AbstractClassDataVisitor
+AbstractClassDataVisitor -> IFieldData
+AbstractClassDataVisitor -> IMethodData
+ClassMethodVisitor -> MethodCallData
 ClassMethodVisitor -> MethodBodyVisitor
 ClassMethodVisitor -> MethodData
 MethodBodyVisitor -> IMethodCallData
@@ -113,10 +99,6 @@ VisitorManager -> ClassDeclarationVisitor
 VisitorManager -> ClassFieldVisitor
 VisitorManager -> ClassMethodVisitor
 DesignParser -> GraphVisPrinter
-DesignParser -> MethodCallData
 DesignParser -> SDEditPrinter
-IMethodCallData -> IMethodData
-SDEditPrinter -> VisitorManager
-ClassData -> IFieldData
 ClassFieldVisitor -> FieldData
 }

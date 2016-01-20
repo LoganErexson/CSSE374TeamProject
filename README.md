@@ -50,7 +50,7 @@ to ClassData. This allowed all of the primary changes to be made to classData fo
 implementation of the uses and association arrows. 
 
 ![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UUMLdesignM2.png)
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM2.png)
 ![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
 
 Jack: 

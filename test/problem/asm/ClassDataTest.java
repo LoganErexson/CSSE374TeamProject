@@ -218,4 +218,27 @@ public class ClassDataTest {
 		
 		assertEquals("X:List<String>=Y.fooBar(String, int)", callData.toString());
 	}
+	
+	@Test
+	public final void testMethodDataToString(){
+
+		Type[] args = {Type.getType(int.class), Type.getType(Boolean.class)};
+		IMethodData methodA = new MethodData("fooBar", Type.getType(String.class), "-", args, null);
+		assertEquals("- fooBar(int, Boolean) : String\\l", methodA.toString());
+
+		IMethodData methodB = new MethodData("barFoo", null, "-", null, "(String;int;)List<ClassData;>");
+		assertEquals("- barFoo(String, int) : List\\<ClassData\\>\\l", methodB.toString());
+		
+		IMethodData methodC = new MethodData("boFaRo", null, "-", null, "(List<ClassData;>;int;)Double");
+		assertEquals("- boFaRo(List\\<ClassData\\>, int) : Double\\l", methodC.toString());
+	}
+	
+	@Test
+	public final void testFieldDataToString(){
+		IFieldData fieldA = new FieldData("name", "#", Type.getType(Float.class), null);
+		assertEquals("# name : Float\\l", fieldA.toString());
+		
+		IFieldData fieldB = new FieldData("set", "-", null, "Set<Integer>");
+		assertEquals("- set : Set\\<Integer\\>\\l", fieldB.toString());
+	}
 }

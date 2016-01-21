@@ -40,7 +40,7 @@ public class StringParser{
 				continue;
 			}
 			else if(param.contains("<")){
-				elementType = parseClassName(param);
+				elementType = parseClassName(param.substring(param.indexOf("<")+1));
 				param = param.substring(0, param.indexOf('<'));
 				params.add(parseClassName(param)+"\\<"+elementType+"\\>");
 			}
@@ -68,7 +68,7 @@ public class StringParser{
 	
 	public static String fieldTypeFromSignature(String signature){
 		if(signature.contains("<")){
-			String elementType = parseClassName(signature);
+			String elementType = parseClassName(signature.substring(signature.indexOf("<")+1, signature.lastIndexOf(">")));
 			String fieldType = signature.substring(0, signature.indexOf('<'));
 			return parseClassName(fieldType)+"\\<"+elementType+"\\>";
 		}

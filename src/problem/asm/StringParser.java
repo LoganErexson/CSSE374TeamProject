@@ -56,7 +56,7 @@ public class StringParser{
 			return "";
 		String returnType = signature.substring(signature.indexOf(')')+1);
 		if(returnType.contains("<")){
-			String elementType = parseClassName(returnType);
+			String elementType = parseClassName(returnType.substring(returnType.indexOf("<")+1));
 			returnType = returnType.substring(0, returnType.indexOf('<'));
 			return parseClassName(returnType)+"\\<"+elementType+"\\>";
 		}

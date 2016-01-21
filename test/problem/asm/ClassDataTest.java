@@ -124,6 +124,7 @@ public class ClassDataTest {
 	@Test
 	public final void testAssociationArrows() throws IOException {
 		String[] CLASSES = {"problem.asm.A"};
+		String expected = "edge [\narrowhead = \"vee\"\nstyle = \"solid\"\n]\nA -> B";
 		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className));
@@ -144,7 +145,7 @@ public class ClassDataTest {
 		printer.setClassToInterfaces(classToInterfaces);
 		printer.setClassToMethods(classToMethods);
 		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-		assertTrue(printer.createArrows().contains("A -> B"));
+		assertTrue(printer.createArrows().contains(expected));
 	}
 	
 	@Test
@@ -182,36 +183,8 @@ public class ClassDataTest {
 		assertEquals("problem.asm.DesignParser", startingMethod.getMethodClass());
 	}
 	
-	@Test 
-	public final void testMethodCallInnerMethodCall() throws IOException {
-		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
-				"problem.asm.ClassDeclarationVisitor",
-				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
-				"problem.asm.FieldData", "problem.asm.MethodData",
-				"problem.asm.AbstractClassDataVisitor" };
-		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
-		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className));
-		}
-		String methodSignature = "problem.asm.DesignParser.main(String[])";
-		//List<IMethodCallData> methodCalls = new ArrayList<>();
-		List<String> classNames = new ArrayList<>();
-		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
-		
-		//Queue<IMethodCallData> methodQueue = new LinkedList<>();
-		
-		IMethodCallData startingMethod = new MethodCallData();
-		startingMethod.setMethodClass(classNames.get(0));
-		startingMethod.setCallingClass("");
-		startingMethod.setDepth(5);
-		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
-				methodSignature.lastIndexOf("(")));
-		
-		assertEquals("", startingMethod.getCallingClass());
-	}
-	
 	@Test
-	public final void testDepthOf5withSimpleClasses() throws IOException {
+	public final void testDepthOf2withSimpleClasses() throws IOException {
 		String expected = "A:A[a]\nPrintStream:PrintStream\nB:B\n\n" +
 				"A:PrintStream.println(Object)\nA:B.doC()\n";
 		
@@ -232,5 +205,17 @@ public class ClassDataTest {
 		sdPrinter.printToFile(out);
 		assertEquals(expected, out.toString());
 		out.close();
+	}
+	@Test
+	public final void testMethodCallDataToString(){
+		IMethodCallData callData = new MethodCallData();
+		callData.setCallingClass("problem.asm.X");
+		callData.setMethodClass("problem/asm/Y");
+		callData.setName("fooBar");
+		Type[] args = {};
+		IMethodData method = new MethodData("fooBar", null,"+", args, "(String;int;)List<String;>");
+		callData.setMethod(method);
+		
+		assertEquals("X:List<String>=Y.fooBar(String, int)", callData.toString());
 	}
 }

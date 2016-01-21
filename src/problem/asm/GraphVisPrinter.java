@@ -106,7 +106,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 
 	public String createArrows(){
 		StringBuilder sb = new StringBuilder();
-		sb.append("edge [ \n");
+		sb.append("edge [\n");
 		sb.append("arrowhead = \"empty\"\n");
 		sb.append("style = \"solid\"\n]\n");
 		for(String className: this.classToSuperclass.keySet()){
@@ -114,7 +114,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 				sb.append(className+" -> "+ this.classToSuperclass.get(className)+ "\n");
 			}
 		}
-		sb.append("edge [ \n");
+		sb.append("edge [\n");
 		sb.append("arrowhead = \"empty\"\n");
 		sb.append("style = \"dashed\"\n]\n");
 		for(String className: this.classToInterfaces.keySet()){
@@ -126,7 +126,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 				}
 			}
 		}
-		sb.append("edge [ \n");
+		sb.append("edge [\n");
 		sb.append("arrowhead = \"vee\"\n");
 		sb.append("style = \"solid\"\n]\n");
 		for(String className: this.classToAssociatedClasses.keySet()){
@@ -139,7 +139,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			}
 		}
 
-		sb.append("edge [ \n");
+		sb.append("edge [\n");
 		sb.append("arrowhead = \"vee\"\n");
 		sb.append("style = \"dashed\"\n]\n");
 		sb.append(getUsedClassesArrows());

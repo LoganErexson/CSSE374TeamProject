@@ -125,6 +125,9 @@ For milestone 4 the changes made involve decorating each visitor as they complet
 used to detect the necessary requirements for a singleton and then add a flag to indicate that the proper formating(In this case the color blue for the box) should
 be addeded to the string representation of the class. By decorating the visitor no changes should need to be made within any classes but DesignParser and GraphVisPrinter. 
 
+Manual UML Project Code
+![alt M3-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM4.png)
+
 
 To use this tool, run DesignParser with arguments in one of the two following formats:
 uml  #Used for creating .dot files

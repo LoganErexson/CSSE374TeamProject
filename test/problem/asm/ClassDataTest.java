@@ -1,58 +1,42 @@
 package problem.asm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FilterInputStream;
-import java.io.FilterOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+
+import jdk.internal.org.objectweb.asm.Opcodes;
 
 import org.junit.Test;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 public class ClassDataTest {
 	@Test
 	public final void testSingleClass() throws IOException {
-		assertEquals(
-				"GraphVisPrinter [\n"
-						+ "label = \"{GraphVisPrinter|- classToInterfaces : Map\\<String\\>\\l- classToSuperclass : " +
-						"Map\\<String\\>\\l- classToAssociatedClasses : Map\\<String\\>\\l- classToMethods : Map\\<IMethodData\\>\\l- "+
-						"classNames : List\\<String\\>\\l- classes : List\\<IClassData\\>\\l|+ \\<init\\>(List\\<IClassData\\>) : " + 
-						"void\\l+ printToFile(String) : void\\l+ getClassToInterfaces() : Map\\<String\\>\\l+ setClassToInterfaces(Map\\<String\\>, "+
-						"List\\<String\\>) : void\\l+ getClassToSuperclass() : Map\\<String\\>\\l+ setClassToSuperclass(Map\\<String\\>, "+
-						"String) : void\\l+ getClassToAssociatedClasses() : Map\\<String\\>\\l+ setClassToAssociatedClasses(Map\\"+
-						"<String\\>, List\\<String\\>) : void\\l+ getClassToMethods() : Map\\<IMethodData\\>\\l+ setClassToMethods(Map"+
-						"\\<String\\>, List\\<IMethodData\\>) : void\\l+ getClassNames() : List\\<String\\>\\l+ setClassNames(List\\"+
-						"<String\\>) : void\\l+ getClasses() : List\\<IClassData\\>\\l+ setClasses(List\\<IClassData\\>) : void\\l+ "+
-						"createArrows() : String\\l- getUsedClassesArrows() : String\\l}\"\n" 
-						+ "]\n", VisitorManager.visitClass("problem.asm.GraphVisPrinter").getClassData().toString());
+		assertEquals("A [\n" +
+				"label = \"{A|+ b : B\\l|+ \\<init\\>() : void\\l+ doB() : void\\l}\"" +
+						"\n]\n", VisitorManager.visitClass("problem.asm.A").getUMLString());
 	}
 
 	@Test
 	public final void testInterfaces() throws IOException {
-		List<IClassData> datas = new ArrayList<>();
-		datas.add(VisitorManager.visitClass("lab1_3/Behavior").getClassData());
-		datas.add(VisitorManager.visitClass("lab1_3/HTMLBehavior").getClassData());
+		List<AbstractClassDataVisitor> datas = new ArrayList<>();
+		datas.add(VisitorManager.visitClass("lab1_3/Behavior"));
+		datas.add(VisitorManager.visitClass("lab1_3/HTMLBehavior"));
 		GraphVisPrinter printer = new GraphVisPrinter(datas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
 		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-		for(IClassData currentData: datas){
+		for(AbstractClassDataVisitor currentData: datas){
 			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-			classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 			classToMethods.put(currentData.getName(), currentData.getMethods());
 		}
@@ -66,19 +50,19 @@ public class ClassDataTest {
 	@Test
 	public final void testSuperClasses() throws IOException {
 		String[] CLASSES = {"problem.asm.AbstractClassDataVisitor" };
-		List<IClassData> classDatas = new ArrayList<>();
+		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
+			classDatas.add(VisitorManager.visitClass(className));
 		}
-		classDatas.add(VisitorManager.visitClass("problem.asm.ClassMethodVisitor").getClassData());
+		classDatas.add(VisitorManager.visitClass("problem.asm.ClassMethodVisitor"));
 		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
 		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-		for(IClassData currentData: classDatas){
+		for(AbstractClassDataVisitor currentData: classDatas){
 			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-			classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 			classToMethods.put(currentData.getName(), currentData.getMethods());
 		}
@@ -90,12 +74,12 @@ public class ClassDataTest {
 	}
 
 	@Test
-	public final void testToStringBase() {
-		IClassData c = new ClassData();
+	public final void testUMLStringBase() {
+		AbstractClassDataVisitor c = new ClassDeclarationVisitor(Opcodes.ASM5, null);
 		c.setName("Test");
 		List<String> inters = new ArrayList<>();
 		inters.add("Interface");
-		c.setInterfaces(inters);
+		c.setImplementedClasses(inters);
 		c.setSuperClass("Super");
 		Type f = Type.CHAR_TYPE;
 		c.addField(new FieldData("AField", "+", f, null));
@@ -104,7 +88,7 @@ public class ClassDataTest {
 
 		assertEquals("Test [\n" + "label = "
 				+ "\"{Test|+ AField : char\\l|+ AMEthod() : void\\l" + "}\"\n"
-				+ "]\n", c.toString());
+				+ "]\n", c.getUMLString());
 	}
 
 	@Test
@@ -114,20 +98,19 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<IClassData> classDatas = new ArrayList<>();
+		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
+			classDatas.add(VisitorManager.visitClass(className));
 		}	
-		classDatas.add(VisitorManager.visitClass("problem.asm.ClassData").getClassData());
 		//List<String> classNames = StringParser.getClassNames(classDatas);
 		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
 		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-		for(IClassData currentData: classDatas){
+		for(AbstractClassDataVisitor currentData: classDatas){
 			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-			classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 			classToMethods.put(currentData.getName(), currentData.getMethods());
 		}
@@ -140,20 +123,20 @@ public class ClassDataTest {
 
 	@Test
 	public final void testAssociationArrows() throws IOException {
-		String[] CLASSES = {"problem.asm.IClassData"};
-		List<IClassData> classDatas = new ArrayList<>();
+		String[] CLASSES = {"problem.asm.A"};
+		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
+			classDatas.add(VisitorManager.visitClass(className));
 		}	
-		classDatas.add(VisitorManager.visitClass("problem.asm.AbstractClassDataVisitor").getClassData());
+		classDatas.add(VisitorManager.visitClass("problem.asm.B"));
 		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
 		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-		for(IClassData currentData: classDatas){
+		for(AbstractClassDataVisitor currentData: classDatas){
 			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-			classToInterfaces.put(currentData.getName(), currentData.getInterfaces());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
 			classToMethods.put(currentData.getName(), currentData.getMethods());
 		}
@@ -161,7 +144,7 @@ public class ClassDataTest {
 		printer.setClassToInterfaces(classToInterfaces);
 		printer.setClassToMethods(classToMethods);
 		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-		assertTrue(printer.createArrows().contains("AbstractClassDataVisitor -> IClassData"));
+		assertTrue(printer.createArrows().contains("A -> B"));
 	}
 	
 	@Test
@@ -181,9 +164,9 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<IClassData> classDatas = new ArrayList<>();
+		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
+			classDatas.add(VisitorManager.visitClass(className));
 		}
 		String methodSignature = "problem.asm.DesignParser.main(String[])";
 		List<String> classNames = new ArrayList<>();
@@ -206,9 +189,9 @@ public class ClassDataTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<IClassData> classDatas = new ArrayList<>();
+		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
+			classDatas.add(VisitorManager.visitClass(className));
 		}
 		String methodSignature = "problem.asm.DesignParser.main(String[])";
 		//List<IMethodCallData> methodCalls = new ArrayList<>();
@@ -229,31 +212,25 @@ public class ClassDataTest {
 	
 	@Test
 	public final void testDepthOf5withSimpleClasses() throws IOException {
-		File file = new File("./test/new.sd");
-		InputStream in = null;
+		String expected = "A:A[a]\nPrintStream:PrintStream\nB:B\n\n" +
+				"A:PrintStream.println(Object)\nA:B.doC()\n";
 		
-		String[] CLASSES = { "problem.asm.A", "problem.asm.B", "problem.asm.C",  "problem.asm.D", "problem.asm.E"};
-		List<IClassData> classDatas = new ArrayList<>();
-		for (String className : CLASSES) {
-			classDatas.add(VisitorManager.visitClass(className).getClassData());
-		}
-		String methodSignature = "problem.asm.A.doB()";
-		List<String> classNames = new ArrayList<>();
-		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
+		String className = "problem.asm.A";
+		String methodName = "doB";
 		List<IMethodCallData> methodCalls = new ArrayList<>();
 		
 		IMethodCallData startingMethod = new MethodCallData();
-		startingMethod.setMethodClass(classNames.get(0));
+		startingMethod.setMethodClass(className);
 		startingMethod.setCallingClass("");
-		startingMethod.setDepth(5);
-		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
-				methodSignature.lastIndexOf("(")));
+		startingMethod.setDepth(2);
+		startingMethod.setName(methodName);
 		
 		methodCalls = VisitorManager.getMethodCalls(startingMethod);
 		
-		IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, classNames);
-		sdPrinter.printToFile(file.getAbsolutePath());
-		in = new FileInputStream(file);
-		assertEquals("", in);
+		IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, className);
+		OutputStream out = new ByteArrayOutputStream();
+		sdPrinter.printToFile(out);
+		assertEquals(expected, out.toString());
+		out.close();
 	}
 }

@@ -72,8 +72,8 @@ public abstract class AbstractClassDataVisitor extends ClassVisitor{
 		return this.methods;
 	}
 	
-	@Override
-	public String toString(){
+
+	public String getUMLString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.className + " [\n");
 		sb.append("label = \"{"+this.className);

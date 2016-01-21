@@ -1,7 +1,10 @@
 package problem.asm;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +65,9 @@ public class DesignParser {
 				classDatas.add(visitor);
 			}
 			IClassStructurePrinter gPrinter = new GraphVisPrinter(classDatas);
-			gPrinter.printToFile(UML_OUTPUT);
+			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));
+			gPrinter.printToFile(out);
+			out.close();
 		}
 		else if(args[0].toLowerCase().equals("sd")){
 			if(args.length<2){
@@ -88,7 +93,9 @@ public class DesignParser {
 			methodCalls = VisitorManager.getMethodCalls(startingMethod);
 			
 			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, firstClass);
-			sdPrinter.printToFile(SD_OUTPUT);
+			OutputStream out = new FilterOutputStream(new FileOutputStream(SD_OUTPUT));
+			sdPrinter.printToFile(out);
+			out.close();
 
 		}
 		else{

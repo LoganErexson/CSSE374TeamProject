@@ -1,7 +1,5 @@
 package problem.asm;
 
-import java.io.FileOutputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -24,10 +22,9 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	}
 	
 	@Override
-	public void printToFile(String file){
+	public void printToFile(OutputStream out){
 		try {
 			StringBuilder sb = new StringBuilder();
-			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
 			sb.append("digraph G {\n");
 			sb.append("fontname = \" Bitstream Vera San\"\n");
 			sb.append("fontsize =8\n");
@@ -44,7 +41,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append("]\n");
 			
 			for(AbstractClassDataVisitor currentData: this.classes){
-				sb.append(currentData.toString());
+				sb.append(currentData.getUMLString());
 				this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
 				this.classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
 				this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
@@ -53,7 +50,6 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append(this.createArrows());
 			sb.append("}\n");
 			out.write(sb.toString().getBytes());
-			out.close();
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

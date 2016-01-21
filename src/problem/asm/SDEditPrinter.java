@@ -1,7 +1,5 @@
 package problem.asm;
 
-import java.io.FileOutputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
@@ -20,10 +18,9 @@ public class SDEditPrinter implements IClassStructurePrinter {
 	}
 
 	@Override
-	public void printToFile(String file) {
+	public void printToFile(OutputStream out) {
 		try {
 			StringBuilder sb = new StringBuilder();
-			OutputStream out = new FilterOutputStream(new FileOutputStream(file));
 			
 			StringBuilder classesString = new StringBuilder();
 			Set<String> classSet = new HashSet<>();
@@ -42,7 +39,6 @@ public class SDEditPrinter implements IClassStructurePrinter {
 			classesString.append("\n");
 			classesString.append(sb.toString());
 			out.write(classesString.toString().getBytes());
-			out.close();
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

@@ -12,8 +12,14 @@ GraphVisPrinter, which organizes the information in about the classes into a for
 usable by GVEdit. It does this by calling functions in ClassData that build strings
 for representing the class itself, its interfaces, and its superclass.
 
+Manual UML Project Code
 ![alt M1-Manual](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM1.png)
+Generated UML Project Code
 ![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M1-Generated-Project.png)
+Manual UML 1-3 Code
+![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/1-3-Manual.png)
+Generated UML 1-3 Code
+![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Lab1-3-GeneratedUML.jpg)
 
 Logan:
 - Created ClassData class and String building methods in ClassData
@@ -49,8 +55,11 @@ The primary design change was a move of the arrow drawing methods in the GraphVi
 to ClassData. This allowed all of the primary changes to be made to classData for the actual
 implementation of the uses and association arrows. 
 
+Generated UML Project Code
 ![alt M2-Generated-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
+Manual UML Project Code
 ![alt M2-Manual-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM2.png)
+Generated UML Pizza Code
 ![alt M2-Generated-Pizza](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
 
 Jack: 
@@ -80,10 +89,15 @@ duplicate code. StringParser converts strings for class names into something eas
 readible and parses types out of signatures. VisitorManager handles the code for 
 visiting classes.
 
+Manual UML Project Code
 ![alt M3-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM3.png)
-![alt M3-Generated-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShufle3.png)
+Generated Sequence Diagram for Collection
+![alt M3-Generated-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShuffle3.png)
+Generated Sequence Diagram Project Code
 ![alt M3-Generated-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M3-Generated-SD-ProjectCode.png)
+Manual Sequence Diagram Project Code
 ![alt M3-Manual-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/SequenceDiagramForM3.png)
+Manual Sequence Diagram Collection
 ![alt M3-Manual-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/ManualShuffleSD.png)
 
 
@@ -109,8 +123,9 @@ Logan:
 
 
 To use this tool, run DesignParser with arguments in one of the two following formats:
-uml <path_to_folder_of_classes> <package_name>   #Used for creating .dot files
-sd <method_signature> <depth>                    #Used for creating .sd files. 
-   #"depth" here is optional and will default to 5
-   #<method_signature> is in the format:
-     <package_name>.<class_name>.<method_name>(<parameter_type1>;<parameter_type2>;...)
+uml  #Used for creating .dot files
+	 #A file chooser will prompt the the user to select the files to include in the diagram
+sd <method_signature> <depth>   #Used for creating .sd files. 
+								#"depth" here is optional and will default to 5
+								#<method_signature> is in the format:
+									<package_name>.<class_name>.<method_name>(<parameter_type1>;<parameter_type2>;...)

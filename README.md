@@ -132,7 +132,7 @@ Manual UML Project Code
 To use this tool, run DesignParser with arguments in one of the two following formats:
 uml  #Used for creating .dot files
 	 #A file chooser will prompt the the user to select the files to include in the diagram
-sd <method_signature> <depth>   #Used for creating .sd files. 
+sd [method_signature] [depth]   #Used for creating .sd files. 
 								#"depth" here is optional and will default to 5
 								#<method_signature> is in the format:
-									<package_name>.<class_name>.<method_name>(<parameter_type1>;<parameter_type2>;...)
+[package_name].[class_name].[method_name]([parameter_type1];[parameter_type2];...)

@@ -12,8 +12,8 @@ GraphVisPrinter, which organizes the information in about the classes into a for
 usable by GVEdit. It does this by calling functions in ClassData that build strings
 for representing the class itself, its interfaces, and its superclass.
 
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM1.png)
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Diagram.png)
+![alt M1-Manual](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM1.png)
+![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M1-Generated-Project.png)
 
 Logan:
 - Created ClassData class and String building methods in ClassData
@@ -49,9 +49,9 @@ The primary design change was a move of the arrow drawing methods in the GraphVi
 to ClassData. This allowed all of the primary changes to be made to classData for the actual
 implementation of the uses and association arrows. 
 
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM2.png)
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
+![alt M2-Generated-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
+![alt M2-Manual-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM2.png)
+![alt M2-Generated-Pizza](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
 
 Jack: 
 - Added getAssociationArrows method and functionality to ClassData.
@@ -80,8 +80,12 @@ duplicate code. StringParser converts strings for class names into something eas
 readible and parses types out of signatures. VisitorManager handles the code for 
 visiting classes.
 
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM3.png)
-![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShufle3.png)
+![alt M3-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM3.png)
+![alt M3-Generated-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShufle3.png)
+![alt M3-Generated-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M3-Generated-SD-ProjectCode.png)
+![alt M3-Manual-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/SequenceDiagramForM3.png)
+![alt M3-Manual-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/ManualShuffleSD.png)
+
 
 Jack: 
 - Added interfaces for ClassData, MethodData, FieldData

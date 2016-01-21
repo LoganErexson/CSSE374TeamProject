@@ -109,6 +109,8 @@ Jack:
 - Updated and created new tests
 - Created SDEditPrinter and integrated use of MethodCallData into it
 - Updated UMLs
+- Added more tests
+- Updated Readme (with embedded images)
 
 Logan:
 - Added interface for GraphVisPrinter
@@ -119,6 +121,10 @@ Logan:
 - Added MethodCallData and updated  ClassMethodVisitor and MethodBodyVisitor to use it
 - Added VisitorManager
 - Updated DesignParser to use VisitorManager and SDEditPrinter
+- Wrote Tests for Data Classes
+- Moved functionality of ClassData into AbstractClassDataVisitor
+- Refactored code to removed unneccessary classes and functions
+
 							
 Milestone 4:
 For milestone 4 the changes made involve decorating each visitor as they complete their visit of each class. The decorator for this milestone will be

@@ -95,10 +95,10 @@ public abstract class AbstractClassDataVisitor extends ClassVisitor{
 	public String getUMLString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.className);
-		if(isSingleton()) 
-			sb.append("//<//<singleton//>//>");
 		sb.append(" [\n");
 		sb.append("label = \"{"+this.className);
+		if(isSingleton()) 
+			sb.append("\\<\\<singleton\\>\\>");
 		sb.append("|");
 		for(IFieldData fd : this.fields) {
 			sb.append(fd.toString());

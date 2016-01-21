@@ -80,6 +80,9 @@ duplicate code. StringParser converts strings for class names into something eas
 readible and parses types out of signatures. VisitorManager handles the code for 
 visiting classes.
 
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM3.png)
+![alt tag](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShufle3.png)
+
 Jack: 
 - Added interfaces for ClassData, MethodData, FieldData
 - Updated other classes to use data interfaces

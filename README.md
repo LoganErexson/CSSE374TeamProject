@@ -129,3 +129,9 @@ sd <method_signature> <depth>   #Used for creating .sd files.
 								#"depth" here is optional and will default to 5
 								#<method_signature> is in the format:
 									<package_name>.<class_name>.<method_name>(<parameter_type1>;<parameter_type2>;...)
+									
+									
+Milestone 4:
+For milestone 4 the changes made involve decorating each visitor as they complete their visit of each class. The decorator for this milestone will be
+used to detect the necessary requirements for a singleton and then add a flag to indicate that the proper formating(In this case the color blue for the box) should
+be addeded to the string representation of the class. By decorating the visitor no changes should need to be made within any classes but DesignParser and GraphVisPrinter. 

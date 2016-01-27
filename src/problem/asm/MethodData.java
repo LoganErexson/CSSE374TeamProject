@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.objectweb.asm.Type;
 
-public class MethodData extends AbstractTraverser implements IMethodData{
+public class MethodData implements IMethodData{
 	private String name;
 	private String type;
 	private String access;
@@ -99,6 +99,11 @@ public class MethodData extends AbstractTraverser implements IMethodData{
 		result += ") : " + this.getType() + "\\l";
 		
 		return result;
+	}
+	
+	@Override
+	public void accept(IVisitor v) {
+		v.visit(this);
 	}
 
 }

@@ -1,13 +1,17 @@
 package problem.asm;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UMLVisitor implements IVisitor {
-	Map<LookupKey, IVisitMethod> keyToVisitMethodMap;
+	private Map<LookupKey, IVisitMethod> keyToVisitMethodMap;
+	private OutputStream out;
 	
-	public UMLVisitor() {
+	public UMLVisitor(OutputStream out) {
 		this.keyToVisitMethodMap = new HashMap<>();
+		this.out = out;
 	}
 	@Override
 	public void preVisit(ITraverser t) {
@@ -28,7 +32,11 @@ public class UMLVisitor implements IVisitor {
 		LookupKey key = new LookupKey(vType, t.getClass());
 		IVisitMethod m = this.keyToVisitMethodMap.get(key);
 		if(m != null)
-			m.execute(t);
+			try {
+				m.execute(t);
+			} catch (IOException exception) {
+				exception.printStackTrace();
+			}
 	}
 	
 	@Override
@@ -41,6 +49,10 @@ public class UMLVisitor implements IVisitor {
 	public void removeVisit(VisitType visitType, Class<?> clazz) {
 		LookupKey key = new LookupKey(visitType, clazz);
 		this.keyToVisitMethodMap.remove(key);
+	}
+	@Override
+	public OutputStream getOutputStream() {
+		return this.out;
 	}
 
 }

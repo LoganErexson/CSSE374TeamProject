@@ -12,6 +12,12 @@ fontsize =8
 AbstractClassDataVisitor [
 label = "{AbstractClassDataVisitor|# classData : ClassData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l+ setClassData(ClassData) : void\l}"
 ]
+AbstractTraverser [
+label = "{AbstractTraverser||+ \<init\>() : void\l+ accept(IVisitor) : void\l}"
+]
+ClassData [
+label = "{ClassData|# className : String\l# superClass : String\l# implementedClasses : List\<String\>\l# fields : List\<IFieldData\>\l# methods : List\<IMethodData\>\l# associatedClasses : List\<String\>\l|+ \<init\>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getImplementedClasses() : List\<String\>\l+ setImplementedClasses(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ isSingleton() : boolean\l+ getUMLString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
+]
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
@@ -21,26 +27,56 @@ label = "{ClassFieldVisitor|- level : String\l|+ \<init\>(int, AbstractClassData
 ClassMethodVisitor [
 label = "{ClassMethodVisitor|- level : String\l- calledByMethod : List\<IMethodCallData\>\l- callData : IMethodCallData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visitMethod(int, String, String, String, String[]) : MethodVisitor\l+ addAccessLevel(int) : void\l+ getMethodCalls() : List\<IMethodCallData\>\l+ setCallData(IMethodCallData) : void\l+ getCallData() : IMethodCallData\l}"
 ]
+ClassPostVisit [
+label = "{ClassPostVisit|- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ execute(ITraverser) : void\l}"
+]
+ClassPreVisit [
+label = "{ClassPreVisit|- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ execute(ITraverser) : void\l}"
+]
+ClassVisit [
+label = "{ClassVisit|- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ execute(ITraverser) : void\l}"
+]
 DesignParser [
 label = "{DesignParser|+ DEFAULT_CLASSES : String[]\l+ UML_OUTPUT : String\l+ SD_OUTPUT : String\l|+ \<clinit\>() : void\l+ \<init\>() : void\l+ main(String[]) : void\l}"
 ]
 FieldData [
 label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+ \<init\>(String, String, Type, String) : void\l+ getName() : String\l+ getAccessLevel() : String\l+ getType() : String\l+ toString() : String\l+ setName(String) : void\l}"
 ]
-GraphVisPrinter [
-label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(OutputStream) : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ getClasses() : List\<IClassData\>\l+ setClasses(List\<IClassData\>) : void\l+ createArrows() : String\l- getUsedClassesArrows() : String\l}"
+FieldVisit [
+label = "{FieldVisit|- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ execute(ITraverser) : void\l}"
 ]
-IFieldData [
-label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l+ setName(String) : void\l+ getName() : String\l}"
+GraphVisPrinter [
+label = "{GraphVisPrinter|- model : IPackageModel\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(OutputStream) : void\l}"
+]
+IClassData [
+label = "{IClassData||+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getImplementedClasses() : List\<String\>\l+ setImplementedClasses(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ isSingleton() : boolean\l+ getUMLString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
 ]
 IClassStructurePrinter [
 label = "{IClassStructurePrinter||+ printToFile(OutputStream) : void\l}"
+]
+IFieldData [
+label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IMethodCallData [
 label = "{IMethodCallData||+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ setDepth(int) : void\l+ getDepth() : int\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IMethodData [
 label = "{IMethodData||+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ setName(String) : void\l+ getName() : String\l}"
+]
+IPackageModel [
+label = "{IPackageModel|+ classes : List\<IClassData\>\l+ classToInterfaces : Map\<String\>\l+ classToSuperclass : Map\<String\>\l+ classToAssociatedClasses : Map\<String\>\l+ classToMethods : Map\<IMethodData\>\l+ className : List\<String\>\l|+ \<clinit\>() : void\l+ getClasses() : List\<IClassData\>\l+ addClass(IClassData) : void\l+ setClasses(List\<IClassData\>) : void\l+ setClassRelations() : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ createArrows() : String\l+ getInheritanceArrows() : String\l+ getImplementsArrows() : String\l+ getAssociationArrows() : String\l+ getUsedClassesArrows() : String\l}"
+]
+ITraverser [
+label = "{ITraverser||+ accept(IVisitor) : void\l}"
+]
+IVisitMethod [
+label = "{IVisitMethod||+ execute(ITraverser) : void\l}"
+]
+IVisitor [
+label = "{IVisitor||+ preVisit(ITraverser) : void\l+ visit(ITraverser) : void\l+ postVisit(ITraverser) : void\l+ addVisit(VisitType, IVisitMethod) : void\l+ removeVisit(VisitType) : void\l+ getOutputStream() : OutputStream\l}"
+]
+LookupKey [
+label = "{LookupKey|+ visitType : VisitType\l+ clazz : Class\<*\>\l|+ \<init\>(VisitType) : void\l+ hashCode() : int\l+ equals(Object) : boolean\l}"
 ]
 MethodBodyVisitor [
 label = "{MethodBodyVisitor|- method : IMethodData\l- methodCalls : List\<IMethodCallData\>\l- className : String\l|+ \<init\>(int, MethodVisitor) : void\l+ setMethod(IMethodData) : void\l+ visitMethodInsn(int, String, String, String, boolean) : void\l+ visitFieldInsn(int, String, String, String) : void\l+ visitTypeInsn(int, String) : void\l+ visitVarInsn(int, int) : void\l+ getMethodCalls() : List\<IMethodCallData\>\l+ setMethodCalls(List\<IMethodCallData\>) : void\l+ getClassName() : String\l+ setClassName(String) : void\l}"
@@ -51,11 +87,32 @@ label = "{MethodCallData|- callingClass : String\l- methodClass : String\l- meth
 MethodData [
 label = "{MethodData|- name : String\l- type : String\l- access : String\l- args : List\<String\>\l- usedClasses : List\<String\>\l|+ \<init\>(String, Type, String, Type[], String) : void\l+ addUsedClass(String) : void\l+ getUsedClasses() : List\<String\>\l+ setUsedClasses(List\<String\>) : void\l+ getName() : String\l+ setName(String) : void\l+ getType() : String\l+ setType(String) : void\l+ getAccess() : String\l+ setAccess(String) : void\l+ getArgs() : List\<String\>\l+ setArgs(List\<String\>) : void\l+ toString() : String\l}"
 ]
+MethodVisit [
+label = "{MethodVisit|- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ execute(ITraverser) : void\l}"
+]
+ModelPostVisit [
+label = "{ModelPostVisit||+ \<init\>() : void\l+ execute(ITraverser) : void\l}"
+]
+ModelPreVisit [
+label = "{ModelPreVisit||+ \<init\>() : void\l+ execute(ITraverser) : void\l}"
+]
+ModelVisit [
+label = "{ModelVisit||+ \<init\>() : void\l+ execute(ITraverser) : void\l}"
+]
+PackageModel [
+label = "{PackageModel|- classes : List\<IClassData\>\l- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l|+ \<init\>() : void\l+ getClasses() : List\<IClassData\>\l+ addClass(IClassData) : void\l+ setClasses(List\<IClassData\>) : void\l+ setClassRelations() : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ createArrows() : String\l+ getInheritanceArrows() : String\l+ getImplementsArrows() : String\l+ getAssociationArrows() : String\l+ getUsedClassesArrows() : String\l}"
+]
 SDEditPrinter [
 label = "{SDEditPrinter|- firstClass : String\l- methodCalls : List\<IMethodCallData\>\l|+ \<init\>(List\<IMethodCallData\>, String) : void\l+ printToFile(OutputStream) : void\l}"
 ]
 StringParser [
 label = "{StringParser||+ \<init\>() : void\l+ parseClassName(String) : String\l+ parametersFromSignature(String) : List\<String\>\l+ returnTypeFromSignature(String) : String\l+ fieldTypeFromSignature(String) : String\l+ getClassNames(List\<IClassData\>) : List\<String\>\l+ cleanAngleBrackets(String) : String\l}"
+]
+UMLVisitor [
+label = "{UMLVisitor|- keyToVisitMethodMap : Map\<IVisitMethod\>\l- out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ preVisit(ITraverser) : void\l+ visit(ITraverser) : void\l+ postVisit(ITraverser) : void\l- doVisit(VisitType, ITraverser) : void\l+ addVisit(VisitType, IVisitMethod) : void\l+ removeVisit(VisitType) : void\l+ getOutputStream() : OutputStream\l}"
+]
+VisitType [
+label = "{VisitType|+ PreVisit : VisitType\l+ Visit : VisitType\l+ PostVisit : VisitType\l- ENUM$VALUES : VisitType[]\l|+ \<clinit\>() : void\l- \<init\>(String, int) : void\l+ values() : VisitType[]\l+ valueOf(String) : VisitType\l}"
 ]
 VisitorManager [
 label = "{VisitorManager||+ \<init\>() : void\l+ visitClass(String) : AbstractClassDataVisitor\l+ visitMethods(String, IMethodCallData) : ClassMethodVisitor\l+ getMethodCalls(IMethodCallData) : List\<IMethodCallData\>\l}"
@@ -64,39 +121,66 @@ edge [
 arrowhead = "empty"
 style = "solid"
 ]
-ClassMethodVisitor -> AbstractClassDataVisitor
 ClassDeclarationVisitor -> AbstractClassDataVisitor
 ClassFieldVisitor -> AbstractClassDataVisitor
-edge [
-arrowhead = "empty"
-style = "dashed"
-]
-MethodCallData -> IMethodCallData
-FieldData -> IFieldData
-SDEditPrinter -> IClassStructurePrinter
-GraphVisPrinter -> IClassStructurePrinter
-MethodData -> IMethodData
+ClassMethodVisitor -> AbstractClassDataVisitor
+FieldData -> AbstractTraverser
+ClassData -> AbstractTraverser
+MethodData -> AbstractTraverser
 edge [
 arrowhead = "vee"
 style = "solid"
 ]
+AbstractClassDataVisitor -> ClassData
+MethodBodyVisitor -> IMethodData
+GraphVisPrinter -> IPackageModel
 MethodCallData -> IMethodData
 ClassMethodVisitor -> IMethodCallData
-MethodBodyVisitor -> IMethodData
+LookupKey -> VisitType
+VisitType -> VisitType
+edge [
+arrowhead = "empty"
+style = "dashed"
+]
+ModelVisit -> IVisitMethod
+UMLVisitor -> IVisitor
+PackageModel -> IPackageModel
+SDEditPrinter -> IClassStructurePrinter
+ClassVisit -> IVisitMethod
+GraphVisPrinter -> IClassStructurePrinter
+ModelPreVisit -> IVisitMethod
+AbstractTraverser -> ITraverser
+FieldVisit -> IVisitMethod
+MethodCallData -> IMethodCallData
+ClassPreVisit -> IVisitMethod
+MethodVisit -> IVisitMethod
+FieldData -> IFieldData
+ModelPostVisit -> IVisitMethod
+ClassData -> IClassData
+MethodData -> IMethodData
+ClassPostVisit -> IVisitMethod
 edge [
 arrowhead = "vee"
 style = "dashed"
 ]
-ClassMethodVisitor -> AbstractClassDataVisitor
-ClassMethodVisitor -> MethodCallData
+StringParser -> IClassData
+ModelVisit -> ITraverser
+UMLVisitor -> VisitType
+UMLVisitor -> LookupKey
+UMLVisitor -> IVisitMethod
+PackageModel -> IMethodData
+MethodBodyVisitor -> MethodCallData
+MethodBodyVisitor -> IMethodCallData
+ClassDeclarationVisitor -> AbstractClassDataVisitor
+DesignParser -> GraphVisPrinter
+DesignParser -> SDEditPrinter
+ClassFieldVisitor -> FieldData
+GraphVisPrinter -> PackageModel
+AbstractTraverser -> IVisitor
 ClassMethodVisitor -> MethodBodyVisitor
 ClassMethodVisitor -> MethodData
-MethodBodyVisitor -> IMethodCallData
 VisitorManager -> ClassDeclarationVisitor
 VisitorManager -> ClassFieldVisitor
 VisitorManager -> ClassMethodVisitor
-DesignParser -> GraphVisPrinter
-DesignParser -> SDEditPrinter
-IMethodCallData -> IMethodData
-ClassFieldVisitor -> FieldData
+ClassData -> IFieldData
 }

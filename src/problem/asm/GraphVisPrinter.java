@@ -14,9 +14,9 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 	private Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
-	private List<AbstractClassDataVisitor> classes;
+	private List<IClassData> classes;
 	
-	public GraphVisPrinter(List<AbstractClassDataVisitor> classes){
+	public GraphVisPrinter(List<IClassData> classes){
 		this.classNames = StringParser.getClassNames(classes);
 		this.classes = classes;
 	}
@@ -40,7 +40,7 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append("fontsize =8\n");
 			sb.append("]\n");
 			
-			for(AbstractClassDataVisitor currentData: this.classes){
+			for(IClassData currentData: this.classes){
 				sb.append(currentData.getUMLString());
 				this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
 				this.classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
@@ -96,11 +96,11 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 		this.classNames = classNames;
 	}
 
-	public List<AbstractClassDataVisitor> getClasses() {
+	public List<IClassData> getClasses() {
 		return this.classes;
 	}
 
-	public void setClasses(List<AbstractClassDataVisitor> classes) {
+	public void setClasses(List<IClassData> classes) {
 		this.classes = classes;
 	}
 

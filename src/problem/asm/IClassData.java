@@ -24,8 +24,6 @@ public interface IClassData {
     
 	public List<IMethodData> getMethods();
 	
-	public boolean isSingleton();
-	
 	public String getUMLString();
 
 	public List<String> getAssociatedClasses();

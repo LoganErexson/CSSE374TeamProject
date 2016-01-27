@@ -74,31 +74,9 @@ public class ClassData extends AbstractTraverser implements IClassData {
 	}
 	
 	@Override
-	public boolean isSingleton() {
-		boolean privCon = false;
-		boolean privField = false;
-		boolean returnMethod = false;
-		for (IMethodData dat : getMethods()) {
-			if(dat.getName().equals("<init>") && dat.getAccess().equals("-") ) {
-				privCon = true;
-			} else if (dat.getType().equals(this.className)) {
-				returnMethod = true;
-			}
-		}
-		for (IFieldData field : getFields()) {
-			if (field.getAccessLevel().equals("-") && field.getType().equals(this.className)) {
-				privField = true;
-			}
-		}
-		return (privCon && privField && returnMethod);
-	}
-	
-	@Override
 	public String getUMLString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.className);
-		if(isSingleton()) 
-			sb.append("//<//<singleton//>//>");
 		sb.append(" [\n");
 		sb.append("label = \"{"+this.className);
 		sb.append("|");

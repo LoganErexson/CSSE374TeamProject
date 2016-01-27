@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 public class ClassPostVisit implements IVisitMethod{
@@ -10,9 +11,8 @@ public class ClassPostVisit implements IVisitMethod{
 	}
 	
 	@Override
-	public void execute(ITraverser t) {
-		// TODO Auto-generated method stub.
-		
+	public void execute(ITraverser t) throws IOException {
+		this.out.write("}\"\n]\n".getBytes());
 	}
 
 }

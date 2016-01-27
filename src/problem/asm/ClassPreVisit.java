@@ -14,8 +14,6 @@ public class ClassPreVisit  implements IVisitMethod{
 		IClassData clazz = (ClassData) t;
 		StringBuilder sb = new StringBuilder();
 		sb.append(clazz.getName());
-		if(clazz.isSingleton()) 
-			sb.append("//<//<singleton//>//>");
 		sb.append(" [\n");
 		sb.append("label = \"{"+clazz.getName());
 		sb.append("|");

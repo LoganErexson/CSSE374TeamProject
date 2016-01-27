@@ -3,7 +3,7 @@ package problem.asm;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassData extends AbstractTraverser implements IClassData {
+public class ClassData implements IClassData {
 	protected String className;
 	protected String superClass;
 	protected List<String> implementedClasses;
@@ -94,5 +94,18 @@ public class ClassData extends AbstractTraverser implements IClassData {
 	@Override
 	public List<String> getAssociatedClasses() {
 		return this.associatedClasses;
+	}
+	
+	@Override
+	public void accept(IVisitor v) {
+		v.preVisit(this);
+		for(IFieldData field : this.fields){
+			field.accept(v);
+		}
+		v.visit(this);
+		for(IMethodData method : this.methods){
+			method.accept(v);
+		}
+		v.postVisit(this);
 	}
 }

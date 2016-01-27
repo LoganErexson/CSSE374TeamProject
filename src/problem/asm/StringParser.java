@@ -75,9 +75,9 @@ public class StringParser{
 		return parseClassName(signature);
 	}
 	
-	public static List<String> getClassNames(List<AbstractClassDataVisitor> classes){
+	public static List<String> getClassNames(List<IClassData> classes){
 		List<String> classNames = new ArrayList<>();
-		for(AbstractClassDataVisitor clazz: classes){
+		for(IClassData clazz: classes){
 			classNames.add(parseClassName(clazz.getName()));
 		}
 		return classNames;

@@ -59,10 +59,10 @@ public class DesignParser {
 				classes = Arrays.asList(DEFAULT_CLASSES);
 			}
 		    
-			List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
+			List<IClassData> classDatas = new ArrayList<>();
 			for (String className : classes) {
 				AbstractClassDataVisitor visitor = VisitorManager.visitClass(className);
-				classDatas.add(visitor);
+				classDatas.add(visitor.getClassData());
 			}
 			IClassStructurePrinter gPrinter = new GraphVisPrinter(classDatas);
 			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));

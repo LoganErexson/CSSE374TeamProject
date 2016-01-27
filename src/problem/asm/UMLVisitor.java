@@ -3,13 +3,10 @@ package problem.asm;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-
-public class Visitor implements IVisitor {
+public class UMLVisitor implements IVisitor {
 	Map<LookupKey, IVisitMethod> keyToVisitMethodMap;
 	
-	public Visitor() {
+	public UMLVisitor() {
 		this.keyToVisitMethodMap = new HashMap<>();
 	}
 	@Override

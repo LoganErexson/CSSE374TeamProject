@@ -3,7 +3,7 @@ package problem.asm;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassData implements IClassData {
+public class ClassData extends AbstractTraverser implements IClassData {
 	protected String className;
 	protected String superClass;
 	protected List<String> implementedClasses;

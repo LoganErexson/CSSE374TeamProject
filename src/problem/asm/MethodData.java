@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.objectweb.asm.Type;
 
-public class MethodData implements IMethodData{
+public class MethodData extends AbstractTraverser implements IMethodData{
 	private String name;
 	private String type;
 	private String access;

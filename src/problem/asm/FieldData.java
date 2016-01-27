@@ -2,7 +2,7 @@ package problem.asm;
 
 import org.objectweb.asm.Type;
 
-public class FieldData implements IFieldData {
+public class FieldData extends AbstractTraverser implements IFieldData {
 	private String fieldName;
 	private String access;
 	private String type;

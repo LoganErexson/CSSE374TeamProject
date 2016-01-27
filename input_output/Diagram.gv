@@ -12,9 +12,6 @@ fontsize =8
 AbstractClassDataVisitor [
 label = "{AbstractClassDataVisitor|# classData : ClassData\l|+ \<init\>(int, AbstractClassDataVisitor) : void\l+ getClassData() : ClassData\l+ setClassData(ClassData) : void\l}"
 ]
-ClassData [
-label = "{ClassData|# className : String\l# superClass : String\l# implementedClasses : List\<String\>\l# fields : List\<IFieldData\>\l# methods : List\<IMethodData\>\l# associatedClasses : List\<String\>\l|+ \<init\>() : void\l+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getImplementedClasses() : List\<String\>\l+ setImplementedClasses(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ isSingleton() : boolean\l+ getUMLString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
-]
 ClassDeclarationVisitor [
 label = "{ClassDeclarationVisitor||+ \<init\>(int, AbstractClassDataVisitor) : void\l+ visit(int, int, String, String, String, String[]) : void\l}"
 ]
@@ -33,14 +30,11 @@ label = "{FieldData|- fieldName : String\l- access : String\l- type : String\l|+
 GraphVisPrinter [
 label = "{GraphVisPrinter|- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- classes : List\<IClassData\>\l|+ \<init\>(List\<IClassData\>) : void\l+ printToFile(OutputStream) : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ getClasses() : List\<IClassData\>\l+ setClasses(List\<IClassData\>) : void\l+ createArrows() : String\l- getUsedClassesArrows() : String\l}"
 ]
-IClassData [
-label = "{IClassData||+ getName() : String\l+ setName(String) : void\l+ getSuperClass() : String\l+ setSuperClass(String) : void\l+ getImplementedClasses() : List\<String\>\l+ setImplementedClasses(List\<String\>) : void\l+ addField(IFieldData) : void\l+ getFields() : List\<IFieldData\>\l+ addMethod(IMethodData) : void\l+ getMethods() : List\<IMethodData\>\l+ isSingleton() : boolean\l+ getUMLString() : String\l+ getAssociatedClasses() : List\<String\>\l}"
+IFieldData [
+label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IClassStructurePrinter [
 label = "{IClassStructurePrinter||+ printToFile(OutputStream) : void\l}"
-]
-IFieldData [
-label = "{IFieldData||+ getAccessLevel() : String\l+ getType() : String\l+ setName(String) : void\l+ getName() : String\l}"
 ]
 IMethodCallData [
 label = "{IMethodCallData||+ setCallingClass(String) : void\l+ getCallingClass() : String\l+ setMethod(IMethodData) : void\l+ getMethod() : IMethodData\l+ setMethodClass(String) : void\l+ getMethodClass() : String\l+ setDepth(int) : void\l+ getDepth() : int\l+ setName(String) : void\l+ getName() : String\l}"
@@ -80,7 +74,6 @@ style = "dashed"
 MethodCallData -> IMethodCallData
 FieldData -> IFieldData
 SDEditPrinter -> IClassStructurePrinter
-ClassData -> IClassData
 GraphVisPrinter -> IClassStructurePrinter
 MethodData -> IMethodData
 edge [
@@ -88,14 +81,12 @@ arrowhead = "vee"
 style = "solid"
 ]
 MethodCallData -> IMethodData
-AbstractClassDataVisitor -> ClassData
 ClassMethodVisitor -> IMethodCallData
 MethodBodyVisitor -> IMethodData
 edge [
 arrowhead = "vee"
 style = "dashed"
 ]
-StringParser -> IClassData
 ClassMethodVisitor -> AbstractClassDataVisitor
 ClassMethodVisitor -> MethodCallData
 ClassMethodVisitor -> MethodBodyVisitor
@@ -107,6 +98,5 @@ VisitorManager -> ClassMethodVisitor
 DesignParser -> GraphVisPrinter
 DesignParser -> SDEditPrinter
 IMethodCallData -> IMethodData
-ClassData -> IFieldData
 ClassFieldVisitor -> FieldData
 }

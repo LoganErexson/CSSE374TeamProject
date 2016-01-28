@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 public class ModelVisit  implements IVisitMethod{
@@ -10,9 +11,9 @@ public class ModelVisit  implements IVisitMethod{
 	}
 
 	@Override
-	public void execute(ITraverser t) {
+	public void execute(ITraverser t) throws IOException {
 		IPackageModel model = (PackageModel) t;
-		
+		this.out.write(model.createArrows().getBytes());
 	}
 
 }

@@ -1,6 +1,6 @@
 package problem.asm;
 
-public interface IMethodCallData{
+public interface IMethodCallData extends ITraverser{
 	
 	public void setCallingClass(String callingClass);
 	public String getCallingClass();

@@ -14,12 +14,8 @@ for representing the class itself, its interfaces, and its superclass.
 
 Manual UML Project Code
 ![alt M1-Manual](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM1.png)
-Generated UML Project Code
-![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M1-Generated-Project.png)
 Manual UML 1-3 Code
 ![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/1-3-Manual.png)
-Generated UML 1-3 Code
-![alt M1-Generated](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Lab1-3-GeneratedUML.jpg)
 
 Logan:
 - Created ClassData class and String building methods in ClassData
@@ -55,12 +51,8 @@ The primary design change was a move of the arrow drawing methods in the GraphVi
 to ClassData. This allowed all of the primary changes to be made to classData for the actual
 implementation of the uses and association arrows. 
 
-Generated UML Project Code
-![alt M2-Generated-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/Milestone-2-Revised-Generated-code.png)
 Manual UML Project Code
 ![alt M2-Manual-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM2.png)
-Generated UML Pizza Code
-![alt M2-Generated-Pizza](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/PizzaafRevisedGeneratedCode.png)
 
 Jack: 
 - Added getAssociationArrows method and functionality to ClassData.
@@ -91,15 +83,6 @@ visiting classes.
 
 Manual UML Project Code
 ![alt M3-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM3.png)
-Generated Sequence Diagram for Collection
-![alt M3-Generated-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/sDiagramForCollectionsShuffle3.png)
-Generated Sequence Diagram Project Code
-![alt M3-Generated-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/M3-Generated-SD-ProjectCode.png)
-Manual Sequence Diagram Project Code
-![alt M3-Manual-SD-Project](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/SequenceDiagramForM3.png)
-Manual Sequence Diagram Collection
-![alt M3-Manual-SD-Collection](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/ManualShuffleSD.png)
-
 
 Jack: 
 - Added interfaces for ClassData, MethodData, FieldData
@@ -132,7 +115,7 @@ used to detect the necessary requirements for a singleton and then add a flag to
 be addeded to the string representation of the class. By decorating the visitor no changes should need to be made within any classes but DesignParser and GraphVisPrinter. 
 
 Manual UML Project Code
-![alt M3-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM4.png)
+![alt M4-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM4.png)
 
 
 To use this tool, run DesignParser with arguments in one of the two following formats:

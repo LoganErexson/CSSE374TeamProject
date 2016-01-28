@@ -83,4 +83,9 @@ public class MethodCallData implements IMethodCallData{
 	public int getDepth() {
 		return this.depth;
 	}
+
+	@Override
+	public void accept(IVisitor v) {
+		v.visit(this);
+	}
 }

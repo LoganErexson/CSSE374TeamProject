@@ -546,8 +546,8 @@ IPatternDetector
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1602</x>
-      <y>978</y>
+      <x>1626</x>
+      <y>1008</y>
       <w>168</w>
       <h>72</h>
     </coordinates>
@@ -1026,12 +1026,12 @@ IVisitMethod
     <id>Relation</id>
     <coordinates>
       <x>1674</x>
-      <y>1044</y>
-      <w>18</w>
-      <h>204</h>
+      <y>1074</y>
+      <w>42</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;270.0;50.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1322,13 +1322,13 @@ IVisitMethod
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1740</x>
-      <y>1044</y>
-      <w>1038</w>
-      <h>366</h>
+      <x>1764</x>
+      <y>1074</y>
+      <w>1014</w>
+      <h>336</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;150.0;580.0;1710.0;590.0;1710.0;370.0</additional_attributes>
+    <additional_attributes>10.0;10.0;110.0;530.0;1670.0;540.0;1670.0;320.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1415,5 +1415,87 @@ IVisitMethod
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>110.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1548</x>
+      <y>918</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>AdaptorDetector
+--
+-pattern = "": String
+--
++findPattern(IClassData d): String
++getPattern(): String
++findPattern(List&lt;IClassData&gt; datas): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1740</x>
+      <y>1158</y>
+      <w>78</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;130.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1800</x>
+      <y>1092</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>DecoratorDetector
+--
+-pattern = "": String
+--
++findPattern(IClassData d): String
++getPattern(): String
++findPattern(List&lt;IClassData&gt; datas): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>984</y>
+      <w>54</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>70.0;420.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1590</x>
+      <y>984</y>
+      <w>198</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;220.0;310.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1770</x>
+      <y>1110</y>
+      <w>42</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>

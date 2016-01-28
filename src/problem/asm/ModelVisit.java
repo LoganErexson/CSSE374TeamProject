@@ -13,6 +13,7 @@ public class ModelVisit  implements IVisitMethod{
 	@Override
 	public void execute(ITraverser t) throws IOException {
 		IPackageModel model = (PackageModel) t;
+		model.setClassRelations();
 		this.out.write(model.createArrows().getBytes());
 	}
 

@@ -12,7 +12,7 @@ public class ModelPostVisit implements IVisitMethod{
 	
 	@Override
 	public void execute(ITraverser t) throws IOException {
-		this.out.write("]\n".getBytes());
+		this.out.write("}\n".getBytes());
 	}
 
 }

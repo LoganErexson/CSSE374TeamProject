@@ -227,6 +227,9 @@ public class PackageModel implements IPackageModel {
 	@Override
 	public void accept(IVisitor v) {
 		v.preVisit(this);
+		for(IClassData data: this.classes){
+			data.accept(v);
+		}
 		v.visit(this);
 		v.postVisit(this);
 		

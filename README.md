@@ -131,6 +131,8 @@ Logan:
 - Updated DesignParser to use Visitors
 
 Milestone 5:
+For milestone 5 new implementations of IPatternDetector will be implemented for the Decorator and Adaptor patterns and checked for in the ClassPrevVisit class
+in order to ensure correct formatting. The only changes that should need to be made will be the declaration of these detectors and a call to their findPattern function. 
 
 Manual UML Project Code
 ![alt M5-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)

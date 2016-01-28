@@ -17,6 +17,8 @@ public class ModelPreVisit  implements IVisitMethod{
 		sb.append("fontsize =8\n");
 		
 		sb.append("node [\n");
+		sb.append("style=filled\n");
+		sb.append("fillcolor=white\n");
 		sb.append("fontname = \"Bitstream Vera Sans\"\n");
 		sb.append("fontsize =8\n");
 		sb.append("shape = \"record\"");

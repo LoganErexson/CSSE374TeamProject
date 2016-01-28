@@ -6,15 +6,13 @@ public class SingletonDetector implements IPatternDetector {
 	private String pattern = "";
 
 	@Override
-	public void findPattern(IClassData d) {
+	public String findPattern(IClassData d) {
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;
-		IFieldData singleField = null;
 		for (IFieldData field : d.getFields()) {
 			if (field.getAccessLevel().equals("-") && field.getType().equals(d.getName())) {
 				privField = true;
-				singleField = field;
 			}
 		}
 		for (IMethodData dat : d.getMethods()) {
@@ -27,7 +25,7 @@ public class SingletonDetector implements IPatternDetector {
 		if (privCon && privField && returnMethod) {
 			pattern = "\\<\\<singleton\\>\\>\n";
 		}
-
+		return pattern;
 	}
 
 	@Override

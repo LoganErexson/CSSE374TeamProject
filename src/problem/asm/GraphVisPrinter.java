@@ -33,8 +33,12 @@ public class GraphVisPrinter implements IClassStructurePrinter{
 			sb.append("fontsize =8\n");
 			sb.append("]\n");
 			
-			for(IClassData currentData: this.model.getClasses()){
-				sb.append(currentData.getUMLString());
+			for (IClassData currentData: this.model.getClasses()) {
+				IPatternDetector singleton = new SingletonDetector();
+				singleton.findPattern(currentData);
+				String uml = currentData.getUMLString();
+				sb.append(uml.substring(0, uml.indexOf("{") + 1) + singleton.getPattern() +
+						uml.substring(uml.indexOf("{") + 1, uml.length() -1));
 			}
 			sb.append(this.model.createArrows());
 			sb.append("}\n");

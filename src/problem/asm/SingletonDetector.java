@@ -20,12 +20,12 @@ public class SingletonDetector implements IPatternDetector {
 		for (IMethodData dat : d.getMethods()) {
 			if(dat.getName().equals("<init>") && dat.getAccess().equals("-") ) {
 				privCon = true;
-			} else if (dat.getType().equals(d.getName()) && dat.getUsedClasses().contains(singleField.getType())) {
+			} else if (dat.getType().equals(d.getName())) {
 				returnMethod = true;
 			}
 		}
 		if (privCon && privField && returnMethod) {
-			pattern = "//<//<singleton//>//>";
+			pattern = "\\<\\<singleton\\>\\>\n";
 		}
 
 	}

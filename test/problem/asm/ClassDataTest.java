@@ -1,15 +1,18 @@
 package problem.asm;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.objectweb.asm.Type;
+
 
 public class ClassDataTest {
 	@Test
@@ -19,54 +22,56 @@ public class ClassDataTest {
 						"\n]\n", VisitorManager.visitClass("problem.asm.A").getClassData().getUMLString());
 	}
 
-//	@Test
-//	public final void testInterfaces() throws IOException {
-//		List<IClassData> datas = new ArrayList<>();
-//		datas.add(VisitorManager.visitClass("lab1_3/Behavior").getClassData());
-//		datas.add(VisitorManager.visitClass("lab1_3/HTMLBehavior").getClassData());
-//		GraphVisPrinter printer = new GraphVisPrinter(datas);
-//		Map<String, List<String>> classToInterfaces = new HashMap<>();
-//		Map<String, String> classToSuperclass = new HashMap<>();
-//		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
-//		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-//		for(IClassData currentData: datas){
-//			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-//			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
-//			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
-//			classToMethods.put(currentData.getName(), currentData.getMethods());
-//		}
-//		printer.setClassToSuperclass(classToSuperclass);
-//		printer.setClassToInterfaces(classToInterfaces);
-//		printer.setClassToMethods(classToMethods);
-//		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-//		assertTrue(printer.createArrows().contains("HTMLBehavior -> Behavior"));
-//	}
+	@Test
+	public final void testInterfaces() throws IOException {
+		List<IClassData> datas = new ArrayList<>();
+		datas.add(VisitorManager.visitClass("lab1_3/Behavior").getClassData());
+		datas.add(VisitorManager.visitClass("lab1_3/HTMLBehavior").getClassData());
+		IPackageModel model = new PackageModel();
+		model.setClasses(datas);
+		Map<String, List<String>> classToInterfaces = new HashMap<>();
+		Map<String, String> classToSuperclass = new HashMap<>();
+		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
+		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
+		for(IClassData currentData: datas){
+			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
+			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+			classToMethods.put(currentData.getName(), currentData.getMethods());
+		}
+		model.setClassToSuperclass(classToSuperclass);
+		model.setClassToInterfaces(classToInterfaces);
+		model.setClassToMethods(classToMethods);
+		model.setClassToAssociatedClasses(classToAssociatedClasses);
+		assertTrue(model.createArrows().contains("HTMLBehavior -> Behavior"));
+	}
 
-//	@Test
-//	public final void testSuperClasses() throws IOException {
-//		String[] CLASSES = {"problem.asm.AbstractClassDataVisitor" };
-//		List<IClassData> classDatas = new ArrayList<>();
-//		for (String className : CLASSES) {
-//			classDatas.add(VisitorManager.visitClass(className).getClassData());
-//		}
-//		classDatas.add(VisitorManager.visitClass("problem.asm.ClassMethodVisitor").getClassData());
-//		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
-//		Map<String, List<String>> classToInterfaces = new HashMap<>();
-//		Map<String, String> classToSuperclass = new HashMap<>();
-//		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
-//		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-//		for(IClassData currentData: classDatas){
-//			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-//			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
-//			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
-//			classToMethods.put(currentData.getName(), currentData.getMethods());
-//		}
-//		printer.setClassToSuperclass(classToSuperclass);
-//		printer.setClassToInterfaces(classToInterfaces);
-//		printer.setClassToMethods(classToMethods);
-//		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-//		assertTrue(printer.createArrows().contains("ClassMethodVisitor -> AbstractClassDataVisitor"));
-//	}
+	@Test
+	public final void testSuperClasses() throws IOException {
+		String[] CLASSES = {"problem.asm.AbstractClassDataVisitor" };
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}
+		classDatas.add(VisitorManager.visitClass("problem.asm.ClassMethodVisitor").getClassData());
+		IPackageModel model = new PackageModel();
+		model.setClasses(classDatas);
+		Map<String, List<String>> classToInterfaces = new HashMap<>();
+		Map<String, String> classToSuperclass = new HashMap<>();
+		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
+		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
+		for(IClassData currentData: classDatas){
+			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
+			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+			classToMethods.put(currentData.getName(), currentData.getMethods());
+		}
+		model.setClassToSuperclass(classToSuperclass);
+		model.setClassToInterfaces(classToInterfaces);
+		model.setClassToMethods(classToMethods);
+		model.setClassToAssociatedClasses(classToAssociatedClasses);
+		assertTrue(model.createArrows().contains("ClassMethodVisitor -> AbstractClassDataVisitor"));
+	}
 
 	@Test
 	public final void testUMLStringBase() {
@@ -86,62 +91,64 @@ public class ClassDataTest {
 				+ "]\n", c.getUMLString());
 	}
 
-//	@Test
-//	public final void testUsesArrow() throws IOException {
-//		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
-//				"problem.asm.ClassDeclarationVisitor",
-//				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
-//				"problem.asm.FieldData", "problem.asm.MethodData",
-//				"problem.asm.AbstractClassDataVisitor" };
-//		List<IClassData> classDatas = new ArrayList<>();
-//		for (String className : CLASSES) {
-//			classDatas.add(VisitorManager.visitClass(className).getClassData());
-//		}	
-//		//List<String> classNames = StringParser.getClassNames(classDatas);
-//		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
-//		Map<String, List<String>> classToInterfaces = new HashMap<>();
-//		Map<String, String> classToSuperclass = new HashMap<>();
-//		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
-//		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-//		for(IClassData currentData: classDatas){
-//			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-//			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
-//			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
-//			classToMethods.put(currentData.getName(), currentData.getMethods());
-//		}
-//		printer.setClassToSuperclass(classToSuperclass);
-//		printer.setClassToInterfaces(classToInterfaces);
-//		printer.setClassToMethods(classToMethods);
-//		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-//		assertTrue(printer.createArrows().contains("ClassMethodVisitor -> MethodData"));
-//	}
+	@Test
+	public final void testUsesArrow() throws IOException {
+		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
+				"problem.asm.ClassDeclarationVisitor",
+				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
+				"problem.asm.FieldData", "problem.asm.MethodData",
+				"problem.asm.AbstractClassDataVisitor" };
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}	
+		//List<String> classNames = StringParser.getClassNames(classDatas);
+		IPackageModel model = new PackageModel();
+		model.setClasses(classDatas);
+		Map<String, List<String>> classToInterfaces = new HashMap<>();
+		Map<String, String> classToSuperclass = new HashMap<>();
+		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
+		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
+		for(IClassData currentData: classDatas){
+			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
+			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+			classToMethods.put(currentData.getName(), currentData.getMethods());
+		}
+		model.setClassToSuperclass(classToSuperclass);
+		model.setClassToInterfaces(classToInterfaces);
+		model.setClassToMethods(classToMethods);
+		model.setClassToAssociatedClasses(classToAssociatedClasses);
+		assertTrue(model.createArrows().contains("ClassMethodVisitor -> MethodData"));
+	}
 
-//	@Test
-//	public final void testAssociationArrows() throws IOException {
-//		String[] CLASSES = {"problem.asm.A"};
-//		String expected = "edge [\narrowhead = \"vee\"\nstyle = \"solid\"\n]\nA -> B";
-//		List<IClassData> classDatas = new ArrayList<>();
-//		for (String className : CLASSES) {
-//			classDatas.add(VisitorManager.visitClass(className).getClassData());
-//		}	
-//		classDatas.add(VisitorManager.visitClass("problem.asm.B").getClassData());
-//		GraphVisPrinter printer = new GraphVisPrinter(classDatas);
-//		Map<String, List<String>> classToInterfaces = new HashMap<>();
-//		Map<String, String> classToSuperclass = new HashMap<>();
-//		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
-//		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-//		for(IClassData currentData: classDatas){
-//			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-//			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
-//			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
-//			classToMethods.put(currentData.getName(), currentData.getMethods());
-//		}
-//		printer.setClassToSuperclass(classToSuperclass);
-//		printer.setClassToInterfaces(classToInterfaces);
-//		printer.setClassToMethods(classToMethods);
-//		printer.setClassToAssociatedClasses(classToAssociatedClasses);
-//		assertTrue(printer.createArrows().contains(expected));
-//	}
+	@Test
+	public final void testAssociationArrows() throws IOException {
+		String[] CLASSES = {"problem.asm.A"};
+		String expected = "edge [\narrowhead = \"vee\"\nstyle = \"solid\"\n]\nA -> B";
+		List<IClassData> classDatas = new ArrayList<>();
+		for (String className : CLASSES) {
+			classDatas.add(VisitorManager.visitClass(className).getClassData());
+		}	
+		classDatas.add(VisitorManager.visitClass("problem.asm.B").getClassData());
+		IPackageModel model = new PackageModel();
+		model.setClasses(classDatas);
+		Map<String, List<String>> classToInterfaces = new HashMap<>();
+		Map<String, String> classToSuperclass = new HashMap<>();
+		Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
+		Map<String, List<IMethodData>> classToMethods = new HashMap<>();
+		for(IClassData currentData: classDatas){
+			classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
+			classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
+			classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+			classToMethods.put(currentData.getName(), currentData.getMethods());
+		}
+		model.setClassToSuperclass(classToSuperclass);
+		model.setClassToInterfaces(classToInterfaces);
+		model.setClassToMethods(classToMethods);
+		model.setClassToAssociatedClasses(classToAssociatedClasses);
+		assertTrue(model.createArrows().contains(expected));
+	}
 	
 	@Test
 	public final void testSignatureParsing(){

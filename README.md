@@ -132,6 +132,8 @@ Logan:
 
 Milestone 5:
 
+Manual UML Project Code
+![alt M5-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)
 
 To use this tool, run DesignParser with arguments in one of the two following formats:
 uml  #Used for creating .dot files

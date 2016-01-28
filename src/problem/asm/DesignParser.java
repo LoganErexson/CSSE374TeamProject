@@ -64,9 +64,10 @@ public class DesignParser {
 				AbstractClassDataVisitor visitor = VisitorManager.visitClass(className);
 				classDatas.add(visitor.getClassData());
 			}
-			IClassStructurePrinter gPrinter = new GraphVisPrinter(classDatas);
+			IPackageModel model = new PackageModel();
+			model.setClasses(classDatas);
 			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));
-			gPrinter.printToFile(out);
+			model.accept(new UMLVisitor(out));
 			out.close();
 		}
 		else if(args[0].toLowerCase().equals("sd")){

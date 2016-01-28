@@ -2,7 +2,7 @@ package problem.asm;
 
 import java.util.List;
 
-public interface IMethodData{
+public interface IMethodData extends ITraverser{
 	public String getType();
 
 	public void setType(String type);

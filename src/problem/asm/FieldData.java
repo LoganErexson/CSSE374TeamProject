@@ -2,7 +2,7 @@ package problem.asm;
 
 import org.objectweb.asm.Type;
 
-public class FieldData extends AbstractTraverser implements IFieldData {
+public class FieldData implements IFieldData {
 	private String fieldName;
 	private String access;
 	private String type;
@@ -42,5 +42,12 @@ public class FieldData extends AbstractTraverser implements IFieldData {
 	@Override
 	public void setName(String nm) {
 		this.fieldName = nm;
+	}
+	
+	@Override
+	public void accept(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 }

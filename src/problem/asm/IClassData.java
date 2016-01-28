@@ -2,7 +2,7 @@ package problem.asm;
 
 import java.util.List;
 
-public interface IClassData {
+public interface IClassData extends ITraverser{
 
 	public String getName();
 

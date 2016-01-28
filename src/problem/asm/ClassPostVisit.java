@@ -1,11 +1,18 @@
 package problem.asm;
 
-public class ClassPostVisit implements IVisitMethod{
+import java.io.IOException;
+import java.io.OutputStream;
 
+public class ClassPostVisit implements IVisitMethod{
+	private OutputStream out;
+	
+	public ClassPostVisit(OutputStream out){
+		this.out = out;
+	}
+	
 	@Override
-	public void execute(ITraverser t) {
-		// TODO Auto-generated method stub.
-		
+	public void execute(ITraverser t) throws IOException {
+		this.out.write("}\"\n]\n".getBytes());
 	}
 
 }

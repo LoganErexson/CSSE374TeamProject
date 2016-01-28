@@ -15,25 +15,27 @@ public class PackageModel implements IPackageModel {
 	private List<String> classNames;
 	
 	public PackageModel() {
-		classes = new ArrayList<IClassData>();
-		this.classNames = StringParser.getClassNames(classes);
+		this.classes = new ArrayList<>();
+		this.classNames = StringParser.getClassNames(this.classes);
 	}
 
 	@Override
 	public List<IClassData> getClasses() {
-		return classes;
+		return this.classes;
 	}
 
 	@Override
 	public void addClass(IClassData d) {
-		classes.add(d);
+		this.classes.add(d);
 	}
 
+	@Override
 	public void setClasses(List<IClassData> classes) {
 		this.classes = classes;
 		this.classNames = StringParser.getClassNames(classes);
 	}
 
+	@Override
 	public void setClassRelations() {
 		for(IClassData currentData: this.classes) {
 			this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
@@ -43,47 +45,58 @@ public class PackageModel implements IPackageModel {
 		}
 	}
 	
+	@Override
 	public Map<String, List<String>> getClassToInterfaces() {
 		return this.classToInterfaces;
 	}
 
+	@Override
 	public void setClassToInterfaces(Map<String, List<String>> classToInterfaces) {
 		this.classToInterfaces = classToInterfaces;
 	}
 
+	@Override
 	public Map<String, String> getClassToSuperclass() {
 		return this.classToSuperclass;
 	}
 
+	@Override
 	public void setClassToSuperclass(Map<String, String> classToSuperclass) {
 		this.classToSuperclass = classToSuperclass;
 	}
 
+	@Override
 	public Map<String, List<String>> getClassToAssociatedClasses() {
 		return this.classToAssociatedClasses;
 	}
 
+	@Override
 	public void setClassToAssociatedClasses(
 			Map<String, List<String>> classToAssociatedClasses) {
 		this.classToAssociatedClasses = classToAssociatedClasses;
 	}
 
+	@Override
 	public Map<String, List<IMethodData>> getClassToMethods() {
 		return this.classToMethods;
 	}
 
+	@Override
 	public void setClassToMethods(Map<String, List<IMethodData>> classToMethods) {
 		this.classToMethods = classToMethods;
 	}
 
+	@Override
 	public List<String> getClassNames() {
 		return this.classNames;
 	}
 
+	@Override
 	public void setClassNames(List<String> classNames) {
 		this.classNames = classNames;
 	}
 	
+	@Override
 	public String createArrows() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getInheritanceArrows());
@@ -93,6 +106,7 @@ public class PackageModel implements IPackageModel {
 		return sb.toString();
 	}
 	
+	@Override
 	public String getInheritanceArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [\n");
@@ -106,6 +120,7 @@ public class PackageModel implements IPackageModel {
 		return sb.toString();
 	}
 	
+	@Override
 	public String getImplementsArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [\n");
@@ -123,6 +138,7 @@ public class PackageModel implements IPackageModel {
 		return sb.toString();
 	}
 	
+	@Override
 	public String getAssociationArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [\n");
@@ -139,16 +155,8 @@ public class PackageModel implements IPackageModel {
 		}
 		return sb.toString();
 	}
-
-//	public String getAllUsedArrows(){
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("edge [\n");
-//		sb.append("arrowhead = \"vee\"\n");
-//		sb.append("style = \"dashed\"\n]\n");
-//		sb.append(getUsedClassesArrows());
-//		return sb.toString();
-//	}
 	
+	@Override
 	public String getUsedClassesArrows(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("edge [\n");
@@ -214,5 +222,16 @@ public class PackageModel implements IPackageModel {
 			}
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public void accept(IVisitor v) {
+		v.preVisit(this);
+		for(IClassData data: this.classes){
+			data.accept(v);
+		}
+		v.visit(this);
+		v.postVisit(this);
+		
 	}
 }

@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface IPackageModel {
+public interface IPackageModel extends ITraverser {
 	
 	List<IClassData> classes = null;
 	Map<String, List<String>> classToInterfaces = new HashMap<>();
 	Map<String, String> classToSuperclass = new HashMap<>();
 	Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 	Map<String, List<IMethodData>> classToMethods = new HashMap<>();
-	List<String> className = null;
+	List<String> classNames = null;
 	
 	public List<IClassData> getClasses();
 	

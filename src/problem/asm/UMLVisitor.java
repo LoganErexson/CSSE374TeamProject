@@ -12,6 +12,16 @@ public class UMLVisitor implements IVisitor {
 	public UMLVisitor(OutputStream out) {
 		this.keyToVisitMethodMap = new HashMap<>();
 		this.out = out;
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, FieldData.class), new FieldVisit(out));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, MethodData.class), new MethodVisit(out));
+		
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.PreVisit, ClassData.class), new ClassPreVisit(out));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, ClassData.class), new ClassVisit(out));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.PostVisit, ClassData.class), new ClassPostVisit(out));
+		
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.PreVisit, PackageModel.class), new ModelPreVisit(out));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, PackageModel.class), new ModelVisit(out));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.PostVisit, PackageModel.class), new ModelPostVisit(out));
 	}
 	@Override
 	public void preVisit(ITraverser t) {

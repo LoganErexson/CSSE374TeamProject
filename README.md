@@ -117,6 +117,21 @@ be addeded to the string representation of the class. By decorating the visitor 
 Manual UML Project Code
 ![alt M4-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM4.png)
 
+Jack: 
+- Created logic for Singleton Detection
+- Created Detector class
+- Added Singleton Detector classes
+- Added PackageModel
+- Changed how Singleton status is displayed
+
+Logan:
+- Added Model/Data Visitor system
+- Updated Data to accept visitor
+- Added IVisitMethods
+- Updated DesignParser to use Visitors
+
+Milestone 5:
+
 
 To use this tool, run DesignParser with arguments in one of the two following formats:
 uml  #Used for creating .dot files

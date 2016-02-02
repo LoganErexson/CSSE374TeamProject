@@ -15,7 +15,12 @@ public class MethodCallVisit extends AbstractVisitMethod{
 
 	@Override
 	public void execute(ITraverser t){
-		this.buffer.append(t.toString());
+		IMethodCallData meth = (MethodCallData) t;
+		String name = StringParser.parseClassName(meth.getMethodClass());
+		if(!this.classSet.contains(name)){
+			this.classSet.add(name);
+		}
+		this.buffer.append(meth.toString() + "\n");
 	}
 
 }

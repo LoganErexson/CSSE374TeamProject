@@ -9,15 +9,16 @@ import java.util.Set;
 public class SDEditVisitor extends AbstractVisitor {
 
 
-	private Set<String> classSet = new HashSet<>();
+	private Set<String> classSet;
 	private String firstClass;
 	
 	public SDEditVisitor(String firstClass) {
 		super();
+		this.classSet = new HashSet<>();
 		this.firstClass=StringParser.parseClassName(firstClass);
 		this.classSet.add(this.firstClass);
 		this.keyToVisitMethodMap = new HashMap<>();
-		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, MethodCallData.class), new MethodCallVisit(this.buffer));
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, MethodCallData.class), new MethodCallVisit(this.buffer, this.classSet));
 	}
 
 	@Override

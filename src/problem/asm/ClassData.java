@@ -10,7 +10,32 @@ public class ClassData implements IClassData {
 	protected List<IFieldData> fields = new ArrayList<>();
 	protected List<IMethodData> methods = new ArrayList<>();
 	protected List<String> associatedClasses = new ArrayList<>();
+	protected boolean hasPattern = false;
+	protected String pattern = "";
+	protected String fill = "";
 	
+	private void scanForPatterns() {
+		IPatternDetector single = new SingletonDetector();
+		boolean pat = single.findPattern(this);
+		if(pat) {
+			hasPattern = true;
+			fill = "fillcolor = yellow\n";
+			pattern = "\n\\<\\<singleton\\>\\>\n";
+		}
+	}
+	
+	public boolean hasPattern() {
+		return hasPattern;
+	}
+
+	public String getPattern() {
+		return pattern;
+	}
+
+	public String getFill() {
+		return fill;
+	}
+
 	@Override
 	public String getName() {
 		return this.className;
@@ -78,7 +103,11 @@ public class ClassData implements IClassData {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.className);
 		sb.append(" [\n");
+		if(hasPattern)
+			sb.append(fill);
 		sb.append("label = \"{"+this.className);
+		if(hasPattern)
+			sb.append(pattern);
 		sb.append("|");
 		for(IFieldData fd : this.fields) {
 			sb.append(fd.toString());
@@ -98,6 +127,7 @@ public class ClassData implements IClassData {
 	
 	@Override
 	public void accept(IVisitor v) {
+		this.scanForPatterns();
 		v.preVisit(this);
 		for(IFieldData field : this.fields){
 			field.accept(v);

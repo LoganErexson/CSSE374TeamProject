@@ -12,16 +12,14 @@ public class ClassPreVisit  implements IVisitMethod{
 	@Override
 	public void execute(ITraverser t) throws IOException {
 		IClassData clazz = (ClassData) t;
-		IPatternDetector single = new SingletonDetector();
 		StringBuilder sb = new StringBuilder();
-		String pattern = single.findPattern(clazz);
 		sb.append(clazz.getName());
 		sb.append(" [\n");
-		if(!pattern.equals(""))
-			sb.append("fillcolor = yellow\n");
+		if(clazz.hasPattern())
+			sb.append(clazz.getFill());
 		sb.append("label = \"{"+clazz.getName() + "\n");
-		if(!pattern.equals(""))
-			sb.append("\n\\<\\<singleton\\>\\>\n");
+		if(clazz.hasPattern())
+			sb.append(clazz.getPattern());
 		sb.append("|");
 		this.out.write(sb.toString().getBytes());
 		

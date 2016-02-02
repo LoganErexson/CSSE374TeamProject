@@ -27,4 +27,10 @@ public interface IClassData extends ITraverser{
 	public String getUMLString();
 
 	public List<String> getAssociatedClasses();
+	
+	public boolean hasPattern();
+	
+	public String getPattern();
+	
+	public String getFill();
 }

@@ -3,10 +3,10 @@ package problem.asm;
 import java.util.List;
 
 public class SingletonDetector implements IPatternDetector {
-	private String pattern = "";
+	private boolean pattern = false;
 
 	@Override
-	public String findPattern(IClassData d) {
+	public boolean findPattern(IClassData d) {
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;
@@ -23,13 +23,13 @@ public class SingletonDetector implements IPatternDetector {
 			}
 		}
 		if (privCon && privField && returnMethod) {
-			pattern = "\\<\\<singleton\\>\\>\n";
+			pattern = true;
 		}
 		return pattern;
 	}
 
 	@Override
-	public String getPattern() {
+	public boolean getPattern() {
 		return pattern;
 	}
 

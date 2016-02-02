@@ -3,7 +3,7 @@ package problem.asm;
 import java.util.List;
 
 public interface IPatternDetector {
-	public String findPattern(IClassData d);
-	public String getPattern();
+	public boolean findPattern(IClassData d);
+	public boolean getPattern();
 	public void findPattern(List<IClassData> datas);
 }

@@ -15,13 +15,35 @@ public class ClassData implements IClassData {
 	protected String fill = "";
 	
 	private void scanForPatterns() {
-		IPatternDetector single = new SingletonDetector();
-		boolean pat = single.findPattern(this);
-		if(pat) {
-			hasPattern = true;
-			fill = "fillcolor = yellow\n";
-			pattern = "\n\\<\\<singleton\\>\\>\n";
+		if (!hasPattern) {
+			IPatternDetector detector = new SingletonDetector();
+			boolean pat = detector.findPattern(this);
+			if(pat) {
+				hasPattern = true;
+				fill = "fillcolor = yellow\n";
+				pattern = "\n\\<\\<singleton\\>\\>\n";
+			}
+			
+			detector = new DecoratorDetector();
+			pat = detector.findPattern(this);
+			if(pat) {
+				hasPattern = true;
+				fill = "fillcolor = green\n";
+				pattern = "\n\\<\\<decorator\\>\\>\n";
+			}
 		}
+	}
+	
+	public void setHasPattern(boolean hasPattern) {
+		this.hasPattern = hasPattern;
+	}
+
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
+	}
+
+	public void setFill(String fill) {
+		this.fill = fill;
 	}
 	
 	public boolean hasPattern() {

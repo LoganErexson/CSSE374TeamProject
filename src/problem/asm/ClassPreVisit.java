@@ -1,14 +1,13 @@
 package problem.asm;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
-public class ClassPreVisit  implements IVisitMethod{
-	private OutputStream out;
-	
-	public ClassPreVisit(OutputStream out){
-		this.out = out;
+public class ClassPreVisit extends AbstractVisitMethod{
+
+	public ClassPreVisit(StringBuffer buffer) {
+		super(buffer);
 	}
+
 	@Override
 	public void execute(ITraverser t) throws IOException {
 		IClassData clazz = (ClassData) t;
@@ -21,8 +20,9 @@ public class ClassPreVisit  implements IVisitMethod{
 		if(clazz.hasPattern())
 			sb.append(clazz.getPattern());
 		sb.append("|");
-		this.out.write(sb.toString().getBytes());
+		this.buffer.append(sb.toString());
 		
 	}
+
 
 }

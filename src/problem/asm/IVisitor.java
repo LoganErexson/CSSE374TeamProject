@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 
@@ -11,5 +12,5 @@ public interface IVisitor {
 	public void addVisit(VisitType visitType, Class<?> clazz, IVisitMethod m);
 	public void removeVisit(VisitType visitType, Class<?> clazz);
 	
-	public OutputStream getOutputStream();
+	public void printToOutput(OutputStream out) throws IOException;
 }

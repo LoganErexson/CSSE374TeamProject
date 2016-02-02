@@ -1,18 +1,16 @@
 package problem.asm;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
-public class ModelPostVisit implements IVisitMethod{
-
-	private OutputStream out;
-	public ModelPostVisit(OutputStream out) {
-		this.out = out;
-	}
+public class ModelPostVisit extends AbstractVisitMethod{
 	
+	public ModelPostVisit(StringBuffer buffer) {
+		super(buffer);
+	}
+
 	@Override
 	public void execute(ITraverser t) throws IOException {
-		this.out.write("}\n".getBytes());
+		this.buffer.append("}\n");
 	}
 
 }

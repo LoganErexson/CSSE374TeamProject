@@ -1,14 +1,13 @@
 package problem.asm;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
-public class ModelPreVisit  implements IVisitMethod{
+public class ModelPreVisit extends AbstractVisitMethod{
 
-	private OutputStream out;
-	public ModelPreVisit(OutputStream out) {
-		this.out = out;
+	public ModelPreVisit(StringBuffer buffer) {
+		super(buffer);
 	}
+
 	@Override
 	public void execute(ITraverser t) throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -28,7 +27,7 @@ public class ModelPreVisit  implements IVisitMethod{
 		sb.append("fontname = \"Bitstream Vera Sans\"\n");
 		sb.append("fontsize =8\n");
 		sb.append("]\n");
-		this.out.write(sb.toString().getBytes());
+		this.buffer.append(sb.toString());
 		
 	}
 

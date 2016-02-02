@@ -67,7 +67,9 @@ public class DesignParser {
 			IPackageModel model = new PackageModel();
 			model.setClasses(classDatas);
 			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));
-			model.accept(new UMLVisitor(out));
+			IVisitor visitor = new UMLVisitor();
+			model.accept(visitor);
+			visitor.printToOutput(out);
 			out.close();
 		}
 		else if(args[0].toLowerCase().equals("sd")){

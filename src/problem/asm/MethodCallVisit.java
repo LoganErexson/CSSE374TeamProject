@@ -1,17 +1,21 @@
 package problem.asm;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Set;
 
-public class MethodCallVisit implements IVisitMethod{
-	private OutputStream out;
-	
-	public MethodCallVisit(OutputStream out){
-		this.out = out;
+public class MethodCallVisit extends AbstractVisitMethod{
+
+	private Set<String> classSet;
+	public MethodCallVisit(StringBuffer buffer) {
+		super(buffer);
 	}
+	public MethodCallVisit(StringBuffer buffer, Set<String> classSet){
+		this(buffer);
+		this.classSet = classSet;
+	}
+
 	@Override
-	public void execute(ITraverser t) throws IOException {
-		this.out.write(t.toString().getBytes());
+	public void execute(ITraverser t){
+		this.buffer.append(t.toString());
 	}
 
 }

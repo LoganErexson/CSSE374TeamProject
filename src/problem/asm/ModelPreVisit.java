@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 
 public class ModelPreVisit extends AbstractVisitMethod{
 
@@ -9,7 +8,7 @@ public class ModelPreVisit extends AbstractVisitMethod{
 	}
 
 	@Override
-	public void execute(ITraverser t) throws IOException {
+	public void execute(ITraverser t){
 		StringBuilder sb = new StringBuilder();
 		sb.append("digraph G {\n");
 		sb.append("fontname = \" Bitstream Vera San\"\n");

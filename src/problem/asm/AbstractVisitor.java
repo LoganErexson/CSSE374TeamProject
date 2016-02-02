@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 import java.util.Map;
 
 public abstract class AbstractVisitor implements IVisitor{
@@ -30,11 +29,7 @@ public abstract class AbstractVisitor implements IVisitor{
 		LookupKey key = new LookupKey(vType, t.getClass());
 		IVisitMethod m = this.keyToVisitMethodMap.get(key);
 		if(m != null)
-			try {
-				m.execute(t);
-			} catch (IOException exception) {
-				exception.printStackTrace();
-			}
+			m.execute(t);
 	}
 	
 	@Override

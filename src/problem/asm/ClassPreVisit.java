@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 
 public class ClassPreVisit extends AbstractVisitMethod{
 
@@ -9,7 +8,7 @@ public class ClassPreVisit extends AbstractVisitMethod{
 	}
 
 	@Override
-	public void execute(ITraverser t) throws IOException {
+	public void execute(ITraverser t){
 		IClassData clazz = (ClassData) t;
 		StringBuilder sb = new StringBuilder();
 		sb.append(clazz.getName());

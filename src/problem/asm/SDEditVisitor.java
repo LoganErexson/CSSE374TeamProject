@@ -1,13 +1,35 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SDEditVisitor extends AbstractVisitor {
 
+
+	private Set<String> classSet = new HashSet<>();
+	private String firstClass;
+	
+	public SDEditVisitor(String firstClass) {
+		super();
+		this.firstClass=StringParser.parseClassName(firstClass);
+		this.classSet.add(this.firstClass);
+		this.keyToVisitMethodMap = new HashMap<>();
+		this.keyToVisitMethodMap.put(new LookupKey(VisitType.Visit, MethodCallData.class), new MethodCallVisit(this.buffer));
+	}
+
 	@Override
-	public void printToOutput(OutputStream out) {
-		// TODO Auto-generated method stub.
-		
+	public void printToOutput(OutputStream out) throws IOException {
+		out.write((this.firstClass+":"+this.firstClass+"[a]\n").getBytes());
+		for(String className: this.classSet){
+			if(!className.equals(this.firstClass)){
+				out.write((className+":"+className+"\n").getBytes());
+			}
+		}
+		out.write("\n".getBytes());
+		out.write(this.buffer.toString().getBytes());
 	}
 
 }

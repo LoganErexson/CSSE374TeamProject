@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 
 public class ClassPostVisit extends AbstractVisitMethod{
 
@@ -10,7 +9,7 @@ public class ClassPostVisit extends AbstractVisitMethod{
 	}
 
 	@Override
-	public void execute(ITraverser t) throws IOException {
+	public void execute(ITraverser t){
 		this.buffer.append("}\"\n]\n");
 	}
 

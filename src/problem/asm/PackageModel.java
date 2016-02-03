@@ -25,7 +25,9 @@ public class PackageModel implements IPackageModel {
 			IPatternDetector detector = new SingletonDetector();
 			detector.findPattern(d);			
 			detector = new DecoratorDetector();
-			detector.findPattern(d, this);			
+			detector.findPattern(d, this);	
+			detector = new AdapterDetector();
+			detector.findPattern(d, this);
 		}
 	}
 

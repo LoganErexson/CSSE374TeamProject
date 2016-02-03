@@ -30,6 +30,7 @@ public class MethodData implements IMethodData{
 		}
 		this.access = level;
 		this.usedClasses = new ArrayList<>();
+		this.createdClasses = new ArrayList<>();
 	}
 	
 	@Override

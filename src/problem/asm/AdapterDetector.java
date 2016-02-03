@@ -21,6 +21,9 @@ public class AdapterDetector implements IPatternDetector {
 	public void findPattern(IClassData d, IPackageModel m){
 		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
 		List<String> associatedClasses = m.getClassToAssociatedClasses().get(d.getName());
+		if(interfaces==null||associatedClasses==null){
+			return;
+		}
 		for(String assoc: associatedClasses){
 			IClassData assocData = m.getClassDataFromName(assoc);
 			for(String inter: interfaces){

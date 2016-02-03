@@ -1,7 +1,9 @@
 package problem.asm;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,22 +43,30 @@ public class DesignParser {
 		}
 		if(args[0].toLowerCase().equals("uml")){
 			
-			List<String> classes; 
-			
-			JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
-			fc.setMultiSelectionEnabled(true);
-			
-			int returnVal = fc.showOpenDialog(null);
-			if(returnVal == JFileChooser.APPROVE_OPTION){
-				File[] files = fc.getSelectedFiles();
-				classes = new ArrayList<>();
-				for(File file: files){
-					String filePath = file.getPath();
-					classes.add(filePath.substring(filePath.lastIndexOf("src\\")+4, filePath.lastIndexOf(".java")));
+			List<String> classes = new ArrayList<>(); 
+			if(args.length>1){
+				BufferedReader br = new BufferedReader(new FileReader(args[1]));
+				String line;
+				while((line = br.readLine())!=null){
+					classes.add(line);
 				}
+				br.close();
 			}
 			else{
-				classes = Arrays.asList(DEFAULT_CLASSES);
+				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
+				fc.setMultiSelectionEnabled(true);
+				
+				int returnVal = fc.showOpenDialog(null);
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					File[] files = fc.getSelectedFiles();
+					for(File file: files){
+						String filePath = file.getPath();
+						classes.add(filePath.substring(filePath.lastIndexOf("src\\")+4, filePath.lastIndexOf(".java")));
+					}
+				}
+				else{
+					classes = Arrays.asList(DEFAULT_CLASSES);
+				}
 			}
 		    
 			List<IClassData> classDatas = new ArrayList<>();

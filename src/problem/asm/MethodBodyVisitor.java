@@ -22,6 +22,7 @@ public class MethodBodyVisitor extends MethodVisitor{
 	@Override
 	public void visitMethodInsn(int op, String owner, String name, String desc, boolean imp) {
 		super.visitMethodInsn(op, owner, name, desc, imp);
+		this.method.addUsedClass(owner);
 		IMethodCallData callData = new MethodCallData();
 		callData.setMethodClass(owner);
 		callData.setName(name);
@@ -44,7 +45,7 @@ public class MethodBodyVisitor extends MethodVisitor{
 	public void visitTypeInsn(int op, String type) {
 		super.visitTypeInsn(op, type);
 		if(op == Opcodes.NEW) {
-			this.method.addUsedClass(StringParser.parseClassName(type));
+			this.method.addCreatedClass(StringParser.parseClassName(type));
 		}
 	}
 	

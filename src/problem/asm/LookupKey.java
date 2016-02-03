@@ -13,7 +13,7 @@ class LookupKey {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((visitType == null) ? 0 : visitType.hashCode());
+		result = prime * result + ((this.visitType == null) ? 0 : this.visitType.hashCode());
 		return result;
 	}
 
@@ -26,7 +26,7 @@ class LookupKey {
 		if (getClass() != obj.getClass())
 			return false;
 		LookupKey other = (LookupKey) obj;
-		if (visitType != other.visitType)
+		if (this.visitType != other.visitType)
 			return false;
 		
 		if(!other.clazz.isAssignableFrom(this.clazz))

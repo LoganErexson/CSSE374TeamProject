@@ -11,6 +11,7 @@ public class MethodData implements IMethodData{
 	private String access;
 	private List<String> args;
 	private List<String> usedClasses;
+	private List<String> createdClasses;
 
 	public MethodData(String name, Type type, String level, Type[] args,
 			String sig) {
@@ -32,18 +33,18 @@ public class MethodData implements IMethodData{
 	}
 	
 	@Override
-	public void addUsedClass(String clazz) {
-		this.usedClasses.add(clazz);
+	public void addCreatedClass(String clazz) {
+		this.createdClasses.add(clazz);
 	}
 
 	@Override
-	public List<String> getUsedClasses() {
-		return this.usedClasses;
+	public List<String> getCreatedClasses() {
+		return this.createdClasses;
 	}
 
 	@Override
-	public void setUsedClasses(List<String> usedClasses) {
-		this.usedClasses = usedClasses;
+	public void setCreatedClasses(List<String> createdClasses) {
+		this.createdClasses = createdClasses;
 	}
 
 	
@@ -106,6 +107,44 @@ public class MethodData implements IMethodData{
 	@Override
 	public void accept(IVisitor v) {
 		v.visit(this);
+	}
+
+	@Override
+	public void addUsedClass(String clazz) {
+		this.usedClasses.add(clazz);
+		
+	}
+
+	@Override
+	public List<String> getUsedClasses() {
+		return this.usedClasses;
+	}
+
+	@Override
+	public void setUsedClasses(List<String> usedClasses) {
+		this.usedClasses=usedClasses;
+		
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MethodData other = (MethodData) obj;
+		if (!this.name.equals(other.name))
+			return false;
+		if(!this.access.equals(other.access))
+			return false;
+		if(!this.args.equals(other.args))
+			return false;
+		if(!this.type.equals(other.type))
+			return false;
+		
+		return true;
 	}
 
 }

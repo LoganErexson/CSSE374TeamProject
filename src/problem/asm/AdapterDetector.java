@@ -2,7 +2,6 @@ package problem.asm;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class AdapterDetector implements IPatternDetector {
 
@@ -18,26 +17,44 @@ public class AdapterDetector implements IPatternDetector {
 		// TODO Auto-generated method stub.
 
 	}
-	
-	public void findPattern(IPackageModel model) {
-		Map<String, List<String>> interfaceMap = model.getClassToInterfaces();
-		Map<String, List<String>> associatedMap = model.getClassToAssociatedClasses();
-		for(IClassData clazz: model.getClasses()){
-			
-			if(interfaceMap.containsKey(clazz.getName())&&
-					associatedMap.containsKey(clazz.getName()))
-			{
-				
+
+	@Override
+	public void findPattern(IClassData d, IPackageModel m)
+			throws IOException {
+		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
+		List<String> associatedClasses = m.getClassToAssociatedClasses().get(d.getName());
+		for(String assoc: associatedClasses){
+			IClassData assocData = m.getClassDataFromName(assoc);
+			for(String inter: interfaces){
+				IClassData interData = m.getClassDataFromName(inter);
+				boolean hasPattern = true;
+				for(IMethodData method: d.getMethods()){
+					if(interData.getMethods().contains(method)){
+						if(!method.getUsedClasses().contains(assocData.getName())){
+							hasPattern = false;
+						}
+					}
+				}
+				if(hasPattern){
+					d.setPattern("\\l\\<\\<adapter\\>\\>\\l");
+					d.setHasPattern(true);
+					d.setFill("fillcolor = red\n");
+					assocData.setPattern("\\l\\<\\<adaptee\\>\\>\\l");
+					assocData.setHasPattern(true);
+					assocData.setFill("fillcolor = red\n");
+					interData.setPattern("\\l\\<\\<target\\>\\>\\l");
+					interData.setHasPattern(true);
+					interData.setFill("fillcolor = red\n");
+					return;
+				}
 			}
 		}
-
 	}
 
 	@Override
-	public boolean findPattern(IClassData d, IPackageModel m)
-			throws IOException {
+	public void findPattern(IClassData d) {
 		// TODO Auto-generated method stub.
-		return false;
+		
 	}
 
 }

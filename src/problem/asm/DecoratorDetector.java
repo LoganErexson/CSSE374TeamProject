@@ -7,7 +7,7 @@ public class DecoratorDetector implements IPatternDetector {
 	private boolean pattern = false;
 
 	@Override
-	public boolean findPattern(IClassData d) throws IOException {
+	public boolean findPattern(IClassData d, IPackageModel m) throws IOException {
 		//IClassData sup = PackageModel.getClassDataFromName(d.getSuperClass());
 		boolean assocField = false;
 		for (IFieldData field : d.getFields()) {

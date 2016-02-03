@@ -6,7 +6,7 @@ public class SingletonDetector implements IPatternDetector {
 	private boolean pattern = false;
 
 	@Override
-	public boolean findPattern(IClassData d) {
+	public boolean findPattern(IClassData d, IPackageModel m) {
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;

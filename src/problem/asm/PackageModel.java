@@ -23,7 +23,7 @@ public class PackageModel implements IPackageModel {
 	private void scanForPatterns(IClassData d) throws IOException {
 		if (d.hasPattern()) {
 			IPatternDetector detector = new SingletonDetector();
-			boolean pat = detector.findPattern(d);
+			boolean pat = detector.findPattern(d, this);
 			if(pat) {
 				d.setHasPattern(true);
 				d.setFill("fillcolor = yellow\n");
@@ -31,7 +31,7 @@ public class PackageModel implements IPackageModel {
 			}
 			
 			detector = new DecoratorDetector();
-			pat = detector.findPattern(d);
+			pat = detector.findPattern(d, this);
 			if(pat) {
 				d.setHasPattern(true);
 				d.setFill("fillcolor = green\n");

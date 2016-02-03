@@ -235,4 +235,14 @@ public class PackageModel implements IPackageModel {
 		v.postVisit(this);
 		
 	}
+
+	@Override
+	public IClassData getClassDataFromName(String name) {
+		for(IClassData data: this.classes){
+			if(data.getName().equals(name)){
+				return data;
+			}
+		}
+		return null;
+	}
 }

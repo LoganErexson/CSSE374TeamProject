@@ -13,6 +13,8 @@ public interface IPackageModel extends ITraverser {
 	Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	List<String> classNames = null;
 	
+	public IClassData getClassDataFromName(String name);
+	
 	public List<IClassData> getClasses();
 	
 	public void addClass(IClassData d);

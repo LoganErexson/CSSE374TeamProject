@@ -23,7 +23,7 @@ public class PackageModel implements IPackageModel {
 	private void scanForPatterns(IClassData d) throws IOException {
 		if (!d.hasPattern()) {
 			IPatternDetector detector = new SingletonDetector();
-			detector.findPattern(d, this);			
+			detector.findPattern(d);			
 			detector = new DecoratorDetector();
 			detector.findPattern(d, this);			
 		}
@@ -239,6 +239,8 @@ public class PackageModel implements IPackageModel {
 		v.preVisit(this);
 		for(IClassData data: this.classes){
 			scanForPatterns(data);
+		}
+		for(IClassData data: this.classes){
 			data.accept(v);
 		}
 		v.visit(this);

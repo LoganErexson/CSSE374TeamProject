@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SingletonDetector implements IPatternDetector {
@@ -40,7 +39,7 @@ public class SingletonDetector implements IPatternDetector {
 	}
 
 	@Override
-	public void findPattern(IClassData d, IPackageModel m) throws IOException {
+	public void findPattern(IClassData d, IPackageModel m) {
 		// TODO Auto-generated method stub
 		
 	}

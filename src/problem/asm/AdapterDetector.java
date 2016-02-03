@@ -1,6 +1,5 @@
 package problem.asm;
 
-import java.io.IOException;
 import java.util.List;
 
 public class AdapterDetector implements IPatternDetector {
@@ -19,8 +18,7 @@ public class AdapterDetector implements IPatternDetector {
 	}
 
 	@Override
-	public void findPattern(IClassData d, IPackageModel m)
-			throws IOException {
+	public void findPattern(IClassData d, IPackageModel m){
 		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
 		List<String> associatedClasses = m.getClassToAssociatedClasses().get(d.getName());
 		for(String assoc: associatedClasses){

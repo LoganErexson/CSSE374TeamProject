@@ -1,6 +1,7 @@
 package problem.asm;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdapterDecorator implements IPatternDetector {
 
@@ -24,10 +25,12 @@ public class AdapterDecorator implements IPatternDetector {
 	}
 	
 	public void findPattern(IPackageModel model) {
+		Map<String, List<String>> interfaceMap = model.getClassToInterfaces();
+		Map<String, List<String>> associatedMap = model.getClassToAssociatedClasses();
 		for(IClassData clazz: model.getClasses()){
 			
-			if(model.getClassToInterfaces().containsKey(clazz.getName())&&
-					model.getClassToAssociatedClasses().containsKey(clazz.getName()))
+			if(interfaceMap.containsKey(clazz.getName())&&
+					associatedMap.containsKey(clazz.getName()))
 			{
 				
 			}

@@ -194,7 +194,7 @@ public class PackageModel implements IPackageModel {
 				}
 				
 				boolean returnIsConcrete = true;
-				for(String usedClass: method.getUsedClasses()){
+				for(String usedClass: method.getCreatedClasses()){
 					if(usedClass.contains("\\<")){
 						usedClass = usedClass.substring(usedClass.indexOf("<")+1, usedClass.lastIndexOf("\\"));
 					}

@@ -15,6 +15,12 @@ public interface IMethodData extends ITraverser{
 
 	public void setArgs(List<String> args);
 
+	public void addCreatedClass(String clazz);
+
+	public List<String> getCreatedClasses();
+
+	public void setCreatedClasses(List<String> usedClasses);
+
 	public void addUsedClass(String clazz);
 
 	public List<String> getUsedClasses();

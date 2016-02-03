@@ -12,12 +12,14 @@ public class DecoratorDetector implements IPatternDetector {
 		boolean assocField = false;
 		for (IFieldData field : d.getFields()) {
 			if (field.getType().equals(d.getSuperClass())) {
+				sup.setFill("fillcolor = green\n");
+				sup.setPattern("\n\\<\\<component\\>\\>\n");
 				assocField = true;
 			}
 		}
 		if (sup.hasPattern() && sup.getPattern().contains("decorator"))
 			return true;
-		return false;
+		return assocField;
 	}
 
 	@Override

@@ -6,11 +6,11 @@ import org.objectweb.asm.Type;
 
 public class ClassFieldVisitor extends AbstractClassDataVisitor {
 	
+	private String level = "";
+	
 	public ClassFieldVisitor(int api, AbstractClassDataVisitor decorated) {
 		super(api, decorated);
 	}
-
-	private String level = "";
 
 	@Override
 	public FieldVisitor visitField(int access, String name, String desc,
@@ -22,9 +22,6 @@ public class ClassFieldVisitor extends AbstractClassDataVisitor {
 		addAccessLevel(access);
 		
 		this.classData.addField(new FieldData(name, this.level, type, signature));
-		//appendToField(name + " : " + type + "'\'l");
-		// TODO: add this field to your internal representation of the current class.
-		// What is a good way to know what the current class is?
 		return toDecorate;
 	}
 	
@@ -38,6 +35,5 @@ public class ClassFieldVisitor extends AbstractClassDataVisitor {
 		} else {
 			this.level = "+";
 		}
-		// TODO: ADD this information to your representation of the current method.
 	}
 }

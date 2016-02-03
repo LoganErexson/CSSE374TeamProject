@@ -1,17 +1,12 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class AdapterDecorator implements IPatternDetector {
+public class AdapterDetector implements IPatternDetector {
 
 	private boolean pattern = false;
-	
-	@Override
-	public boolean findPattern(IClassData d) {
-		// TODO Auto-generated method stub.
-		return false;
-	}
 
 	@Override
 	public boolean getPattern() {
@@ -36,6 +31,13 @@ public class AdapterDecorator implements IPatternDetector {
 			}
 		}
 
+	}
+
+	@Override
+	public boolean findPattern(IClassData d, IPackageModel m)
+			throws IOException {
+		// TODO Auto-generated method stub.
+		return false;
 	}
 
 }

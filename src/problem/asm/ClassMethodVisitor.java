@@ -46,7 +46,6 @@ public class ClassMethodVisitor extends AbstractClassDataVisitor {
 		} else {
 			this.level = "+";
 		}
-		// TODO: ADD this information to your representation of the current method.
 	}
 
 	public List<IMethodCallData> getMethodCalls() {

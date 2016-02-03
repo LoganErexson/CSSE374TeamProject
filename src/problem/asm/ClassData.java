@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class ClassData implements IClassData {
 	protected String pattern = "";
 	protected String fill = "";
 	
-	private void scanForPatterns() {
+	private void scanForPatterns() throws IOException {
 		if (!hasPattern) {
 			IPatternDetector detector = new SingletonDetector();
 			boolean pat = detector.findPattern(this);
@@ -148,7 +149,7 @@ public class ClassData implements IClassData {
 	}
 	
 	@Override
-	public void accept(IVisitor v) {
+	public void accept(IVisitor v) throws IOException {
 		this.scanForPatterns();
 		v.preVisit(this);
 		for(IFieldData field : this.fields){

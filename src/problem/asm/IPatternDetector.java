@@ -1,9 +1,10 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IPatternDetector {
-	public boolean findPattern(IClassData d);
+	public boolean findPattern(IClassData d) throws IOException;
 	public boolean getPattern();
 	public void findPattern(List<IClassData> datas);
 }

@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -225,7 +226,7 @@ public class PackageModel implements IPackageModel {
 	}
 
 	@Override
-	public void accept(IVisitor v) {
+	public void accept(IVisitor v) throws IOException {
 		v.preVisit(this);
 		for(IClassData data: this.classes){
 			data.accept(v);

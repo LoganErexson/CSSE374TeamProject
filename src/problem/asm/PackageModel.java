@@ -19,6 +19,26 @@ public class PackageModel implements IPackageModel {
 		this.classes = new ArrayList<>();
 		this.classNames = StringParser.getClassNames(this.classes);
 	}
+	
+	private void scanForPatterns(IClassData d) throws IOException {
+		if (d.hasPattern()) {
+			IPatternDetector detector = new SingletonDetector();
+			boolean pat = detector.findPattern(d);
+			if(pat) {
+				d.setHasPattern(true);
+				d.setFill("fillcolor = yellow\n");
+				d.setPattern("\n\\<\\<singleton\\>\\>\n");
+			}
+			
+			detector = new DecoratorDetector();
+			pat = detector.findPattern(d);
+			if(pat) {
+				d.setHasPattern(true);
+				d.setFill("fillcolor = green\n");
+				d.setPattern("\n\\<\\<decorator\\>\\>\n");
+			}
+		}
+	}
 
 	@Override
 	public List<IClassData> getClasses() {
@@ -229,6 +249,7 @@ public class PackageModel implements IPackageModel {
 	public void accept(IVisitor v) throws IOException {
 		v.preVisit(this);
 		for(IClassData data: this.classes){
+			scanForPatterns(data);
 			data.accept(v);
 		}
 		v.visit(this);

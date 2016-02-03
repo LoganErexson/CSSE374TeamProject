@@ -37,4 +37,6 @@ public interface IClassData extends ITraverser{
 	public void setPattern(String string);
 
 	public void setFill(String string);
+
+	public void setHasPattern(boolean b);
 }

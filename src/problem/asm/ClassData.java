@@ -15,26 +15,6 @@ public class ClassData implements IClassData {
 	protected String pattern = "";
 	protected String fill = "";
 	
-	private void scanForPatterns() throws IOException {
-		if (!hasPattern) {
-			IPatternDetector detector = new SingletonDetector();
-			boolean pat = detector.findPattern(this);
-			if(pat) {
-				hasPattern = true;
-				fill = "fillcolor = yellow\n";
-				pattern = "\n\\<\\<singleton\\>\\>\n";
-			}
-			
-			detector = new DecoratorDetector();
-			pat = detector.findPattern(this);
-			if(pat) {
-				hasPattern = true;
-				fill = "fillcolor = green\n";
-				pattern = "\n\\<\\<decorator\\>\\>\n";
-			}
-		}
-	}
-	
 	public void setHasPattern(boolean hasPattern) {
 		this.hasPattern = hasPattern;
 	}
@@ -150,7 +130,7 @@ public class ClassData implements IClassData {
 	
 	@Override
 	public void accept(IVisitor v) throws IOException {
-		this.scanForPatterns();
+//		this.scanForPatterns();
 		v.preVisit(this);
 		for(IFieldData field : this.fields){
 			field.accept(v);

@@ -8,17 +8,17 @@ public class DecoratorDetector implements IPatternDetector {
 
 	@Override
 	public boolean findPattern(IClassData d) throws IOException {
-		IClassData sup = VisitorManager.visitClass(d.getSuperClass()).getClassData();
+		//IClassData sup = PackageModel.getClassDataFromName(d.getSuperClass());
 		boolean assocField = false;
 		for (IFieldData field : d.getFields()) {
 			if (field.getType().equals(d.getSuperClass())) {
-				sup.setFill("fillcolor = green\n");
-				sup.setPattern("\n\\<\\<component\\>\\>\n");
+				//sup.setFill("fillcolor = green\n");
+				//sup.setPattern("\n\\<\\<component\\>\\>\n");
 				assocField = true;
 			}
 		}
-		if (sup.hasPattern() && sup.getPattern().contains("decorator"))
-			return true;
+		//if (sup.hasPattern() && sup.getPattern().contains("decorator"))
+			//return true;
 		return assocField;
 	}
 

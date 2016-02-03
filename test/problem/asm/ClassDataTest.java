@@ -1,6 +1,7 @@
 package problem.asm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -202,9 +203,12 @@ public class ClassDataTest {
 		
 		methodCalls = VisitorManager.getMethodCalls(startingMethod);
 		
-		IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, className);
+		IVisitor sdVisitor = new SDEditVisitor(className);
+		for(IMethodCallData data: methodCalls){
+			data.accept(sdVisitor);
+		}
 		OutputStream out = new ByteArrayOutputStream();
-		sdPrinter.printToFile(out);
+		sdVisitor.printToOutput(out);
 		assertEquals(expected, out.toString());
 		out.close();
 	}

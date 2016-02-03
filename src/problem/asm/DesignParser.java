@@ -95,9 +95,12 @@ public class DesignParser {
 		
 			methodCalls = VisitorManager.getMethodCalls(startingMethod);
 			
-			IClassStructurePrinter sdPrinter = new SDEditPrinter(methodCalls, firstClass);
+			IVisitor visitor = new SDEditVisitor(firstClass);
+			for(IMethodCallData data: methodCalls){
+				data.accept(visitor);
+			}
 			OutputStream out = new FilterOutputStream(new FileOutputStream(SD_OUTPUT));
-			sdPrinter.printToFile(out);
+			visitor.printToOutput(out);
 			out.close();
 
 		}

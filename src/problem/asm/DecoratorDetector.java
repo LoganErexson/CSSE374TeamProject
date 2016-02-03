@@ -7,19 +7,19 @@ public class DecoratorDetector implements IPatternDetector {
 	private boolean pattern = false;
 
 	@Override
-	public boolean findPattern(IClassData d, IPackageModel m) throws IOException {
-		//IClassData sup = PackageModel.getClassDataFromName(d.getSuperClass());
-		boolean assocField = false;
+	public void findPattern(IClassData d, IPackageModel m) throws IOException {
+		IClassData sup = m.getClassDataFromName(d.getSuperClass());
 		for (IFieldData field : d.getFields()) {
 			if (field.getType().equals(d.getSuperClass())) {
-				//sup.setFill("fillcolor = green\n");
-				//sup.setPattern("\n\\<\\<component\\>\\>\n");
-				assocField = true;
+				sup.setFill("fillcolor = green\n");
+				sup.setPattern("\n\\<\\<component\\>\\>\n");
+				d.setHasPattern(true);
+				d.setFill("fillcolor = green\n");
+				d.setPattern("\n\\<\\<decorator\\>\\>\n");
 			}
 		}
 		//if (sup.hasPattern() && sup.getPattern().contains("decorator"))
 			//return true;
-		return assocField;
 	}
 
 	@Override
@@ -29,6 +29,12 @@ public class DecoratorDetector implements IPatternDetector {
 
 	@Override
 	public void findPattern(List<IClassData> datas) {
+	}
+
+	@Override
+	public void findPattern(IClassData d) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

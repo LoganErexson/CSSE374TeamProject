@@ -21,22 +21,11 @@ public class PackageModel implements IPackageModel {
 	}
 	
 	private void scanForPatterns(IClassData d) throws IOException {
-		if (d.hasPattern()) {
+		if (!d.hasPattern()) {
 			IPatternDetector detector = new SingletonDetector();
-			boolean pat = detector.findPattern(d, this);
-			if(pat) {
-				d.setHasPattern(true);
-				d.setFill("fillcolor = yellow\n");
-				d.setPattern("\n\\<\\<singleton\\>\\>\n");
-			}
-			
+			detector.findPattern(d, this);			
 			detector = new DecoratorDetector();
-			pat = detector.findPattern(d, this);
-			if(pat) {
-				d.setHasPattern(true);
-				d.setFill("fillcolor = green\n");
-				d.setPattern("\n\\<\\<decorator\\>\\>\n");
-			}
+			detector.findPattern(d, this);			
 		}
 	}
 

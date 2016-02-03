@@ -1,12 +1,13 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.List;
 
 public class SingletonDetector implements IPatternDetector {
 	private boolean pattern = false;
 
 	@Override
-	public boolean findPattern(IClassData d, IPackageModel m) {
+	public void findPattern(IClassData d) {
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;
@@ -23,9 +24,10 @@ public class SingletonDetector implements IPatternDetector {
 			}
 		}
 		if (privCon && privField && returnMethod) {
-			pattern = true;
+			d.setHasPattern(true);
+			d.setFill("fillcolor = yellow\n");
+			d.setPattern("\n\\<\\<singleton\\>\\>\n");
 		}
-		return pattern;
 	}
 
 	@Override
@@ -35,5 +37,11 @@ public class SingletonDetector implements IPatternDetector {
 
 	@Override
 	public void findPattern(List<IClassData> datas) {
+	}
+
+	@Override
+	public void findPattern(IClassData d, IPackageModel m) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

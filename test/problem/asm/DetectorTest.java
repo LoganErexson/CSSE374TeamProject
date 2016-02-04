@@ -2,11 +2,9 @@ package problem.asm;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.junit.Test;
 
 public class DetectorTest {

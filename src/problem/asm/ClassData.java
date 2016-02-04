@@ -15,26 +15,32 @@ public class ClassData implements IClassData {
 	protected String pattern = "";
 	protected String fill = "";
 	
+	@Override
 	public void setHasPattern(boolean hasPattern) {
 		this.hasPattern = hasPattern;
 	}
 
+	@Override
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
 	}
 
+	@Override
 	public void setFill(String fill) {
 		this.fill = fill;
 	}
 	
+	@Override
 	public boolean hasPattern() {
-		return hasPattern;
+		return this.hasPattern;
 	}
 
+	@Override
 	public String getPattern() {
-		return pattern;
+		return this.pattern;
 	}
 
+	@Override
 	public String getFill() {
 		return fill;
 	}
@@ -130,7 +136,6 @@ public class ClassData implements IClassData {
 	
 	@Override
 	public void accept(IVisitor v) throws IOException {
-//		this.scanForPatterns();
 		v.preVisit(this);
 		for(IFieldData field : this.fields){
 			field.accept(v);

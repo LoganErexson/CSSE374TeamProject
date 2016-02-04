@@ -15,7 +15,11 @@ public class ClassPreVisit extends AbstractVisitMethod{
 		sb.append(" [\n");
 		if(clazz.hasPattern())
 			sb.append(clazz.getFill());
-		sb.append("label = \"{"+clazz.getName() + "\n");
+		sb.append("label = \"{");
+		if(clazz.isInterface()){
+			sb.append("\\<\\<interface\\>\\>\\l");
+		}
+		sb.append(clazz.getName() + "\n");
 		if(clazz.hasPattern())
 			sb.append(clazz.getPattern());
 		sb.append("|");

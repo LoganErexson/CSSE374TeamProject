@@ -20,13 +20,15 @@ public class PackageModel implements IPackageModel {
 		this.classNames = StringParser.getClassNames(this.classes);
 	}
 	
-	private void scanForPatterns(IClassData d) throws IOException {
+	private void scanForPatterns(IClassData d){
 		if (!d.hasPattern()) {
 			IPatternDetector detector = new SingletonDetector();
 			detector.findPattern(d);			
 			detector = new DecoratorDetector();
 			detector.findPattern(d, this);	
 			detector = new AdapterDetector();
+			detector.findPattern(d, this);
+			detector = new InterfaceDetector();
 			detector.findPattern(d, this);
 		}
 	}

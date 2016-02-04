@@ -118,11 +118,11 @@ public class ClassData implements IClassData {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.className);
 		sb.append(" [\n");
-		if(hasPattern)
-			sb.append(fill);
+		if(this.hasPattern)
+			sb.append(this.fill);
 		sb.append("label = \"{"+this.className);
-		if(hasPattern)
-			sb.append(pattern);
+		if(this.hasPattern)
+			sb.append(this.pattern);
 		sb.append("|");
 		for(IFieldData fd : this.fields) {
 			sb.append(fd.toString());

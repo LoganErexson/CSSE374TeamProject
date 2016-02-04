@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassData implements IClassData {
-	protected String className;
-	protected String superClass;
-	protected List<String> implementedClasses;
-	protected List<IFieldData> fields = new ArrayList<>();
-	protected List<IMethodData> methods = new ArrayList<>();
-	protected List<String> associatedClasses = new ArrayList<>();
-	protected boolean hasPattern = false;
-	protected String pattern = "";
-	protected String fill = "";
+	private String className;
+	private String superClass;
+	private List<String> implementedClasses;
+	private List<IFieldData> fields = new ArrayList<>();
+	private List<IMethodData> methods = new ArrayList<>();
+	private List<String> associatedClasses = new ArrayList<>();
+	private boolean hasPattern = false;
+	private String pattern = "";
+	private String fill = "";
+	private boolean isInterface = false;
 	
 	@Override
 	public void setHasPattern(boolean hasPattern) {
@@ -150,5 +151,15 @@ public class ClassData implements IClassData {
 			method.accept(v);
 		}
 		v.postVisit(this);
+	}
+
+	@Override
+	public boolean isInterface() {
+		return this.isInterface;
+	}
+
+	@Override
+	public void setIsInterface(boolean b) {
+		this.isInterface = b;
 	}
 }

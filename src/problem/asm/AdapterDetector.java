@@ -42,13 +42,13 @@ public class AdapterDetector implements IPatternDetector {
 					}
 				}
 				if(hasPattern){
-					d.setPattern("\\l\\<\\<adapter\\>\\>\\l");
+					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");
 					d.setHasPattern(true);
 					d.setFill("fillcolor = red\n");
-					assocData.setPattern("\\l\\<\\<adaptee\\>\\>\\l");
+					assocData.setPattern("\\n\\<\\<adaptee\\>\\>\\n");
 					assocData.setHasPattern(true);
 					assocData.setFill("fillcolor = red\n");
-					interData.setPattern("\\l\\<\\<target\\>\\>\\l");
+					interData.setPattern("\\n\\<\\<target\\>\\>\\n");
 					interData.setHasPattern(true);
 					interData.setFill("fillcolor = red\n");
 					return;

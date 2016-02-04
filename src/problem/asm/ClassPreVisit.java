@@ -17,7 +17,7 @@ public class ClassPreVisit extends AbstractVisitMethod{
 			sb.append(clazz.getFill());
 		sb.append("label = \"{");
 		if(clazz.isInterface()){
-			sb.append("\\<\\<interface\\>\\>\\l");
+			sb.append("\\<\\<interface\\>\\>\\n");
 		}
 		sb.append(clazz.getName() + "\n");
 		if(clazz.hasPattern())

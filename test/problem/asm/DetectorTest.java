@@ -121,7 +121,8 @@ public class DetectorTest {
 	@Test
 	public final void testAdapterMouseAdapter() throws IOException {
 		IPackageModel m = new PackageModel();
-		String[] c = {"java.awt.event.MouseListener", "java.awt.event.MouseWheelListener", "java.util.EventListener", "java.awt.event.MouseMotionListener", "java.awt.event.MouseAdapter"};
+		String[] c = {"java.awt.event.MouseListener", "java.awt.event.MouseWheelListener", "java.util.EventListener", "java.awt.event.MouseMotionListener", "java.awt.event.MouseAdapter",
+				"java.awt.event.MouseEvent"};
 		for (String s : c){
 			AbstractClassDataVisitor visitor = VisitorManager.visitClass(s);
 			m.addClass(visitor.getClassData());
@@ -136,7 +137,8 @@ public class DetectorTest {
 	@Test
 	public final void testDecoratorMouseAdapter() throws IOException {
 		IPackageModel m = new PackageModel();
-		String[] c = {"java.awt.event.MouseListener", "java.awt.event.MouseWheelListener", "java.util.EventListener", "java.awt.event.MouseMotionListener", "java.awt.event.MouseAdapter"};
+		String[] c = {"java.awt.event.MouseListener", "java.awt.event.MouseWheelListener", "java.util.EventListener", "java.awt.event.MouseMotionListener", "java.awt.event.MouseAdapter",
+				"java.awt.event.MouseEvent"};
 		for (String s : c){
 			AbstractClassDataVisitor visitor = VisitorManager.visitClass(s);
 			m.addClass(visitor.getClassData());

@@ -20,11 +20,11 @@ public class DecoratorDetector implements IPatternDetector {
 						if (in != null && !in.hasPattern()) {
 							in.setHasPattern(true);
 							in.setFill("fillcolor = green\n");
-							in.setPattern("\\l\\<\\<component\\>\\>\\l");
+							in.setPattern("\\n\\<\\<component\\>\\>\\n");
 						}
 						d.setHasPattern(true);
 						d.setFill("fillcolor = green\n");
-						d.setPattern("\\l\\<\\<decorator\\>\\>\\l");
+						d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
 						return;
 					} 
 				}
@@ -33,7 +33,7 @@ public class DecoratorDetector implements IPatternDetector {
 		if (sup != null && sup.hasPattern() && sup.getPattern().contains("decorator")) {
 			d.setHasPattern(true);
 			d.setFill("fillcolor = green\n");
-			d.setPattern("\\l\\<\\<decorator\\>\\>\\l");
+			d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
 			return;
 		}
 	}

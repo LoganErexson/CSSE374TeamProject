@@ -14,19 +14,19 @@ fontsize =8
 DecryptionInputStream [
 fillcolor = green
 label = "{DecryptionInputStream
-\l\<\<decorator\>\>\l|- decryptor : IDecryption\l|+ \<init\>(InputStream, IDecryption) : void\l+ read() : int\l+ read(byte[], int, int) : int\l}"
+\n\<\<decorator\>\>\n|- decryptor : IDecryption\l|+ \<init\>(InputStream, IDecryption) : void\l+ read() : int\l+ read(byte[], int, int) : int\l}"
 ]
 EncryptionOutputStream [
 fillcolor = green
 label = "{EncryptionOutputStream
-\l\<\<decorator\>\>\l|- encryptor : IEncryption\l|+ \<init\>(OutputStream, IEncryption) : void\l+ write(int) : void\l}"
+\n\<\<decorator\>\>\n|- encryptor : IEncryption\l|+ \<init\>(OutputStream, IEncryption) : void\l+ write(int) : void\l}"
 ]
 IDecryption [
-label = "{IDecryption
+label = "{\<\<interface\>\>\nIDecryption
 ||+ decrypt(char) : char\l}"
 ]
 IEncryption [
-label = "{IEncryption
+label = "{\<\<interface\>\>\nIEncryption
 ||+ encrypt(char) : char\l}"
 ]
 SubstitutionCipher [
@@ -40,12 +40,12 @@ label = "{TextEditorApp
 FilterInputStream [
 fillcolor = green
 label = "{FilterInputStream
-\l\<\<decorator\>\>\l|# in : InputStream\l|# \<init\>(InputStream) : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+\n\<\<decorator\>\>\n|# in : InputStream\l|# \<init\>(InputStream) : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
 ]
 FilterOutputStream [
 fillcolor = green
 label = "{FilterOutputStream
-\l\<\<decorator\>\>\l|# out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+\n\<\<decorator\>\>\n|# out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
 ]
 FileInputStream [
 label = "{FileInputStream
@@ -58,12 +58,12 @@ label = "{FileOutputStream
 InputStream [
 fillcolor = green
 label = "{InputStream
-\l\<\<component\>\>\l|- MAX_SKIP_BUFFER_SIZE : int\l|+ \<init\>() : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+\n\<\<component\>\>\n|- MAX_SKIP_BUFFER_SIZE : int\l|+ \<init\>() : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
 ]
 OutputStream [
 fillcolor = green
 label = "{OutputStream
-\l\<\<component\>\>\l||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+\n\<\<component\>\>\n||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
 ]
 edge [
 arrowhead = "empty"

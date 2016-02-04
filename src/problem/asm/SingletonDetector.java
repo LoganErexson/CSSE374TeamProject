@@ -23,7 +23,7 @@ public class SingletonDetector implements IPatternDetector {
 		if (privCon && privField && returnMethod) {
 			d.setHasPattern(true);
 			d.setFill("fillcolor = yellow\n");
-			d.setPattern("\n\\<\\<singleton\\>\\>\n");
+			d.setPattern("\\n\\<\\<singleton\\>\\>\\n");
 		}
 	}
 

@@ -1,9 +1,7 @@
 package problem.asm;
 
-import java.util.List;
 
 public class SingletonDetector implements IPatternDetector {
-	private boolean pattern = false;
 
 	@Override
 	public void findPattern(IClassData d) {
@@ -30,17 +28,6 @@ public class SingletonDetector implements IPatternDetector {
 	}
 
 	@Override
-	public boolean getPattern() {
-		return pattern;
-	}
-
-	@Override
-	public void findPattern(List<IClassData> datas) {
-	}
-
-	@Override
 	public void findPattern(IClassData d, IPackageModel m) {
-		// TODO Auto-generated method stub
-		
 	}
 }

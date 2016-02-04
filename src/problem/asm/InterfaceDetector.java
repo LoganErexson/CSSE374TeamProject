@@ -7,8 +7,6 @@ public class InterfaceDetector implements IPatternDetector {
 
 	@Override
 	public void findPattern(IClassData d) {
-		// TODO Auto-generated method stub.
-
 	}
 
 	@Override
@@ -22,18 +20,6 @@ public class InterfaceDetector implements IPatternDetector {
 			}
 		}
 		
-
-	}
-
-	@Override
-	public boolean getPattern() {
-		// TODO Auto-generated method stub.
-		return false;
-	}
-
-	@Override
-	public void findPattern(List<IClassData> datas) {
-		// TODO Auto-generated method stub.
 
 	}
 

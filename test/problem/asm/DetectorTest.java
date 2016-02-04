@@ -68,7 +68,7 @@ public class DetectorTest {
 		OutputStream out = new ByteArrayOutputStream();
 		m.accept(umlVisitor);
 		umlVisitor.printToOutput(out);
-		assertTrue(out.toString().contains("decorator"));
+		assertFalse(out.toString().contains("decorator"));
 	}
 	
 	@Test
@@ -98,7 +98,7 @@ public class DetectorTest {
 		OutputStream out = new ByteArrayOutputStream();
 		m.accept(umlVisitor);
 		umlVisitor.printToOutput(out);
-		assertTrue(out.toString().contains("decorator"));
+		assertFalse(out.toString().contains("decorator"));
 	}
 	
 	@Test

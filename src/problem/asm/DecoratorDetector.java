@@ -14,8 +14,8 @@ public class DecoratorDetector implements IPatternDetector {
 		for (IMethodData meth : d.getMethods()) {
 			if (meth.getName().equals("<init>")) {
 				for(String asc : d.getAssociatedClasses()) {
-					if (meth.getArgs().contains(asc) && (d.getImplementedClasses().contains(asc) 
-							|| d.getSuperClass().equalsIgnoreCase(asc))) {
+					if (meth.getArgs().contains(asc) && ((d.getImplementedClasses().contains(asc) && m.getClassDataFromName(asc) != null)
+							|| (d.getSuperClass().equalsIgnoreCase(asc) && sup != null))  ) {
 						IClassData in = m.getClassDataFromName(asc);
 						if (in != null && !in.hasPattern()) {
 							in.setHasPattern(true);

@@ -19,6 +19,8 @@ public class DecoratorDetector implements IPatternDetector {
 							in.setHasPattern(true);
 							in.setFill("fillcolor = green\n");
 							in.setPattern("\\n\\<\\<component\\>\\>\\n");
+							m.addSpecialArrow(new SpecialArrowKey(d.getName(), in.getName(), 
+									"association"), "\\<\\<decorates\\>\\>");
 						}
 						d.setHasPattern(true);
 						d.setFill("fillcolor = green\n");

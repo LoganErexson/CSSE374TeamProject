@@ -53,4 +53,6 @@ public interface IPackageModel extends ITraverser {
 	public String getAssociationArrows();
 	
 	public String getUsedClassesArrows();
+
+	public void addSpecialArrow(SpecialArrowKey specialArrowKey, String string);
 }

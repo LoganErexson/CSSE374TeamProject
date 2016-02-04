@@ -11,87 +11,53 @@ edge [
 fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
-DecryptionInputStream [
-fillcolor = green
-label = "{DecryptionInputStream
-\n\<\<decorator\>\>\n|- decryptor : IDecryption\l|+ \<init\>(InputStream, IDecryption) : void\l+ read() : int\l+ read(byte[], int, int) : int\l}"
-]
-EncryptionOutputStream [
-fillcolor = green
-label = "{EncryptionOutputStream
-\n\<\<decorator\>\>\n|- encryptor : IEncryption\l|+ \<init\>(OutputStream, IEncryption) : void\l+ write(int) : void\l}"
-]
-IDecryption [
-label = "{\<\<interface\>\>\nIDecryption
-||+ decrypt(char) : char\l}"
-]
-IEncryption [
-label = "{\<\<interface\>\>\nIEncryption
-||+ encrypt(char) : char\l}"
-]
-SubstitutionCipher [
-label = "{SubstitutionCipher
-|- encryptionKey : char[]\l- decryptionKey : char[]\l|+ \<init\>() : void\l+ encrypt(char) : char\l+ decrypt(char) : char\l}"
-]
-TextEditorApp [
-label = "{TextEditorApp
+App [
+label = "{App
 ||+ \<init\>() : void\l+ main(String[]) : void\l}"
 ]
-FilterInputStream [
-fillcolor = green
-label = "{FilterInputStream
-\n\<\<decorator\>\>\n|# in : InputStream\l|# \<init\>(InputStream) : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+IteratorToEnumerationAdapter [
+fillcolor = red
+label = "{IteratorToEnumerationAdapter
+\n\<\<adapter\>\>\n|- itr : Iterator\<TE\>\l|+ \<init\>(Iterator\<TE\>) : void\l+ hasMoreElements() : boolean\l+ nextElement() : TE\l}"
 ]
-FilterOutputStream [
-fillcolor = green
-label = "{FilterOutputStream
-\n\<\<decorator\>\>\n|# out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+LinearTransformer [
+label = "{LinearTransformer
+|- enumTion : Enumeration\<TT\>\l|+ \<init\>(Enumeration\<TT\>) : void\l+ transform(OutputStream) : void\l}"
 ]
-FileInputStream [
-label = "{FileInputStream
-|- fd : FileDescriptor\l- path : String\l- channel : FileChannel\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(File) : void\l+ \<init\>(FileDescriptor) : void\l- open(String) : void\l+ read() : int\l- read0() : int\l- readBytes(byte[], int, int) : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l- initIDs() : void\l- close0() : void\l# finalize() : void\l+ access$000(FileInputStream) : void\l+ \<clinit\>() : void\l}"
+ArrayList [
+label = "{ArrayList
+|- serialVersionUID : long\l- DEFAULT_CAPACITY : int\l- EMPTY_ELEMENTDATA : Object[]\l- DEFAULTCAPACITY_EMPTY_ELEMENTDATA : Object[]\l+ elementData : Object[]\l- size : int\l- MAX_ARRAY_SIZE : int\l|+ \<init\>(int) : void\l+ \<init\>() : void\l+ \<init\>(Collection\<+TE\>) : void\l+ trimToSize() : void\l+ ensureCapacity(int) : void\l- ensureCapacityInternal(int) : void\l- ensureExplicitCapacity(int) : void\l- grow(int) : void\l- hugeCapacity(int) : int\l+ size() : int\l+ isEmpty() : boolean\l+ contains(Object) : boolean\l+ indexOf(Object) : int\l+ lastIndexOf(Object) : int\l+ clone() : Object\l+ toArray() : Object[]\l+ toArray([TT) : [TT\l+ elementData(I) : TE\l+ get(I) : TE\l+ set(ITE) : TE\l+ add(TE) : Z\l+ add(ITE) : void\l+ remove(I) : TE\l+ remove(Object) : boolean\l- fastRemove(int) : void\l+ clear() : void\l+ addAll(Collection\<+TE\>) : Z\l+ addAll(Collection\<+TE\>) : Z\l# removeRange(int, int) : void\l- rangeCheck(int) : void\l- rangeCheckForAdd(int) : void\l- outOfBoundsMsg(int) : String\l+ removeAll() : Z\l+ retainAll() : Z\l- batchRemove(Z) : Z\l- writeObject(ObjectOutputStream) : void\l- readObject(ObjectInputStream) : void\l+ listIterator(I) : ListIterator\<TE\>\l+ listIterator() : ListIterator\<TE\>\l+ iterator() : Iterator\<TE\>\l+ subList(II) : List\<TE\>\l+ subListRangeCheck(int, int, int) : void\l+ forEach(Consumer\<-TE\>) : void\l+ spliterator() : Spliterator\<TE\>\l+ removeIf(Predicate\<-TE\>) : Z\l+ replaceAll(UnaryOperator\<TE\>) : void\l+ sort(Comparator\<-TE\>) : void\l+ access$100(ArrayList) : int\l+ \<clinit\>() : void\l}"
 ]
-FileOutputStream [
-label = "{FileOutputStream
-|- fd : FileDescriptor\l- append : boolean\l- channel : FileChannel\l- path : String\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(String, boolean) : void\l+ \<init\>(File) : void\l+ \<init\>(File, boolean) : void\l+ \<init\>(FileDescriptor) : void\l- open(String, boolean) : void\l- write(int, boolean) : void\l+ write(int) : void\l- writeBytes(byte[], int, int, boolean) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l# finalize() : void\l- close0() : void\l- initIDs() : void\l+ access$000(FileOutputStream) : void\l+ \<clinit\>() : void\l}"
+Enumeration [
+fillcolor = red
+label = "{Enumeration
+\n\<\<target\>\>\n||+ hasMoreElements() : boolean\l+ nextElement() : TE\l}"
 ]
-InputStream [
-fillcolor = green
-label = "{InputStream
-\n\<\<component\>\>\n|- MAX_SKIP_BUFFER_SIZE : int\l|+ \<init\>() : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+Iterator [
+fillcolor = red
+label = "{Iterator
+\n\<\<adaptee\>\>\n||+ hasNext() : boolean\l+ next() : TE\l+ remove() : void\l+ forEachRemaining(Consumer\<-TE\>) : void\l}"
 ]
 OutputStream [
-fillcolor = green
 label = "{OutputStream
-\n\<\<component\>\>\n||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
 ]
 edge [
 arrowhead = "empty"
 style = "solid"
 ]
-FilterInputStream -> InputStream
-EncryptionOutputStream -> FilterOutputStream
-FileOutputStream -> OutputStream
-DecryptionInputStream -> FilterInputStream
-FilterOutputStream -> OutputStream
-FileInputStream -> InputStream
 edge [
 arrowhead = "vee"
 style = "solid"
 ]
-FilterInputStream -> InputStream
+LinearTransformer -> Enumeration
 edge [
 label = ""
 ]
-EncryptionOutputStream -> IEncryption
 edge [
-label = ""
+label = "\<\<adapts\>\>"
 ]
-DecryptionInputStream -> IDecryption
-edge [
-label = ""
-]
-FilterOutputStream -> OutputStream
+IteratorToEnumerationAdapter -> Iterator
 edge [
 label = ""
 ]
@@ -99,17 +65,13 @@ edge [
 arrowhead = "empty"
 style = "dashed"
 ]
-SubstitutionCipher -> IEncryption
-SubstitutionCipher -> IDecryption
+IteratorToEnumerationAdapter -> Enumeration
 edge [
 arrowhead = "vee"
 style = "dashed"
 ]
-EncryptionOutputStream -> OutputStream
-DecryptionInputStream -> InputStream
-TextEditorApp -> SubstitutionCipher
-TextEditorApp -> DecryptionInputStream
-TextEditorApp -> FileInputStream
-TextEditorApp -> EncryptionOutputStream
-TextEditorApp -> FileOutputStream
+App -> ArrayList
+App -> IteratorToEnumerationAdapter
+App -> LinearTransformer
+LinearTransformer -> OutputStream
 }

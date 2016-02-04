@@ -29,6 +29,8 @@ public class AdapterDetector implements IPatternDetector {
 					}
 				}
 				if(hasPattern){
+					m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
+							"\\<\\<adapts\\>\\>");
 					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");
 					d.setHasPattern(true);
 					d.setFill("fillcolor = red\n");

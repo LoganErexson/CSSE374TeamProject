@@ -14,6 +14,7 @@ public class PackageModel implements IPackageModel {
 	private Map<String, List<String>> classToAssociatedClasses = new HashMap<>();
 	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
+	private Map<SpecialArrowKey, String> specialArrows = new HashMap<>();
 	
 	public PackageModel() {
 		this.classes = new ArrayList<>();
@@ -163,11 +164,10 @@ public class PackageModel implements IPackageModel {
 				if(this.classNames.contains(assocClass)
 						&&!this.classToInterfaces.get(className).contains(assocClass))
 				{
-					IClassData c = this.getClassDataFromName(className);
-					IClassData p = this.getClassDataFromName(assocClass);
-					if (c != null && c.hasPattern() && p != null && p.hasPattern() && c.getPattern().equals(p.getPattern())) {
+					SpecialArrowKey key = new SpecialArrowKey(className, assocClass, "association");
+					if(this.specialArrows.containsKey(key)){
 						sb.append("edge [\n");
-						sb.append("label = \"" + c.getPattern() + "\"\n]\n");
+						sb.append("label = \"" + this.specialArrows.get(key) + "\"\n]\n");
 					}
 					sb.append(className+" -> "+assocClass+"\n");
 					sb.append("edge [\n");
@@ -268,5 +268,10 @@ public class PackageModel implements IPackageModel {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void addSpecialArrow(SpecialArrowKey key, String label){
+		this.specialArrows.put(key, label);
 	}
 }

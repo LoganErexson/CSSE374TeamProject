@@ -136,17 +136,17 @@ The Dectectors update IClassData objects to have pattern data if they are a part
 PackageModel's accept call. 
 
 Jack:
--Updated how detectors interact with PackageModel and ClassData
--Developed DecoratorDetector
--Added Tests for new Decorators
--Generated and manually built new diagrams
+- Updated how detectors interact with PackageModel and ClassData
+- Developed DecoratorDetector
+- Added Tests for new Decorators
+- Generated and manually built new diagrams
 
 Logan:
--Developed AdapterDetector
--Updated sequence diagram generation to use visitors
--Cleaned out unneccessary and unused code
--Implemented Labels for arrows
--Added config file style of choosing classes
+- Developed AdapterDetector
+- Updated sequence diagram generation to use visitors
+- Cleaned out unneccessary and unused code
+- Implemented Labels for arrows
+- Added config file style of choosing classes
 
 Manual UML Project Code
 ![alt M5-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)

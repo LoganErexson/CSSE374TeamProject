@@ -131,9 +131,22 @@ Logan:
 - Updated DesignParser to use Visitors
 
 Milestone 5:
-For milestone 5 new implementations of IPatternDetector will be implemented for the Decorator and Adaptor patterns and checked for in the PackageModel class. 
+For milestone 5 new implementations of IPatternDetector were implemented for the Decorator and Adaptor patterns and checked for in the PackageModel class. 
 The Dectectors update IClassData objects to have pattern data if they are a part of a pattern and then flag that data to be printed when that class is accepted during a 
 PackageModel's accept call. 
+
+Jack
+-Updated how detectors interact with PackageModel and ClassData
+-Developed DecoratorDetector
+-Added Tests for new Decorators
+-Generated and manually built new diagrams
+
+Logan
+-Developed AdapterDetector
+-Updated sequence diagram generation to use visitors
+-Cleaned out unneccessary and unused code
+-Implemented Labels for arrows
+-Added config file style of choosing classes
 
 Manual UML Project Code
 ![alt M5-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)

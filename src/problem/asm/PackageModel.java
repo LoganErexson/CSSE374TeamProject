@@ -163,7 +163,15 @@ public class PackageModel implements IPackageModel {
 				if(this.classNames.contains(assocClass)
 						&&!this.classToInterfaces.get(className).contains(assocClass))
 				{
+					IClassData c = this.getClassDataFromName(className);
+					IClassData p = this.getClassDataFromName(assocClass);
+					if (c != null && c.hasPattern() && p != null && p.hasPattern() && c.getPattern().equals(p.getPattern())) {
+						sb.append("edge [\n");
+						sb.append("label = \"" + c.getPattern() + "\"\n]\n");
+					}
 					sb.append(className+" -> "+assocClass+"\n");
+					sb.append("edge [\n");
+					sb.append("label = \"\"\n]\n");
 				}
 			}
 		}
@@ -179,7 +187,6 @@ public class PackageModel implements IPackageModel {
 		List<String> usedClasses = new ArrayList<>();
 		for(String className: this.classToMethods.keySet()){
 			for(IMethodData method : this.classToMethods.get(className)){
-				
 				String paramType;
 				for(String param: method.getArgs()){
 					if(param.contains("\\<")){

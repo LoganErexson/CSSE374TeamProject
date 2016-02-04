@@ -239,6 +239,7 @@ public class PackageModel implements IPackageModel {
 	@Override
 	public void accept(IVisitor v) throws IOException {
 		v.preVisit(this);
+		this.setClassRelations();
 		for(IClassData data: this.classes){
 			scanForPatterns(data);
 		}

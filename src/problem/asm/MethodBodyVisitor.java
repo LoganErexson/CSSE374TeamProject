@@ -22,7 +22,7 @@ public class MethodBodyVisitor extends MethodVisitor{
 	@Override
 	public void visitMethodInsn(int op, String owner, String name, String desc, boolean imp) {
 		super.visitMethodInsn(op, owner, name, desc, imp);
-		this.method.addUsedClass(owner);
+		this.method.addUsedClass(StringParser.parseClassName(owner));
 		IMethodCallData callData = new MethodCallData();
 		callData.setMethodClass(owner);
 		callData.setName(name);

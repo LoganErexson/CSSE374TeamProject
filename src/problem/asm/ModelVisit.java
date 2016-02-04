@@ -10,7 +10,6 @@ public class ModelVisit extends AbstractVisitMethod{
 	@Override
 	public void execute(ITraverser t){
 		IPackageModel model = (PackageModel) t;
-		model.setClassRelations();
 		this.buffer.append(model.createArrows());
 	}
 

@@ -84,7 +84,12 @@ public class ClassData implements IClassData {
 		this.fields.add(f);
 		String fieldType = f.getType();
 		if(fieldType.contains("\\<")){
-			fieldType = fieldType.substring(fieldType.indexOf("<"), fieldType.lastIndexOf("\\"));
+			if(fieldType.contains("\\<TE\\>")||fieldType.contains("\\<TT\\>")){
+				fieldType = fieldType.substring(0, fieldType.indexOf("\\<"));
+			}
+			else{
+				fieldType = fieldType.substring(fieldType.indexOf("<"), fieldType.lastIndexOf("\\"));	
+			}
 		}		
 		
 		if(!this.associatedClasses.contains(fieldType)&&this.className!=fieldType){

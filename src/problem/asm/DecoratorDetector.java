@@ -1,9 +1,7 @@
 package problem.asm;
 
-import java.util.List;
 
 public class DecoratorDetector implements IPatternDetector {
-	private boolean pattern = false;
 
 	@Override
 	public void findPattern(IClassData d, IPackageModel m) {
@@ -38,18 +36,9 @@ public class DecoratorDetector implements IPatternDetector {
 		}
 	}
 
-	@Override
-	public boolean getPattern() {
-		return pattern;
-	}
-
-	@Override
-	public void findPattern(List<IClassData> datas) {
-	}
 
 	@Override
 	public void findPattern(IClassData d) {
-		// TODO Auto-generated method stub
 		
 	}
 

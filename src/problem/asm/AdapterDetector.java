@@ -4,19 +4,6 @@ import java.util.List;
 
 public class AdapterDetector implements IPatternDetector {
 
-	private boolean pattern = false;
-
-	@Override
-	public boolean getPattern() {
-		return this.pattern;
-	}
-
-	@Override
-	public void findPattern(List<IClassData> datas) {
-		// TODO Auto-generated method stub.
-
-	}
-
 	@Override
 	public void findPattern(IClassData d, IPackageModel m){
 		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
@@ -59,7 +46,6 @@ public class AdapterDetector implements IPatternDetector {
 
 	@Override
 	public void findPattern(IClassData d) {
-		// TODO Auto-generated method stub.
 		
 	}
 

@@ -12,12 +12,14 @@ fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
 DecryptionInputStream [
+fillcolor = green
 label = "{DecryptionInputStream
-|- decryptor : IDecryption\l|+ \<init\>(InputStream, IDecryption) : void\l+ read() : int\l+ read(byte[], int, int) : int\l}"
+\l\<\<decorator\>\>\l|- decryptor : IDecryption\l|+ \<init\>(InputStream, IDecryption) : void\l+ read() : int\l+ read(byte[], int, int) : int\l}"
 ]
 EncryptionOutputStream [
+fillcolor = green
 label = "{EncryptionOutputStream
-|- encryptor : IEncryption\l|+ \<init\>(OutputStream, IEncryption) : void\l+ write(int) : void\l}"
+\l\<\<decorator\>\>\l|- encryptor : IEncryption\l|+ \<init\>(OutputStream, IEncryption) : void\l+ write(int) : void\l}"
 ]
 IDecryption [
 label = "{IDecryption
@@ -38,38 +40,30 @@ label = "{TextEditorApp
 FilterInputStream [
 fillcolor = green
 label = "{FilterInputStream
-
-\<\<decorator\>\>
-|# in : InputStream\l|# \<init\>(InputStream) : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+\l\<\<decorator\>\>\l|# in : InputStream\l|# \<init\>(InputStream) : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
 ]
 FilterOutputStream [
 fillcolor = green
 label = "{FilterOutputStream
-
-\<\<decorator\>\>
-|# out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+\l\<\<decorator\>\>\l|# out : OutputStream\l|+ \<init\>(OutputStream) : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
 ]
 FileInputStream [
 label = "{FileInputStream
-|- fd : FileDescriptor\l- path : String\l- channel : FileChannel\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(File) : void\l+ \<init\>(FileDescriptor) : void\l- open0(String) : void\l- open(String) : void\l+ read() : int\l- read0() : int\l- readBytes(byte[], int, int) : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l- initIDs() : void\l- close0() : void\l# finalize() : void\l+ access$000(FileInputStream) : void\l+ \<clinit\>() : void\l}"
+|- fd : FileDescriptor\l- path : String\l- channel : FileChannel\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(File) : void\l+ \<init\>(FileDescriptor) : void\l- open(String) : void\l+ read() : int\l- read0() : int\l- readBytes(byte[], int, int) : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l- initIDs() : void\l- close0() : void\l# finalize() : void\l+ access$000(FileInputStream) : void\l+ \<clinit\>() : void\l}"
 ]
 FileOutputStream [
 label = "{FileOutputStream
-|- fd : FileDescriptor\l- append : boolean\l- channel : FileChannel\l- path : String\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(String, boolean) : void\l+ \<init\>(File) : void\l+ \<init\>(File, boolean) : void\l+ \<init\>(FileDescriptor) : void\l- open0(String, boolean) : void\l- open(String, boolean) : void\l- write(int, boolean) : void\l+ write(int) : void\l- writeBytes(byte[], int, int, boolean) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l# finalize() : void\l- close0() : void\l- initIDs() : void\l+ access$000(FileOutputStream) : void\l+ \<clinit\>() : void\l}"
+|- fd : FileDescriptor\l- append : boolean\l- channel : FileChannel\l- path : String\l- closeLock : Object\l- closed : boolean\l|+ \<init\>(String) : void\l+ \<init\>(String, boolean) : void\l+ \<init\>(File) : void\l+ \<init\>(File, boolean) : void\l+ \<init\>(FileDescriptor) : void\l- open(String, boolean) : void\l- write(int, boolean) : void\l+ write(int) : void\l- writeBytes(byte[], int, int, boolean) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ close() : void\l+ getFD() : FileDescriptor\l+ getChannel() : FileChannel\l# finalize() : void\l- close0() : void\l- initIDs() : void\l+ access$000(FileOutputStream) : void\l+ \<clinit\>() : void\l}"
 ]
 InputStream [
 fillcolor = green
 label = "{InputStream
-
-\<\<component\>\>
-|- MAX_SKIP_BUFFER_SIZE : int\l|+ \<init\>() : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
+\l\<\<component\>\>\l|- MAX_SKIP_BUFFER_SIZE : int\l|+ \<init\>() : void\l+ read() : int\l+ read(byte[]) : int\l+ read(byte[], int, int) : int\l+ skip(long) : long\l+ available() : int\l+ close() : void\l+ mark(int) : void\l+ reset() : void\l+ markSupported() : boolean\l}"
 ]
 OutputStream [
 fillcolor = green
 label = "{OutputStream
-
-\<\<component\>\>
-||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
+\l\<\<component\>\>\l||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
 ]
 edge [
 arrowhead = "empty"

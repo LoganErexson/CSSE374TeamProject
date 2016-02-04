@@ -8,12 +8,8 @@ public class DecoratorDetector implements IPatternDetector {
 	@Override
 	public void findPattern(IClassData d, IPackageModel m) {
 		IClassData sup = m.getClassDataFromName(d.getSuperClass());
-		if(sup == null)
-			return;
 		if (sup != null && !sup.hasPattern() && !d.hasPattern()) {
 			findPattern(sup, m);
-			if(d.hasPattern())
-				return;
 		}
 		for (IMethodData meth : d.getMethods()) {
 			if (meth.getName().equals("<init>")) {

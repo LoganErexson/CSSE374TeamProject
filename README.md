@@ -131,15 +131,18 @@ Logan:
 - Updated DesignParser to use Visitors
 
 Milestone 5:
-For milestone 5 new implementations of IPatternDetector will be implemented for the Decorator and Adaptor patterns and checked for in the ClassPrevVisit class
-in order to ensure correct formatting. The only changes that should need to be made will be the declaration of these detectors and a call to their findPattern function. 
+For milestone 5 new implementations of IPatternDetector will be implemented for the Decorator and Adaptor patterns and checked for in the PackageModel class. 
+The Dectectors update IClassData objects to have pattern data if they are a part of a pattern and then flag that data to be printed when that class is accepted during a 
+PackageModel's accept call. 
 
 Manual UML Project Code
 ![alt M5-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)
 
-To use this tool, run DesignParser with arguments in one of the two following formats:
+To use this tool, run DesignParser with arguments in one of the three following formats:
 uml  #Used for creating .dot files
 	 #A file chooser will prompt the the user to select the files to include in the diagram
+uml [config_file_path]	#Used for creating specially configured .dot files
+					  	#Config file lists classes to include in the uml diagram generation.
 sd [method_signature] [depth]   #Used for creating .sd files. 
 								#"depth" here is optional and will default to 5
 								#<method_signature> is in the format:

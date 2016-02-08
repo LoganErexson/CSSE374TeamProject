@@ -4,6 +4,8 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+import problem.model.data.FieldData;
+
 public class ClassFieldVisitor extends AbstractClassDataVisitor {
 	
 	private String level = "";

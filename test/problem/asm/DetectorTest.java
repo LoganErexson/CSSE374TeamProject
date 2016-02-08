@@ -9,6 +9,11 @@ import java.io.OutputStream;
 
 import org.junit.Test;
 
+import problem.model.data.IPackageModel;
+import problem.model.data.PackageModel;
+import problem.model.visit.IVisitor;
+import problem.model.visit.UMLVisitor;
+
 public class DetectorTest {
 	@Test
 	public final void testRuntimeSingleton() throws IOException {

@@ -7,6 +7,11 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+import problem.model.data.IMethodCallData;
+import problem.model.data.IMethodData;
+import problem.model.data.MethodCallData;
+import problem.model.data.MethodData;
+
 public class ClassMethodVisitor extends AbstractClassDataVisitor {
 	
 	private String level = "";

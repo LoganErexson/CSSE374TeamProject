@@ -14,6 +14,20 @@ import java.util.Map;
 import org.junit.Test;
 import org.objectweb.asm.Type;
 
+import problem.main.StringParser;
+import problem.model.data.ClassData;
+import problem.model.data.FieldData;
+import problem.model.data.IClassData;
+import problem.model.data.IFieldData;
+import problem.model.data.IMethodCallData;
+import problem.model.data.IMethodData;
+import problem.model.data.IPackageModel;
+import problem.model.data.MethodCallData;
+import problem.model.data.MethodData;
+import problem.model.data.PackageModel;
+import problem.model.visit.IVisitor;
+import problem.model.visit.SDEditVisitor;
+
 
 public class ModelTest {
 	@Test

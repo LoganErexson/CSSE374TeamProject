@@ -7,6 +7,8 @@ import java.util.List;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 
+import problem.model.data.IMethodCallData;
+
 public class VisitorManager {
 	
 	public static AbstractClassDataVisitor visitClass(String className) throws IOException{

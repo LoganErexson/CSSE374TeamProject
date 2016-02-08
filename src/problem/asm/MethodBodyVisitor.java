@@ -6,6 +6,11 @@ import java.util.List;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import problem.main.StringParser;
+import problem.model.data.IMethodCallData;
+import problem.model.data.IMethodData;
+import problem.model.data.MethodCallData;
+
 public class MethodBodyVisitor extends MethodVisitor{
 	private IMethodData method;
 	private List<IMethodCallData> methodCalls = new ArrayList<>();

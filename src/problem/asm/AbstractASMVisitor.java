@@ -4,10 +4,10 @@ import org.objectweb.asm.ClassVisitor;
 
 import problem.model.data.ClassData;
 
-public abstract class AbstractClassDataVisitor extends ClassVisitor{
+public abstract class AbstractASMVisitor extends ClassVisitor{
 	protected ClassData classData;
 
-	public AbstractClassDataVisitor(int api, AbstractClassDataVisitor decorated) {
+	public AbstractASMVisitor(int api, AbstractASMVisitor decorated) {
 		super(api, decorated);
 		if(decorated ==null){
 			this.classData = new ClassData();

@@ -8,7 +8,7 @@ import problem.model.data.IPackageModel;
 import problem.model.data.SpecialArrowKey;
 
 public class AdapterDetector implements IPatternDetector {
-
+	public static final double MIN_PERCENT_METHODS = 0.75;
 	@Override
 	public void findPattern(IClassData d, IPackageModel m){
 		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
@@ -24,16 +24,15 @@ public class AdapterDetector implements IPatternDetector {
 				IClassData interData = m.getClassDataFromName(inter);
 				if(interData==null)
 					continue;
-				boolean hasPattern = true;
+				int methodsUsed = 0;
 				for(IMethodData method: d.getMethods()){
 					if(interData.getMethods().contains(method)){
-						if(!method.getUsedClasses().contains(assocData.getName())){
-							hasPattern = false;
-							break;
+						if(method.getUsedClasses().contains(assocData.getName())){
+							methodsUsed++;
 						}
 					}
 				}
-				if(hasPattern){
+				if((methodsUsed/interData.getMethods().size())>=MIN_PERCENT_METHODS){
 					m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
 							"\\<\\<adapts\\>\\>");
 					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");

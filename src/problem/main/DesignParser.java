@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
-import problem.asm.AbstractClassDataVisitor;
+import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
 import problem.model.data.IClassData;
 import problem.model.data.IMethodCallData;
@@ -82,7 +82,7 @@ public class DesignParser {
 		    
 			List<IClassData> classDatas = new ArrayList<>();
 			for (String className : classes) {
-				AbstractClassDataVisitor visitor = VisitorManager.visitClass(className);
+				AbstractASMVisitor visitor = VisitorManager.visitClass(className);
 				classDatas.add(visitor.getClassData());
 			}
 			IPackageModel model = new PackageModel();

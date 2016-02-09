@@ -1,9 +1,9 @@
-problem2_1.DecryptionInputStream
-problem2_1.EncryptionOutputStream
-problem2_1.IDecryption
-problem2_1.IEncryption
-problem2_1.SubstitutionCipher
-problem2_1.TextEditorApp
+sample.Lab2_1.DecryptionInputStream
+sample.Lab2_1.EncryptionOutputStream
+sample.Lab2_1.IDecryption
+sample.Lab2_1.IEncryption
+sample.Lab2_1.SubstitutionCipher
+sample.Lab2_1.TextEditorApp
 java.io.FilterInputStream
 java.io.FilterOutputStream
 java.io.FileInputStream

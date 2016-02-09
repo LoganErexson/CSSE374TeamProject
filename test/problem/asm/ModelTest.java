@@ -182,7 +182,7 @@ public class ModelTest {
 				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
 				"problem.asm.FieldData", "problem.asm.MethodData",
 				"problem.asm.AbstractClassDataVisitor" };
-		List<AbstractClassDataVisitor> classDatas = new ArrayList<>();
+		List<AbstractASMVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className));
 		}

@@ -1,0 +1,14 @@
+sample.lab7_2.AbstractSprite
+sample.lab7_2.CompositeSprite
+sample.lab7_2.CompositeSpriteIterator
+sample.lab7_2.CrystalBall
+sample.lab7_2.CircleSprite
+sample.lab7_2.ISprite
+sample.lab7_2.CompositeSprite
+sample.lab7_2.RectangleSprite
+sample.lab7_2.SpriteFactory
+sample.lab7_2.NullSpriteIterator
+sample.lab7_2.RectangleTower
+sample.lab7_2.AnimationPanel
+sample.lab7_2.MainWindow
+sample.lab7_2.AnimatorApp

@@ -11,53 +11,76 @@ edge [
 fontname = "Bitstream Vera Sans"
 fontsize =8
 ]
-App [
-label = "{App
+AbstractSprite [
+label = "{AbstractSprite
+|# dx : double\l# dy : double\l# shape : Shape\l|+ \<init\>(double, double, double, double) : void\l# computeNewBoundsAfterMoving(Dimension) : Rectangle2D\l+ getShape() : Shape\l+ add(ISprite) : void\l+ remove(ISprite) : void\l+ getChild(int) : ISprite\l+ iterator() : Iterator\<ISprite\>\l+ move(Dimension) : void\l}"
+]
+CompositeSprite [
+label = "{CompositeSprite
+|+ children : List\<ISprite\>\l|+ \<init\>(double, double, double, double) : void\l+ iterator() : Iterator\<ISprite\>\l+ add(ISprite) : void\l+ remove(ISprite) : void\l+ getChild(int) : ISprite\l+ move(Dimension) : void\l}"
+]
+CompositeSpriteIterator [
+label = "{CompositeSpriteIterator
+|- stack : Stack\<ISprite\>\l|+ \<init\>(Iterator\<ISprite\>) : void\l+ hasNext() : boolean\l+ next() : ISprite\l+ remove() : void\l+ next() : Object\l}"
+]
+CrystalBall [
+label = "{CrystalBall
+||+ \<init\>(double, double, double, double) : void\l}"
+]
+CircleSprite [
+label = "{CircleSprite
+||+ \<init\>(double, double, double, double) : void\l+ move(Dimension) : void\l}"
+]
+ISprite [
+label = "{\<\<interface\>\>\nISprite
+||+ move(Dimension) : void\l+ getShape() : Shape\l+ add(ISprite) : void\l+ remove(ISprite) : void\l+ getChild(int) : ISprite\l}"
+]
+CompositeSprite [
+label = "{CompositeSprite
+|+ children : List\<ISprite\>\l|+ \<init\>(double, double, double, double) : void\l+ iterator() : Iterator\<ISprite\>\l+ add(ISprite) : void\l+ remove(ISprite) : void\l+ getChild(int) : ISprite\l+ move(Dimension) : void\l}"
+]
+RectangleSprite [
+label = "{RectangleSprite
+||+ \<init\>(double, double, double, double) : void\l+ move(Dimension) : void\l}"
+]
+SpriteFactory [
+label = "{SpriteFactory
+|+ DX : double\l+ DY : double\l+ WIDTH : double\l+ HEIGHT : double\l- random : Random\l- sprites : List\<ISprite\>\l|+ \<clinit\>() : void\l+ \<init\>() : void\l+ computeRandomLocation(Dimension) : Point2D\l+ createRandomSprite(Dimension) : ISprite\l}"
+]
+NullSpriteIterator [
+label = "{NullSpriteIterator
+||+ \<init\>() : void\l+ hasNext() : boolean\l+ next() : ISprite\l+ remove() : void\l+ next() : Object\l}"
+]
+RectangleTower [
+label = "{RectangleTower
+||+ \<init\>(double, double, double, double) : void\l}"
+]
+AnimationPanel [
+label = "{AnimationPanel
+|- serialVersionUID : long\l- sprites : List\<ISprite\>\l- animating : boolean\l- sleepTime : long\l|+ \<init\>(long) : void\l+ add(ISprite) : void\l+ getSize() : Dimension\l+ animate() : void\l+ reset() : void\l# paintComponent(Graphics) : void\l+ access$0(AnimationPanel) : boolean\l+ access$1(AnimationPanel) : List\l+ access$2(AnimationPanel) : long\l}"
+]
+MainWindow [
+label = "{MainWindow
+|- frame : JFrame\l- actionPanel : JPanel\l- animationPanel : AnimationPanel\l- moveButton : JButton\l- createButton : JButton\l- resetButton : JButton\l|+ \<init\>(String, long) : void\l- createWidgets(String, long) : void\l- assignActions() : void\l+ show() : void\l+ access$0(MainWindow) : AnimationPanel\l+ access$1(MainWindow) : JButton\l+ access$2(MainWindow) : JButton\l}"
+]
+AnimatorApp [
+label = "{AnimatorApp
 ||+ \<init\>() : void\l+ main(String[]) : void\l}"
 ]
-IteratorToEnumerationAdapter [
-fillcolor = red
-label = "{IteratorToEnumerationAdapter
-\n\<\<adapter\>\>\n|- itr : Iterator\<TE\>\l|+ \<init\>(Iterator\<TE\>) : void\l+ hasMoreElements() : boolean\l+ nextElement() : TE\l}"
-]
-LinearTransformer [
-label = "{LinearTransformer
-|- enumTion : Enumeration\<TT\>\l|+ \<init\>(Enumeration\<TT\>) : void\l+ transform(OutputStream) : void\l}"
-]
-ArrayList [
-label = "{ArrayList
-|- serialVersionUID : long\l- DEFAULT_CAPACITY : int\l- EMPTY_ELEMENTDATA : Object[]\l- DEFAULTCAPACITY_EMPTY_ELEMENTDATA : Object[]\l+ elementData : Object[]\l- size : int\l- MAX_ARRAY_SIZE : int\l|+ \<init\>(int) : void\l+ \<init\>() : void\l+ \<init\>(Collection\<+TE\>) : void\l+ trimToSize() : void\l+ ensureCapacity(int) : void\l- ensureCapacityInternal(int) : void\l- ensureExplicitCapacity(int) : void\l- grow(int) : void\l- hugeCapacity(int) : int\l+ size() : int\l+ isEmpty() : boolean\l+ contains(Object) : boolean\l+ indexOf(Object) : int\l+ lastIndexOf(Object) : int\l+ clone() : Object\l+ toArray() : Object[]\l+ toArray([TT) : [TT\l+ elementData(I) : TE\l+ get(I) : TE\l+ set(ITE) : TE\l+ add(TE) : Z\l+ add(ITE) : void\l+ remove(I) : TE\l+ remove(Object) : boolean\l- fastRemove(int) : void\l+ clear() : void\l+ addAll(Collection\<+TE\>) : Z\l+ addAll(Collection\<+TE\>) : Z\l# removeRange(int, int) : void\l- rangeCheck(int) : void\l- rangeCheckForAdd(int) : void\l- outOfBoundsMsg(int) : String\l+ removeAll() : Z\l+ retainAll() : Z\l- batchRemove(Z) : Z\l- writeObject(ObjectOutputStream) : void\l- readObject(ObjectInputStream) : void\l+ listIterator(I) : ListIterator\<TE\>\l+ listIterator() : ListIterator\<TE\>\l+ iterator() : Iterator\<TE\>\l+ subList(II) : List\<TE\>\l+ subListRangeCheck(int, int, int) : void\l+ forEach(Consumer\<-TE\>) : void\l+ spliterator() : Spliterator\<TE\>\l+ removeIf(Predicate\<-TE\>) : Z\l+ replaceAll(UnaryOperator\<TE\>) : void\l+ sort(Comparator\<-TE\>) : void\l+ access$100(ArrayList) : int\l+ \<clinit\>() : void\l}"
-]
-Enumeration [
-fillcolor = red
-label = "{Enumeration
-\n\<\<target\>\>\n||+ hasMoreElements() : boolean\l+ nextElement() : TE\l}"
-]
-Iterator [
-fillcolor = red
-label = "{Iterator
-\n\<\<adaptee\>\>\n||+ hasNext() : boolean\l+ next() : TE\l+ remove() : void\l+ forEachRemaining(Consumer\<-TE\>) : void\l}"
-]
-OutputStream [
-label = "{OutputStream
-||+ \<init\>() : void\l+ write(int) : void\l+ write(byte[]) : void\l+ write(byte[], int, int) : void\l+ flush() : void\l+ close() : void\l}"
-]
 edge [
 arrowhead = "empty"
 style = "solid"
 ]
+RectangleTower -> CompositeSprite
+CrystalBall -> CompositeSprite
+CircleSprite -> AbstractSprite
+RectangleSprite -> AbstractSprite
+CompositeSprite -> AbstractSprite
 edge [
 arrowhead = "vee"
 style = "solid"
 ]
-LinearTransformer -> Enumeration
-edge [
-label = ""
-]
-edge [
-label = "\<\<adapts\>\>"
-]
-IteratorToEnumerationAdapter -> Iterator
+MainWindow -> AnimationPanel
 edge [
 label = ""
 ]
@@ -65,13 +88,16 @@ edge [
 arrowhead = "empty"
 style = "dashed"
 ]
-IteratorToEnumerationAdapter -> Enumeration
+AbstractSprite -> ISprite
 edge [
 arrowhead = "vee"
 style = "dashed"
 ]
-App -> ArrayList
-App -> IteratorToEnumerationAdapter
-App -> LinearTransformer
-LinearTransformer -> OutputStream
+SpriteFactory -> ISprite
+RectangleTower -> RectangleSprite
+AnimationPanel -> CompositeSpriteIterator
+AnimatorApp -> MainWindow
+CrystalBall -> RectangleTower
+CrystalBall -> CircleSprite
+AbstractSprite -> NullSpriteIterator
 }

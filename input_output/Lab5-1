@@ -1,6 +1,6 @@
-Lab5_1.App
-Lab5_1.IteratorToEnumerationAdapter
-Lab5_1.LinearTransformer
+sample.Lab5_1.App
+sample.Lab5_1.IteratorToEnumerationAdapter
+sample.Lab5_1.LinearTransformer
 java.util.ArrayList
 java.util.Enumeration
 java.util.Iterator

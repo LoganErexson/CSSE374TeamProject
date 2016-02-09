@@ -6,11 +6,11 @@ import org.objectweb.asm.Type;
 
 import problem.model.data.FieldData;
 
-public class ClassFieldVisitor extends AbstractClassDataVisitor {
+public class ClassFieldVisitor extends AbstractASMVisitor {
 	
 	private String level = "";
 	
-	public ClassFieldVisitor(int api, AbstractClassDataVisitor decorated) {
+	public ClassFieldVisitor(int api, AbstractASMVisitor decorated) {
 		super(api, decorated);
 	}
 

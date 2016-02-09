@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import problem.main.StringParser;
 
-public class ClassDeclarationVisitor extends AbstractClassDataVisitor {
+public class ClassDeclarationVisitor extends AbstractASMVisitor {
 	
-	public ClassDeclarationVisitor(int api, AbstractClassDataVisitor decorated) {
+	public ClassDeclarationVisitor(int api, AbstractASMVisitor decorated) {
 		super(api, decorated);
 	}
 

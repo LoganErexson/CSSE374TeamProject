@@ -12,12 +12,12 @@ import problem.model.data.IMethodData;
 import problem.model.data.MethodCallData;
 import problem.model.data.MethodData;
 
-public class ClassMethodVisitor extends AbstractClassDataVisitor {
+public class ClassMethodVisitor extends AbstractASMVisitor {
 	
 	private String level = "";
 	private List<IMethodCallData> calledByMethod = new ArrayList<>();
 	private IMethodCallData callData;
-	public ClassMethodVisitor(int api, AbstractClassDataVisitor decorated) {
+	public ClassMethodVisitor(int api, AbstractASMVisitor decorated) {
 		super(api, decorated);
 		this.callData = new MethodCallData();
 	}

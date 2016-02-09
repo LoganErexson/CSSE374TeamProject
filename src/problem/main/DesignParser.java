@@ -16,6 +16,7 @@ import javax.swing.JFileChooser;
 import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
 import problem.detector.AdapterDetector;
+import problem.detector.CompositeDetector;
 import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
@@ -96,6 +97,7 @@ public class DesignParser {
 			detectors.add(new DecoratorDetector());
 			detectors.add(new AdapterDetector());
 			detectors.add(new InterfaceDetector());
+			detectors.add(new CompositeDetector());
 			
 			IPackageModel model = new PackageModel(detectors);
 			model.setClasses(classDatas);

@@ -11,9 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.objectweb.asm.Type;
 
+import problem.detector.AdapterDetector;
+import problem.detector.DecoratorDetector;
+import problem.detector.IPatternDetector;
+import problem.detector.InterfaceDetector;
+import problem.detector.SingletonDetector;
 import problem.main.StringParser;
 import problem.model.data.ClassData;
 import problem.model.data.FieldData;
@@ -30,6 +36,18 @@ import problem.model.visit.SDEditVisitor;
 
 
 public class ModelTest {
+	
+	private List<IPatternDetector> detectors;
+	
+	@Before
+	public void setUp(){
+		List<IPatternDetector> detectors = new ArrayList<>();
+		detectors.add(new SingletonDetector());
+		detectors.add(new DecoratorDetector());
+		detectors.add(new AdapterDetector());
+		detectors.add(new InterfaceDetector());
+		this.detectors = detectors;
+	}
 	@Test
 	public final void testSingleClass() throws IOException {
 		assertEquals("A [\n" +
@@ -40,9 +58,9 @@ public class ModelTest {
 	@Test
 	public final void testInterfaces() throws IOException {
 		List<IClassData> datas = new ArrayList<>();
-		datas.add(VisitorManager.visitClass("lab1_3/Behavior").getClassData());
-		datas.add(VisitorManager.visitClass("lab1_3/HTMLBehavior").getClassData());
-		IPackageModel model = new PackageModel();
+		datas.add(VisitorManager.visitClass("sample.lab1_3.Behavior").getClassData());
+		datas.add(VisitorManager.visitClass("sample.lab1_3.HTMLBehavior").getClassData());
+		IPackageModel model = new PackageModel(this.detectors);
 		model.setClasses(datas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
@@ -63,13 +81,13 @@ public class ModelTest {
 
 	@Test
 	public final void testSuperClasses() throws IOException {
-		String[] CLASSES = {"problem.asm.AbstractClassDataVisitor" };
+		String[] CLASSES = {"problem.asm.AbstractASMVisitor" };
 		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className).getClassData());
 		}
 		classDatas.add(VisitorManager.visitClass("problem.asm.ClassMethodVisitor").getClassData());
-		IPackageModel model = new PackageModel();
+		IPackageModel model = new PackageModel(this.detectors);
 		model.setClasses(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
@@ -85,7 +103,7 @@ public class ModelTest {
 		model.setClassToInterfaces(classToInterfaces);
 		model.setClassToMethods(classToMethods);
 		model.setClassToAssociatedClasses(classToAssociatedClasses);
-		assertTrue(model.createArrows().contains("ClassMethodVisitor -> AbstractClassDataVisitor"));
+		assertTrue(model.createArrows().contains("ClassMethodVisitor -> AbstractASMVisitor"));
 	}
 
 	@Test
@@ -110,15 +128,15 @@ public class ModelTest {
 	public final void testUsesArrow() throws IOException {
 		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
 				"problem.asm.ClassDeclarationVisitor",
-				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
-				"problem.asm.FieldData", "problem.asm.MethodData",
-				"problem.asm.AbstractClassDataVisitor" };
+				"problem.asm.ClassFieldVisitor", "problem.main.DesignParser",
+				"problem.model.data.FieldData", "problem.model.data.MethodData",
+				"problem.asm.AbstractASMVisitor" };
 		List<IClassData> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className).getClassData());
 		}	
 		//List<String> classNames = StringParser.getClassNames(classDatas);
-		IPackageModel model = new PackageModel();
+		IPackageModel model = new PackageModel(this.detectors);
 		model.setClasses(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
@@ -146,7 +164,7 @@ public class ModelTest {
 			classDatas.add(VisitorManager.visitClass(className).getClassData());
 		}	
 		classDatas.add(VisitorManager.visitClass("problem.asm.B").getClassData());
-		IPackageModel model = new PackageModel();
+		IPackageModel model = new PackageModel(this.detectors);
 		model.setClasses(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
 		Map<String, String> classToSuperclass = new HashMap<>();
@@ -169,7 +187,6 @@ public class ModelTest {
 	public final void testSignatureParsing(){
 		String signature = "(Ljava/util/List<Ljava/lang/String;>;Ljava/lang/String;)Ljava/util/List<Ljava/lang/String;>;";
 		List<String> parameters = new ArrayList<>();
-		parameters.add("List\\<String\\>");
 		parameters.add("String");
 		assertEquals(parameters, StringParser.parametersFromSignature(signature));
 		assertEquals("List\\<String\\>", StringParser.returnTypeFromSignature(signature));
@@ -179,14 +196,14 @@ public class ModelTest {
 	public final void testMethodCallClassName() throws IOException {
 		String[] CLASSES = { "problem.asm.ClassMethodVisitor",
 				"problem.asm.ClassDeclarationVisitor",
-				"problem.asm.ClassFieldVisitor", "problem.asm.DesignParser",
-				"problem.asm.FieldData", "problem.asm.MethodData",
-				"problem.asm.AbstractClassDataVisitor" };
+				"problem.asm.ClassFieldVisitor", "problem.main.DesignParser",
+				"problem.model.data.FieldData", "problem.model.data.MethodData",
+				"problem.asm.AbstractASMVisitor" };
 		List<AbstractASMVisitor> classDatas = new ArrayList<>();
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className));
 		}
-		String methodSignature = "problem.asm.DesignParser.main(String[])";
+		String methodSignature = "problem.main.DesignParser.main(String[])";
 		List<String> classNames = new ArrayList<>();
 		classNames.add(methodSignature.substring(0, methodSignature.lastIndexOf(".")));
 		
@@ -197,7 +214,7 @@ public class ModelTest {
 		startingMethod.setName(methodSignature.substring(methodSignature.lastIndexOf(".")+1, 
 				methodSignature.lastIndexOf("(")));
 		
-		assertEquals("problem.asm.DesignParser", startingMethod.getMethodClass());
+		assertEquals("problem.main.DesignParser", startingMethod.getMethodClass());
 	}
 	
 	@Test

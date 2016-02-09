@@ -15,6 +15,11 @@ import javax.swing.JFileChooser;
 
 import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
+import problem.detector.AdapterDetector;
+import problem.detector.DecoratorDetector;
+import problem.detector.IPatternDetector;
+import problem.detector.InterfaceDetector;
+import problem.detector.SingletonDetector;
 import problem.model.data.IClassData;
 import problem.model.data.IMethodCallData;
 import problem.model.data.IPackageModel;
@@ -85,7 +90,14 @@ public class DesignParser {
 				AbstractASMVisitor visitor = VisitorManager.visitClass(className);
 				classDatas.add(visitor.getClassData());
 			}
-			IPackageModel model = new PackageModel();
+			
+			List<IPatternDetector> detectors = new ArrayList<>();
+			detectors.add(new SingletonDetector());
+			detectors.add(new DecoratorDetector());
+			detectors.add(new AdapterDetector());
+			detectors.add(new InterfaceDetector());
+			
+			IPackageModel model = new PackageModel(detectors);
 			model.setClasses(classDatas);
 			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));
 			IVisitor visitor = new UMLVisitor();

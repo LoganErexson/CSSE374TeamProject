@@ -39,7 +39,7 @@ public class VisitorManager {
 		ClassMethodVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
 				fieldVisitor);
 		methodVisitor.setCallData(callData);
-		// TODO: add more DECORATORS here in later milestones to accomplish specific tasks
+		
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to visit the class
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return methodVisitor;

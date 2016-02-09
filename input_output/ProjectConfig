@@ -1,6 +1,6 @@
 problem.main.DesignParser
 problem.main.StringParser
-problem.asm.AbstractClassDataVisitor
+problem.asm.AbstractASMVisitor
 problem.asm.ClassDeclarationVisitor
 problem.asm.ClassFieldVisitor
 problem.asm.ClassMethodVisitor

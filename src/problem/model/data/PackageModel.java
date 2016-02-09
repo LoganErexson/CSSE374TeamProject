@@ -6,11 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import problem.detector.AdapterDetector;
-import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
-import problem.detector.InterfaceDetector;
-import problem.detector.SingletonDetector;
 import problem.main.StringParser;
 import problem.model.visit.IVisitor;
 
@@ -23,22 +19,19 @@ public class PackageModel implements IPackageModel {
 	private Map<String, List<IMethodData>> classToMethods = new HashMap<>();
 	private List<String> classNames;
 	private Map<SpecialArrowKey, String> specialArrows = new HashMap<>();
-	
-	public PackageModel() {
+	private List<IPatternDetector> detectors = new ArrayList<>();
+
+	public PackageModel(List<IPatternDetector> detectors) {
 		this.classes = new ArrayList<>();
 		this.classNames = StringParser.getClassNames(this.classes);
+		this.detectors = detectors;
 	}
 	
 	private void scanForPatterns(IClassData d){
 		if (!d.hasPattern()) {
-			IPatternDetector detector = new SingletonDetector();
-			detector.findPattern(d);			
-			detector = new DecoratorDetector();
-			detector.findPattern(d, this);	
-			detector = new AdapterDetector();
-			detector.findPattern(d, this);
-			detector = new InterfaceDetector();
-			detector.findPattern(d, this);
+			for(IPatternDetector detector: this.detectors){
+				detector.findPattern(d, this);
+			}
 		}
 	}
 
@@ -117,6 +110,16 @@ public class PackageModel implements IPackageModel {
 	@Override
 	public void setClassNames(List<String> classNames) {
 		this.classNames = classNames;
+	}
+	
+	@Override
+	public List<IPatternDetector> getDetectors() {
+		return this.detectors;
+	}
+
+	@Override
+	public void setDetectors(List<IPatternDetector> detectors) {
+		this.detectors = detectors;
 	}
 	
 	@Override

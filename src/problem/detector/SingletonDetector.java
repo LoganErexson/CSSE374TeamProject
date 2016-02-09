@@ -34,5 +34,6 @@ public class SingletonDetector implements IPatternDetector {
 
 	@Override
 	public void findPattern(IClassData d, IPackageModel m) {
+		this.findPattern(d);
 	}
 }

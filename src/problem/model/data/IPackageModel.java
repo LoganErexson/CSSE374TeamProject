@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import problem.detector.IPatternDetector;
 import problem.model.visit.ITraverser;
 
 public interface IPackageModel extends ITraverser {
@@ -45,6 +46,10 @@ public interface IPackageModel extends ITraverser {
 	public List<String> getClassNames();
 
 	public void setClassNames(List<String> classNames);
+	
+	public List<IPatternDetector> getDetectors();
+
+	public void setDetectors(List<IPatternDetector> detectors);
 	
 	public String createArrows();
 	

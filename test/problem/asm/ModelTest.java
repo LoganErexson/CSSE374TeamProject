@@ -163,7 +163,7 @@ public class ModelTest {
 		for (String className : CLASSES) {
 			classDatas.add(VisitorManager.visitClass(className).getClassData());
 		}	
-		classDatas.add(VisitorManager.visitClass("problem.asm.B").getClassData());
+		classDatas.add(VisitorManager.visitClass("problem.alphabet.B").getClassData());
 		IPackageModel model = new PackageModel(this.detectors);
 		model.setClasses(classDatas);
 		Map<String, List<String>> classToInterfaces = new HashMap<>();
@@ -223,7 +223,7 @@ public class ModelTest {
 		String expected = "A:A[a]\nPrintStream:PrintStream\nB:B\n\n" +
 				"A:PrintStream.println(Object)\nA:B.doC()\n";
 		
-		String className = "problem.asm.A";
+		String className = "problem.alphabet.A";
 		String methodName = "doB";
 		List<IMethodCallData> methodCalls = new ArrayList<>();
 		

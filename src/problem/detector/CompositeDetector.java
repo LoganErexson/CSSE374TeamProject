@@ -21,13 +21,21 @@ public class CompositeDetector implements IPatternDetector{
 		List<String> potComponents = new ArrayList<>();
 		potComponents.addAll(d.getImplementedClasses());
 		potComponents.add(d.getSuperClass());
-//		if (sup != null && !sup.hasPattern() && !d.hasPattern()) {
-//			findPattern(sup, m);
-//		}
+		IClassData sup = m.getClassDataFromName(d.getSuperClass());
+		if(sup!=null){
+			if(sup.hasPattern()&&sup.getPattern().contains("composite")){
+				d.setHasPattern(true);
+				d.setFill("fillcolor = pink\n");
+				d.setPattern("\\n\\<\\<composite\\>\\>\\n");
+				return;
+			}
+			potComponents.addAll(sup.getImplementedClasses());
+		}
+
 		for(String comp : potComponents){
 			boolean isField = false;
 			for(IFieldData field : d.getFields()){
-				if(field.getName().contains(comp)){
+				if(field.getType().contains(comp)){
 					isField = true;
 					break;
 				}
@@ -42,12 +50,18 @@ public class CompositeDetector implements IPatternDetector{
 			if(isField&&hasMethod){
 				d.setHasPattern(true);
 				d.setFill("fillcolor = pink\n");
-				d.setPattern("\\n\\<\\<Composite\\>\\>\\n");
-				IClassData component = m.getClassDataFromName(comp);
+				d.setPattern("\\n\\<\\<composite\\>\\>\\n");
+				IClassData component;
+				if(sup!=null&&sup.getImplementedClasses().contains(comp)){
+					component = m.getClassDataFromName(sup.getName());
+				}
+				else{
+					component = m.getClassDataFromName(comp);
+				}
 				if(!component.hasPattern()){
 					component.setHasPattern(true);
 					component.setFill("fillcolor = pink\n");
-					component.setPattern("\\n\\<\\<Component\\>\\>\\n");
+					component.setPattern("\\n\\<\\<component\\>\\>\\n");
 				}
 				if(component.isInterface()){
 					for(String key : m.getClassToInterfaces().keySet()){
@@ -57,47 +71,26 @@ public class CompositeDetector implements IPatternDetector{
 							{
 								inheritsFrom.setHasPattern(true);
 								inheritsFrom.setFill("fillcolor = pink\n");
-								inheritsFrom.setPattern("\\n\\<\\<Leaf\\>\\>\\n");	
+								inheritsFrom.setPattern("\\n\\<\\<leaf\\>\\>\\n");	
 							}
 						}
 					}
 				}
 				else{
 					for(String key : m.getClassToSuperclass().keySet()){
-						if(m.getClassToSuperclass().get(key).equals(component)){
+						if(m.getClassToSuperclass().get(key).equals(component.getName())){
 							IClassData inheritsFrom = m.getClassDataFromName(key);
 							if(!inheritsFrom.hasPattern())
 							{
 								inheritsFrom.setHasPattern(true);
 								inheritsFrom.setFill("fillcolor = pink\n");
-								inheritsFrom.setPattern("\\n\\<\\<Leaf\\>\\>\\n");	
+								inheritsFrom.setPattern("\\n\\<\\<leaf\\>\\>\\n");	
 							}
 						}
 					}
 				}
 			}
 		}
-//		for (IMethodData meth : d.getMethods()) {
-//			if (!meth.getName().equals("<init>")) {
-//				if (meth.getArgs().contains(sup) && sup != null && (sup.isInterface())) {
-//					if (sup != null && !sup.hasPattern()) {
-//						sup.setHasPattern(true);
-//						sup.setFill("fillcolor = pink\n");
-//						sup.setPattern("\\n\\<\\<component\\>\\>\\n");
-//					}
-//					d.setHasPattern(true);
-//					d.setFill("fillcolor = pink\n");
-//					d.setPattern("\\n\\<\\<composite\\>\\>\\n");
-//					return;
-//				} 
-//			}
-//		}
-//		if (sup != null && sup.hasPattern() && sup.getPattern().contains("component")) {
-//			d.setHasPattern(true);
-//			d.setFill("fillcolor = pink\n");
-//			d.setPattern("\\n\\<\\<leaf\\>\\>\\n");
-//			return;
-//		}
 	}
 
 }

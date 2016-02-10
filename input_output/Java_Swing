@@ -1,0 +1,10 @@
+javax.swing.JComponent
+javax.swing.JPanel
+javax.swing.JLabel
+javax.swing.JTextField
+javax.swing.text.JTextComponent
+javax.swing.JTextArea
+javax.swing.AbstractButton
+javax.swing.JButton
+javax.swing.JApplet
+javax.swing.JFrame

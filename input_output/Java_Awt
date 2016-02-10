@@ -1,0 +1,8 @@
+java.awt.Component
+java.awt.Container
+java.awt.Panel
+java.awt.Window
+java.applet.Applet
+javax.swing.JApplet
+java.awt.Frame
+javax.swing.JFrame

@@ -1,4 +1,5 @@
-package problem.asm;
+package problem.alphabet;
+
 
 public class A {
 	B b = new B();

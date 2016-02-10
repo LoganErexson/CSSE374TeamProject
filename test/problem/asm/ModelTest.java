@@ -52,7 +52,7 @@ public class ModelTest {
 	public final void testSingleClass() throws IOException {
 		assertEquals("A [\n" +
 				"label = \"{A|+ b : B\\l|+ \\<init\\>() : void\\l+ doB() : void\\l}\"" +
-						"\n]\n", VisitorManager.visitClass("problem.asm.A").getClassData().getUMLString());
+						"\n]\n", VisitorManager.visitClass("problem.alphabet.A").getClassData().getUMLString());
 	}
 
 	@Test

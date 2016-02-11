@@ -160,3 +160,25 @@ sd [method_signature] [depth]   #Used for creating .sd files.
 								#"depth" here is optional and will default to 5
 								#<method_signature> is in the format:
 [package_name].[class_name].[method_name]([parameter_type1];[parameter_type2];...)
+
+Milestone 6:
+For milestone 6 the pattern of the week was the composite pattern. Our design suffered very minimal changes as we were largely able to just write our compositeDetector and simply
+add it into a list of detectors to create at runtime and pass into the model to check for patterns. The list of detectors that are ran is configuarable at runtime. 
+
+Jack:
+
+Logan:
+
+Manual UML Project Code
+![alt M6-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)
+
+To use this tool, run DesignParser with arguments in one of the three following formats:
+uml  #Used for creating .dot files
+	 #A file chooser will prompt the the user to select the files to include in the diagram
+	 #This only works on a single folder in its current state.
+uml [config_file_path]	#Used for creating specially configured .dot files
+					  	#Config file lists classes to include in the uml diagram generation.
+sd [method_signature] [depth]   #Used for creating .sd files. 
+								#"depth" here is optional and will default to 5
+								#<method_signature> is in the format:
+[package_name].[class_name].[method_name]([parameter_type1];[parameter_type2];...)

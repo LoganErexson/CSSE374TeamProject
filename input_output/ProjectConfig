@@ -11,6 +11,7 @@ problem.detector.DecoratorDetector
 problem.detector.InterfaceDetector
 problem.detector.IPatternDetector
 problem.detector.SingletonDetector
+problem.detector.CompositeDetector
 problem.model.data.ClassData
 problem.model.data.IClassData
 problem.model.data.FieldData

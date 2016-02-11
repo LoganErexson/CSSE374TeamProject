@@ -1,5 +1,8 @@
 package problem.composite;
 
-public class AbstractComponent {
+public abstract class AbstractComponent implements IComponent{
+
+	@Override
+	public abstract void method();
 
 }

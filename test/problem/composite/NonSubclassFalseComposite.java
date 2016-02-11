@@ -2,7 +2,7 @@ package problem.composite;
 
 import java.util.List;
 
-public class Composite extends AbstractComponent{
+public class NonSubclassFalseComposite {
 	private List<IComponent> comps;
 	
 	public void add(IComponent comp){
@@ -11,11 +11,4 @@ public class Composite extends AbstractComponent{
 	public void remove(IComponent comp){
 		this.comps.remove(comp);
 	}
-	@Override
-	public void method() {
-		if(this.comps==null)
-			System.out.println("this does nothing");
-	}
-
-
 }

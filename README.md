@@ -166,11 +166,18 @@ For milestone 6 the pattern of the week was the composite pattern. Our design su
 add it into a list of detectors to create at runtime and pass into the model to check for patterns. The list of detectors that are ran is configuarable at runtime. 
 
 Jack:
+- Added composite detector framework
+- Tested Composite Detector with Lab 7-2 files
+- Updated Project UML and added new UMLS
 
 Logan:
+- Reorganized project code into packages and created config file for project files
+- Converted PackageModel to take in a list of detectors
+- Implemented Composite Detector Logic
+- Updated and added tests
 
 Manual UML Project Code
-![alt M6-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM5.png)
+![alt M6-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM6.png)
 
 To use this tool, run DesignParser with arguments in one of the three following formats:
 uml  #Used for creating .dot files

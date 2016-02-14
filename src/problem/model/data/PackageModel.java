@@ -27,10 +27,12 @@ public class PackageModel implements IPackageModel {
 		this.detectors = detectors;
 	}
 	
-	private void scanForPatterns(IClassData d){
-		if (!d.hasPattern()) {
-			for(IPatternDetector detector: this.detectors){
-				detector.findPattern(d, this);
+	private void scanForPatterns(){
+		for(IClassData data: this.classes){
+			if (!data.hasPattern()) {
+				for(IPatternDetector detector: this.detectors){
+					detector.findPattern(data, this);
+				}
 			}
 		}
 	}
@@ -260,9 +262,7 @@ public class PackageModel implements IPackageModel {
 	public void accept(IVisitor v) throws IOException {
 		v.preVisit(this);
 		this.setClassRelations();
-		for(IClassData data: this.classes){
-			scanForPatterns(data);
-		}
+		this.scanForPatterns();
 		for(IClassData data: this.classes){
 			data.accept(v);
 		}

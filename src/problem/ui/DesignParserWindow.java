@@ -2,10 +2,35 @@ package problem.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import problem.asm.AbstractASMVisitor;
+import problem.asm.VisitorManager;
+import problem.detector.AdapterDetector;
+import problem.detector.CompositeDetector;
+import problem.detector.DecoratorDetector;
+import problem.detector.IPatternDetector;
+import problem.detector.InterfaceDetector;
+import problem.detector.SingletonDetector;
+import problem.main.DesignParser;
+import problem.model.data.IClassData;
+import problem.model.data.IPackageModel;
+import problem.model.data.PackageModel;
+import problem.model.visit.IVisitor;
+import problem.model.visit.UMLVisitor;
 
 public class DesignParserWindow {
 	
@@ -14,7 +39,8 @@ public class DesignParserWindow {
 	private JPanel resultPanel;
 	private JButton loadButton;
 	private JButton analyzeButton;
-	private String configFile = "";
+	private File configFile;
+	private List<String> classes;
 	
 	public DesignParserWindow(){
 		this.frame = new JFrame("Design Parser");
@@ -43,8 +69,11 @@ public class DesignParserWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub.
-				
+				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
+				int returnVal = fc.showOpenDialog(null);
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					DesignParserWindow.this.setConfigFile(fc.getSelectedFile());
+				}
 			}
 			
 		});
@@ -52,14 +81,60 @@ public class DesignParserWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub.
+				List<String> classList = new ArrayList<>(); 
+				BufferedReader br;
+				try {
+					br = new BufferedReader(new FileReader(DesignParserWindow.this.getConfigFile()));
+
+					String line;
+					while((line = br.readLine())!=null){
+						classList.add(line);
+					}
+					br.close();
+					DesignParserWindow.this.setClasses(classList);
+					List<IClassData> classDatas = new ArrayList<>();
+					for (String className : classList) {
+						AbstractASMVisitor visitor = VisitorManager.visitClass(className);
+						classDatas.add(visitor.getClassData());
+					}
+					
+					List<IPatternDetector> detectors = new ArrayList<>();
+					detectors.add(new SingletonDetector());
+					detectors.add(new DecoratorDetector());
+					detectors.add(new AdapterDetector());
+					detectors.add(new InterfaceDetector());
+					detectors.add(new CompositeDetector());
+					
+					IPackageModel model = new PackageModel(detectors);
+					model.setClasses(classDatas);
+					OutputStream out = new FilterOutputStream(new FileOutputStream(DesignParser.UML_OUTPUT));
+					IVisitor visitor = new UMLVisitor();
+					model.accept(visitor);
+					visitor.printToOutput(out);
+					out.close();
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
 				
 			}
 			
 		});
 	}
+	
 	public void show() {
 		this.frame.setVisible(true);
+	}
+	public File getConfigFile() {
+		return this.configFile;
+	}
+	public void setConfigFile(File configFile) {
+		this.configFile = configFile;
+	}
+	public List<String> getClasses() {
+		return this.classes;
+	}
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
 	}
 	
 

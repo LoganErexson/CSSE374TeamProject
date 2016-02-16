@@ -1,34 +1,18 @@
 package problem.main;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-
-import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
-import problem.detector.AdapterDetector;
-import problem.detector.CompositeDetector;
-import problem.detector.DecoratorDetector;
-import problem.detector.IPatternDetector;
-import problem.detector.InterfaceDetector;
-import problem.detector.SingletonDetector;
-import problem.model.data.IClassData;
 import problem.model.data.IMethodCallData;
-import problem.model.data.IPackageModel;
 import problem.model.data.MethodCallData;
-import problem.model.data.PackageModel;
 import problem.model.visit.IVisitor;
 import problem.model.visit.SDEditVisitor;
-import problem.model.visit.UMLVisitor;
+import problem.ui.DesignParserWindow;
 
 public class DesignParser {
 	/**
@@ -59,53 +43,8 @@ public class DesignParser {
 			System.exit(0);
 		}
 		if(args[0].toLowerCase().equals("uml")){
-			
-			List<String> classes = new ArrayList<>(); 
-			if(args.length>1){
-				BufferedReader br = new BufferedReader(new FileReader(args[1]));
-				String line;
-				while((line = br.readLine())!=null){
-					classes.add(line);
-				}
-				br.close();
-			}
-			else{
-				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
-				fc.setMultiSelectionEnabled(true);
-				
-				int returnVal = fc.showOpenDialog(null);
-				if(returnVal == JFileChooser.APPROVE_OPTION){
-					File[] files = fc.getSelectedFiles();
-					for(File file: files){
-						String filePath = file.getPath();
-						classes.add(filePath.substring(filePath.lastIndexOf("src\\")+4, filePath.lastIndexOf(".java")));
-					}
-				}
-				else{
-					classes = Arrays.asList(DEFAULT_CLASSES);
-				}
-			}
-		    
-			List<IClassData> classDatas = new ArrayList<>();
-			for (String className : classes) {
-				AbstractASMVisitor visitor = VisitorManager.visitClass(className);
-				classDatas.add(visitor.getClassData());
-			}
-			
-			List<IPatternDetector> detectors = new ArrayList<>();
-			detectors.add(new SingletonDetector());
-			detectors.add(new DecoratorDetector());
-			detectors.add(new AdapterDetector());
-			detectors.add(new InterfaceDetector());
-			detectors.add(new CompositeDetector());
-			
-			IPackageModel model = new PackageModel(detectors);
-			model.setClasses(classDatas);
-			OutputStream out = new FilterOutputStream(new FileOutputStream(UML_OUTPUT));
-			IVisitor visitor = new UMLVisitor();
-			model.accept(visitor);
-			visitor.printToOutput(out);
-			out.close();
+		    DesignParserWindow window = new DesignParserWindow();
+		    window.show();
 		}
 		else if(args[0].toLowerCase().equals("sd")){
 			if(args.length<2){

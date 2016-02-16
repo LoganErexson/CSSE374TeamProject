@@ -34,14 +34,18 @@ public class AdapterDetector implements IPatternDetector {
 				if(interData==null)
 					continue;
 				int methodsUsed = 0;
+				boolean isInConstructor = false;
 				for(IMethodData method: d.getMethods()){
 					if(interData.getMethods().contains(method)){
 						if(method.getUsedClasses().contains(assocData.getName())){
 							methodsUsed++;
 						}
 					}
+					if(method.getName().equals("<init>")&&method.getArgs().contains(inter)){
+						isInConstructor = true;
+					}
 				}
-				if((methodsUsed/interData.getMethods().size())>=this.minimumMethods){
+				if((methodsUsed/interData.getMethods().size())>=this.minimumMethods&&isInConstructor){
 					this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
 							"\\<\\<adapts\\>\\>");
 					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");

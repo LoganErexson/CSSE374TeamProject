@@ -10,18 +10,20 @@ import problem.model.data.IPackageModel;
 
 public class CompositeDetector implements IPatternDetector{
 
+	private IPackageModel m;
 	@Override
-	public void findPattern(IClassData d) {
-		// TODO Auto-generated method stub
-		
+	public void findPattern(IPackageModel model){
+		this.m = model;
+		for(IClassData d : this.m.getClasses()){
+			findPatternInClass(d);
+		}
 	}
-
-	@Override
-	public void findPattern(IClassData d, IPackageModel m) {
+	
+	private void findPatternInClass(IClassData d){
 		List<String> potComponents = new ArrayList<>();
 		potComponents.addAll(d.getImplementedClasses());
 		potComponents.add(d.getSuperClass());
-		IClassData sup = m.getClassDataFromName(d.getSuperClass());
+		IClassData sup = this.m.getClassDataFromName(d.getSuperClass());
 		if(sup!=null){
 			potComponents.addAll(sup.getImplementedClasses());
 		}
@@ -47,10 +49,10 @@ public class CompositeDetector implements IPatternDetector{
 				d.setPattern("\\n\\<\\<composite\\>\\>\\n");
 				IClassData component;
 				if(sup!=null&&sup.getImplementedClasses().contains(comp)){
-					component = m.getClassDataFromName(sup.getName());
+					component = this.m.getClassDataFromName(sup.getName());
 				}
 				else{
-					component = m.getClassDataFromName(comp);
+					component = this.m.getClassDataFromName(comp);
 				}
 				if(component!=null){
 					if(!component.hasPattern()){
@@ -59,9 +61,9 @@ public class CompositeDetector implements IPatternDetector{
 						component.setPattern("\\n\\<\\<component\\>\\>\\n");
 					}
 					if(component.isInterface()){
-						for(String key : m.getClassToInterfaces().keySet()){
-							if(m.getClassToInterfaces().get(key).contains(component)){
-								IClassData inheritsFrom = m.getClassDataFromName(key);
+						for(String key : this.m.getClassToInterfaces().keySet()){
+							if(this.m.getClassToInterfaces().get(key).contains(component)){
+								IClassData inheritsFrom = this.m.getClassDataFromName(key);
 								if(!inheritsFrom.hasPattern())
 								{
 									inheritsFrom.setHasPattern(true);
@@ -72,9 +74,9 @@ public class CompositeDetector implements IPatternDetector{
 						}
 					}
 					else{
-						for(String key : m.getClassToSuperclass().keySet()){
-							if(m.getClassToSuperclass().get(key).equals(component.getName())){
-								IClassData extendsFrom = m.getClassDataFromName(key);
+						for(String key : this.m.getClassToSuperclass().keySet()){
+							if(this.m.getClassToSuperclass().get(key).equals(component.getName())){
+								IClassData extendsFrom = this.m.getClassDataFromName(key);
 								if(!extendsFrom.hasPattern())
 								{
 									extendsFrom.setHasPattern(true);
@@ -85,8 +87,8 @@ public class CompositeDetector implements IPatternDetector{
 						}
 					}
 					for(int i = 0; i<1; i++){
-						for(IClassData clazz: m.getClasses()){
-							IClassData superClass = m.getClassDataFromName(clazz.getSuperClass());
+						for(IClassData clazz: this.m.getClasses()){
+							IClassData superClass = this.m.getClassDataFromName(clazz.getSuperClass());
 							if(superClass!=null&&superClass.getPattern().contains("composite")&&!clazz.hasPattern())
 							{
 								clazz.setHasPattern(true);

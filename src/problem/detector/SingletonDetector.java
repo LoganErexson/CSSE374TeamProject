@@ -9,7 +9,13 @@ import problem.model.data.IPackageModel;
 public class SingletonDetector implements IPatternDetector {
 
 	@Override
-	public void findPattern(IClassData d) {
+	public void findPattern(IPackageModel model){
+		for(IClassData d : model.getClasses()){
+			findPatternInClass(d);
+		}
+	}
+	
+	private static void findPatternInClass(IClassData d){
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;
@@ -32,8 +38,4 @@ public class SingletonDetector implements IPatternDetector {
 		}
 	}
 
-	@Override
-	public void findPattern(IClassData d, IPackageModel m) {
-		this.findPattern(d);
-	}
 }

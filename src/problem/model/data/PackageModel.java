@@ -28,12 +28,8 @@ public class PackageModel implements IPackageModel {
 	}
 	
 	private void scanForPatterns(){
-		for(IClassData data: this.classes){
-			if (!data.hasPattern()) {
-				for(IPatternDetector detector: this.detectors){
-					detector.findPattern(data, this);
-				}
-			}
+		for(IPatternDetector detector: this.detectors){
+			detector.findPattern(this);
 		}
 	}
 

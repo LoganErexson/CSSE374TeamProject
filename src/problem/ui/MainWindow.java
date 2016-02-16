@@ -84,16 +84,20 @@ public class MainWindow {
 				List<String> classList = new ArrayList<>(); 
 				BufferedReader br;
 				try {
-					br = new BufferedReader(new FileReader(MainWindow.this.getConfigFile()));
-
-					String line;
-					while((line = br.readLine())!=null){
-						classList.add(line);
-					}
-					br.close();
+//					br = new BufferedReader(new FileReader(MainWindow.this.getConfigFile()));
+					ConfigReader reader = new ConfigReader();
+					reader.configProject(MainWindow.this.getConfigFile());
+					classList = reader.getCLASSES();
+					
+//					String line;
+//					while((line = br.readLine())!=null){
+//						classList.add(line);
+//					}
+//					br.close();
 					MainWindow.this.setClasses(classList);
 					List<IClassData> classDatas = new ArrayList<>();
 					for (String className : classList) {
+						System.out.println(className);
 						AbstractASMVisitor visitor = VisitorManager.visitClass(className);
 						classDatas.add(visitor.getClassData());
 					}
@@ -107,7 +111,7 @@ public class MainWindow {
 					
 					IPackageModel model = new PackageModel(detectors);
 					model.setClasses(classDatas);
-					OutputStream out = new FilterOutputStream(new FileOutputStream(DesignParser.UML_OUTPUT));
+					OutputStream out = new FilterOutputStream(new FileOutputStream(reader.getUML_OUTPUT()));
 					IVisitor visitor = new UMLVisitor();
 					model.accept(visitor);
 					visitor.printToOutput(out);

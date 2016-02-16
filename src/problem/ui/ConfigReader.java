@@ -1,6 +1,7 @@
 package problem.ui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ConfigReader {
 	private String DOT_PATH = "";
 	private List<String> PHASES = new ArrayList<String>();
 	
-	public void configProject(String filePath) throws IOException {
+	public void configProject(File filePath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
 		String line;
 		while((line = br.readLine()) != null) {

@@ -1,3 +1,4 @@
+INPUT-CLASSES: 
 problem.asm.AbstractClassDataVisitor
 problem.asm.ClassDeclarationVisitor
 problem.asm.ClassFieldVisitor
@@ -12,3 +13,15 @@ problem.asm.MethodCallData
 problem.asm.MethodData
 problem.asm.StringParser
 problem.asm.VisitorManager
+
+OUTPUT-FILE: 
+C:\\porterjc\\Documents\\Lab2-1\\input-output
+
+DOT-PATH: 
+C:\\Program Files (x86)\\Graphviz-2.38\\bin\\dot.exe
+
+PHASES: 
+Class-Loading
+Decorator-Detection
+Singleton-Detection
+DOT-Generation

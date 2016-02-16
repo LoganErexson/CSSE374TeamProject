@@ -2,10 +2,8 @@ package problem.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,7 +23,6 @@ import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
 import problem.detector.SingletonDetector;
-import problem.main.DesignParser;
 import problem.model.data.IClassData;
 import problem.model.data.IPackageModel;
 import problem.model.data.PackageModel;
@@ -49,6 +46,7 @@ public class MainWindow {
 		this.buildResultPanel();
 		this.assignActions();
 		this.frame.add(this.landingPanel);
+		this.frame.pack();
 	}
 	public void analyze(){
 		this.frame.remove(this.landingPanel);
@@ -83,18 +81,11 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<String> classList = new ArrayList<>(); 
-				BufferedReader br;
 				try {
-//					br = new BufferedReader(new FileReader(MainWindow.this.getConfigFile()));
 					ConfigReader reader = new ConfigReader();
 					reader.configProject(MainWindow.this.getConfigFile());
 					classList = reader.getCLASSES();
 					
-//					String line;
-//					while((line = br.readLine())!=null){
-//						classList.add(line);
-//					}
-//					br.close();
 					MainWindow.this.setClasses(classList);
 					List<IClassData> classDatas = new ArrayList<>();
 					for (String className : classList) {
@@ -117,6 +108,11 @@ public class MainWindow {
 					model.accept(visitor);
 					visitor.printToOutput(out);
 					out.close();
+					Runtime rt = Runtime.getRuntime();
+					String outputString= reader.getUML_OUTPUT();
+					String s = outputString.substring(0, outputString.lastIndexOf(".dot"))+".png";
+					String command = "\""+reader.getDOT_PATH()+"\" -Tpng " +outputString +" -o "+s;
+					rt.exec(command);
 				} catch (IOException exception) {
 					exception.printStackTrace();
 				}

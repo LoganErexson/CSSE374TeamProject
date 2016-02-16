@@ -25,7 +25,7 @@ public class DesignParser {
 		"problem.asm.IFieldData", "problem.asm.IClassStructurePrinter", "problem.asm.IMethodCallData",
 		"problem.asm.IMethodData", "problem.asm.MethodBodyVisitor", "problem.asm.MethodCallData", "problem.asm.MethodData",
 		"problem.asm.SDEditPrinter", "problem.asm.StringParser", "problem.asm.VisitorManager"};
-	public static final String UML_OUTPUT = "./input_output/Diagram.gv";
+	public static final String UML_OUTPUT = "./input_output/Diagram.dot";
 	public static final String SD_OUTPUT = "./input_output/sDiagram.sd";
 	
 	/**

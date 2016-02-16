@@ -41,7 +41,7 @@ label = "{MethodBodyVisitor
 ]
 VisitorManager [
 label = "{VisitorManager
-||+ \<init\>() : void\l+ visitClass(String) : AbstractASMVisitor\l+ visitMethods(String, IMethodCallData) : ClassMethodVisitor\l+ getMethodCalls(IMethodCallData) : List\<IMethodCallData\>\l}"
+||+ \<init\>() : void\l+ visitClass(String) : AbstractASMVisitor\l+ visitMethods(String, IMethodCallData) : ClassMethodVisitor\l- buildVisitor(String) : ClassMethodVisitor\l+ getMethodCalls(IMethodCallData) : List\<IMethodCallData\>\l}"
 ]
 AdapterDetector [
 label = "{AdapterDetector
@@ -105,7 +105,7 @@ label = "{\<\<interface\>\>\nIPackageModel
 ]
 PackageModel [
 label = "{PackageModel
-|- classes : List\<IClassData\>\l- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- specialArrows : Map\<String\>\l- detectors : List\<IPatternDetector\>\l|+ \<init\>(List\<IPatternDetector\>) : void\l- scanForPatterns(IClassData) : void\l+ getClasses() : List\<IClassData\>\l+ addClass(IClassData) : void\l+ setClasses(List\<IClassData\>) : void\l+ setClassRelations() : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ getDetectors() : List\<IPatternDetector\>\l+ setDetectors(List\<IPatternDetector\>) : void\l+ createArrows() : String\l+ getInheritanceArrows() : String\l+ getImplementsArrows() : String\l+ getAssociationArrows() : String\l+ getUsedClassesArrows() : String\l+ accept(IVisitor) : void\l+ getClassDataFromName(String) : IClassData\l+ addSpecialArrow(SpecialArrowKey, String) : void\l}"
+|- classes : List\<IClassData\>\l- classToInterfaces : Map\<String\>\l- classToSuperclass : Map\<String\>\l- classToAssociatedClasses : Map\<String\>\l- classToMethods : Map\<IMethodData\>\l- classNames : List\<String\>\l- specialArrows : Map\<String\>\l- detectors : List\<IPatternDetector\>\l|+ \<init\>(List\<IPatternDetector\>) : void\l- scanForPatterns() : void\l+ getClasses() : List\<IClassData\>\l+ addClass(IClassData) : void\l+ setClasses(List\<IClassData\>) : void\l+ setClassRelations() : void\l+ getClassToInterfaces() : Map\<String\>\l+ setClassToInterfaces(Map\<String\>, List\<String\>) : void\l+ getClassToSuperclass() : Map\<String\>\l+ setClassToSuperclass(Map\<String\>, String) : void\l+ getClassToAssociatedClasses() : Map\<String\>\l+ setClassToAssociatedClasses(Map\<String\>, List\<String\>) : void\l+ getClassToMethods() : Map\<IMethodData\>\l+ setClassToMethods(Map\<String\>, List\<IMethodData\>) : void\l+ getClassNames() : List\<String\>\l+ setClassNames(List\<String\>) : void\l+ getDetectors() : List\<IPatternDetector\>\l+ setDetectors(List\<IPatternDetector\>) : void\l+ createArrows() : String\l+ getInheritanceArrows() : String\l+ getImplementsArrows() : String\l+ getAssociationArrows() : String\l+ getUsedClassesArrows() : String\l+ accept(IVisitor) : void\l+ getClassDataFromName(String) : IClassData\l+ addSpecialArrow(SpecialArrowKey, String) : void\l}"
 ]
 SpecialArrowKey [
 label = "{SpecialArrowKey
@@ -267,13 +267,6 @@ PackageModel -> IVisitor
 MethodBodyVisitor -> MethodCallData
 MethodBodyVisitor -> IMethodCallData
 ClassDeclarationVisitor -> AbstractASMVisitor
-DesignParser -> SingletonDetector
-DesignParser -> DecoratorDetector
-DesignParser -> AdapterDetector
-DesignParser -> InterfaceDetector
-DesignParser -> CompositeDetector
-DesignParser -> PackageModel
-DesignParser -> UMLVisitor
 DesignParser -> SDEditVisitor
 IPatternDetector -> IPackageModel
 ClassFieldVisitor -> FieldData
@@ -281,8 +274,8 @@ AbstractVisitor -> VisitType
 AbstractVisitor -> IVisitMethod
 ClassMethodVisitor -> MethodBodyVisitor
 ClassMethodVisitor -> MethodData
+VisitorManager -> ClassMethodVisitor
 VisitorManager -> ClassDeclarationVisitor
 VisitorManager -> ClassFieldVisitor
-VisitorManager -> ClassMethodVisitor
 ClassData -> IFieldData
 }

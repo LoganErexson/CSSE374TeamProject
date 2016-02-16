@@ -44,6 +44,7 @@ public class MainWindow {
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.buildLandingPanel();
 		this.buildResultPanel();
 		this.assignActions();

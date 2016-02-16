@@ -32,7 +32,7 @@ import problem.model.data.PackageModel;
 import problem.model.visit.IVisitor;
 import problem.model.visit.UMLVisitor;
 
-public class DesignParserWindow {
+public class MainWindow {
 	
 	private JFrame frame;
 	private JPanel landingPanel;
@@ -42,7 +42,7 @@ public class DesignParserWindow {
 	private File configFile;
 	private List<String> classes;
 	
-	public DesignParserWindow(){
+	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
 		this.buildLandingPanel();
 		this.buildResultPanel();
@@ -69,10 +69,10 @@ public class DesignParserWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\src");
+				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\input_output");
 				int returnVal = fc.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION){
-					DesignParserWindow.this.setConfigFile(fc.getSelectedFile());
+					MainWindow.this.setConfigFile(fc.getSelectedFile());
 				}
 			}
 			
@@ -84,14 +84,14 @@ public class DesignParserWindow {
 				List<String> classList = new ArrayList<>(); 
 				BufferedReader br;
 				try {
-					br = new BufferedReader(new FileReader(DesignParserWindow.this.getConfigFile()));
+					br = new BufferedReader(new FileReader(MainWindow.this.getConfigFile()));
 
 					String line;
 					while((line = br.readLine())!=null){
 						classList.add(line);
 					}
 					br.close();
-					DesignParserWindow.this.setClasses(classList);
+					MainWindow.this.setClasses(classList);
 					List<IClassData> classDatas = new ArrayList<>();
 					for (String className : classList) {
 						AbstractASMVisitor visitor = VisitorManager.visitClass(className);

@@ -12,15 +12,11 @@ import problem.model.data.IMethodCallData;
 import problem.model.data.MethodCallData;
 import problem.model.visit.IVisitor;
 import problem.model.visit.SDEditVisitor;
-import problem.ui.DesignParserWindow;
+import problem.ui.MainWindow;
 
 public class DesignParser {
 	/**
 	 * Determine which folder to get classes from. Prefix here is the package name.
-	 * 
-	 * For project files: FOLDER_PATH = "./src/problem/asm"; FILE_PREFIX = "problem.asm";
-	 * For pizzaaf files: FOLDER_PATH = "./src/headfirst/factory/pizzaaf"; FILE_PREFIX = "headfirst.factory.pizzaaf";
-	 * For lab 1-3 files: FOLDER_PATH = "./src/lab1_3"; FILE_PREFIX = "lab1_3"
 	 * 
 	 */
 	public static final String[] DEFAULT_CLASSES = {"problem.asm.AbstractClassDataVisitor",  
@@ -43,7 +39,7 @@ public class DesignParser {
 			System.exit(0);
 		}
 		if(args[0].toLowerCase().equals("uml")){
-		    DesignParserWindow window = new DesignParserWindow();
+		    MainWindow window = new MainWindow();
 		    window.show();
 		}
 		else if(args[0].toLowerCase().equals("sd")){

@@ -8,23 +8,31 @@ import problem.model.data.SpecialArrowKey;
 
 public class DecoratorDetector implements IPatternDetector {
 
+	private IPackageModel m;
 	@Override
-	public void findPattern(IClassData d, IPackageModel m) {
-		IClassData sup = m.getClassDataFromName(d.getSuperClass());
+	public void findPattern(IPackageModel model){
+		this.m = model;
+		for(IClassData d : this.m.getClasses()){
+			findPatternInClass(d);
+		}
+	}
+	
+	private void findPatternInClass(IClassData d){
+		IClassData sup = this.m.getClassDataFromName(d.getSuperClass());
 		if (sup != null && !sup.hasPattern() && !d.hasPattern()) {
-			findPattern(sup, m);
+			findPatternInClass(sup);
 		}
 		for (IMethodData meth : d.getMethods()) {
 			if (meth.getName().equals("<init>")) {
 				for(String asc : d.getAssociatedClasses()) {
-					if (meth.getArgs().contains(asc) && ((d.getImplementedClasses().contains(asc) && m.getClassDataFromName(asc) != null)
+					if (meth.getArgs().contains(asc) && ((d.getImplementedClasses().contains(asc) && this.m.getClassDataFromName(asc) != null)
 							|| (d.getSuperClass().equalsIgnoreCase(asc) && sup != null))  ) {
-						IClassData in = m.getClassDataFromName(asc);
+						IClassData in = this.m.getClassDataFromName(asc);
 						if (in != null && !in.hasPattern()) {
 							in.setHasPattern(true);
 							in.setFill("fillcolor = green\n");
 							in.setPattern("\\n\\<\\<component\\>\\>\\n");
-							m.addSpecialArrow(new SpecialArrowKey(d.getName(), in.getName(), 
+							this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), in.getName(), 
 									"association"), "\\<\\<decorates\\>\\>");
 						}
 						d.setHasPattern(true);
@@ -41,12 +49,6 @@ public class DecoratorDetector implements IPatternDetector {
 			d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
 			return;
 		}
-	}
-
-
-	@Override
-	public void findPattern(IClassData d) {
-		
 	}
 
 }

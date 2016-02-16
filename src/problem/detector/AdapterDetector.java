@@ -8,20 +8,29 @@ import problem.model.data.IPackageModel;
 import problem.model.data.SpecialArrowKey;
 
 public class AdapterDetector implements IPatternDetector {
-	public static final double MIN_PERCENT_METHODS = 0.75;
+	private double minimumMethods = 0.75;
+	private IPackageModel m;
+	
 	@Override
-	public void findPattern(IClassData d, IPackageModel m){
-		List<String> interfaces = m.getClassToInterfaces().get(d.getName());
-		List<String> associatedClasses = m.getClassToAssociatedClasses().get(d.getName());
+	public void findPattern(IPackageModel model){
+		this.m = model;
+		for(IClassData d : this.m.getClasses()){
+			findPatternInClass(d);
+		}
+	}
+	
+	private void findPatternInClass(IClassData d){
+		List<String> interfaces = this.m.getClassToInterfaces().get(d.getName());
+		List<String> associatedClasses = this.m.getClassToAssociatedClasses().get(d.getName());
 		if(interfaces==null||associatedClasses==null){
 			return;
 		}
 		for(String assoc: associatedClasses){
-			IClassData assocData = m.getClassDataFromName(assoc);
+			IClassData assocData = this.m.getClassDataFromName(assoc);
 			if(assocData==null)
 				continue;
 			for(String inter: interfaces){
-				IClassData interData = m.getClassDataFromName(inter);
+				IClassData interData = this.m.getClassDataFromName(inter);
 				if(interData==null)
 					continue;
 				int methodsUsed = 0;
@@ -32,8 +41,8 @@ public class AdapterDetector implements IPatternDetector {
 						}
 					}
 				}
-				if((methodsUsed/interData.getMethods().size())>=MIN_PERCENT_METHODS){
-					m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
+				if((methodsUsed/interData.getMethods().size())>=this.minimumMethods){
+					this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
 							"\\<\\<adapts\\>\\>");
 					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");
 					d.setHasPattern(true);
@@ -49,10 +58,4 @@ public class AdapterDetector implements IPatternDetector {
 			}
 		}
 	}
-
-	@Override
-	public void findPattern(IClassData d) {
-		
-	}
-
 }

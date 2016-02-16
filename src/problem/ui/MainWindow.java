@@ -94,12 +94,7 @@ public class MainWindow {
 						classDatas.add(visitor.getClassData());
 					}
 					
-					List<IPatternDetector> detectors = new ArrayList<>();
-					detectors.add(new SingletonDetector());
-					detectors.add(new DecoratorDetector());
-					detectors.add(new AdapterDetector());
-					detectors.add(new InterfaceDetector());
-					detectors.add(new CompositeDetector());
+					List<IPatternDetector> detectors = phaseSelector(reader.getPHASES());
 					
 					IPackageModel model = new PackageModel(detectors);
 					model.setClasses(classDatas);
@@ -137,5 +132,18 @@ public class MainWindow {
 		this.classes = classes;
 	}
 	
+	public List<IPatternDetector> phaseSelector(List<String> phases) {
+		List<IPatternDetector> detectors = new ArrayList<>();
+		detectors.add(new InterfaceDetector());
+		if(phases.contains("singleton"))
+			detectors.add(new SingletonDetector());
+		if(phases.contains("decorator"))
+			detectors.add(new DecoratorDetector());
+		if(phases.contains("adaptor"))
+			detectors.add(new AdapterDetector());
+		if(phases.contains("composite"))
+			detectors.add(new CompositeDetector());
+		return detectors;
+	}
 
 }

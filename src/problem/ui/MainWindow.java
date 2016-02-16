@@ -103,15 +103,14 @@ public class MainWindow {
 					
 					IPackageModel model = new PackageModel(detectors);
 					model.setClasses(classDatas);
-					OutputStream out = new FilterOutputStream(new FileOutputStream(reader.getUML_OUTPUT()));
+					OutputStream out = new FilterOutputStream(new FileOutputStream(reader.getUML_OUTPUT()+"Output.dot"));
 					IVisitor visitor = new UMLVisitor();
 					model.accept(visitor);
 					visitor.printToOutput(out);
 					out.close();
 					Runtime rt = Runtime.getRuntime();
-					String outputString= reader.getUML_OUTPUT();
-					String s = outputString.substring(0, outputString.lastIndexOf(".dot"))+".png";
-					String command = "\""+reader.getDOT_PATH()+"\" -Tpng " +outputString +" -o "+s;
+					String outputString= reader.getUML_OUTPUT()+"Output.";
+					String command = "\""+reader.getDOT_PATH()+"\" -Tpng " +outputString +"dot -o "+outputString+"png";
 					rt.exec(command);
 				} catch (IOException exception) {
 					exception.printStackTrace();

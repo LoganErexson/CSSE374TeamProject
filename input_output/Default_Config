@@ -40,7 +40,7 @@ problem.model.visit.method.ModelPreVisit
 problem.model.visit.method.ModelVisit
 
 OUTPUT-FILE: 
-C:\\Users\\erexsolr\\Documents\\GitHub\\CSSE374TeamProject\\input_output\\Diagram.dot
+C:\\Users\\erexsolr\\Documents\\GitHub\\CSSE374TeamProject\\input_output
 
 DOT-PATH: 
 C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe

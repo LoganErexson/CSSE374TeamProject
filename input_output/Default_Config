@@ -1,12 +1,9 @@
+INPUT-FOLDER: 
+C:\\Users\\erexsolr\\Documents\\GitHub\\CSSE374TeamProject\\src\\problem\\asm\\
+
 INPUT-CLASSES: 
 problem.main.DesignParser
 problem.main.StringParser
-problem.asm.AbstractASMVisitor
-problem.asm.ClassDeclarationVisitor
-problem.asm.ClassFieldVisitor
-problem.asm.ClassMethodVisitor
-problem.asm.MethodBodyVisitor
-problem.asm.VisitorManager
 problem.detector.AdapterDetector
 problem.detector.DecoratorDetector
 problem.detector.InterfaceDetector

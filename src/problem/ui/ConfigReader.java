@@ -17,7 +17,20 @@ public class ConfigReader {
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
 		String line;
 		while((line = br.readLine()) != null) {
-			if (line.contains("INPUT-CLASSES")) {
+			if (line.contains("INPUT-FOLDER")) {
+				while((line = br.readLine())!=null && !line.equals("")){
+					File folder = new File(line);
+					File[] listOfFiles = folder.listFiles();
+				    for (int i = 0; i < listOfFiles.length; i++) {
+				    	if (listOfFiles[i].isFile()) {
+				    		CLASSES.add(listOfFiles[i].getAbsolutePath().
+				    				substring(listOfFiles[i].getAbsolutePath().lastIndexOf("src\\") + 4, 
+				    						listOfFiles[i].getAbsolutePath().lastIndexOf("."))
+				    						.replace('\\', '.'));
+				    	}
+				    }
+				}
+			} else if (line.contains("INPUT-CLASSES")) {
 				while((line = br.readLine())!=null && !line.equals("")){
 					CLASSES.add(line);
 				}

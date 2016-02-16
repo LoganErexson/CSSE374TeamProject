@@ -23,7 +23,10 @@ public class ConfigReader {
 					File[] listOfFiles = folder.listFiles();
 				    for (int i = 0; i < listOfFiles.length; i++) {
 				    	if (listOfFiles[i].isFile()) {
-				    		CLASSES.add(listOfFiles[i].getName());
+				    		CLASSES.add(listOfFiles[i].getAbsolutePath().
+				    				substring(listOfFiles[i].getAbsolutePath().lastIndexOf("src\\") + 4, 
+				    						listOfFiles[i].getAbsolutePath().lastIndexOf("."))
+				    						.replace('\\', '.'));
 				    	}
 				    }
 				}

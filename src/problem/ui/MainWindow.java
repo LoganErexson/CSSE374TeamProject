@@ -10,10 +10,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
@@ -38,19 +41,21 @@ public class MainWindow {
 	private JButton analyzeButton;
 	private File configFile;
 	private List<String> classes;
+	private String imagePath;
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.buildLandingPanel();
-		this.buildResultPanel();
 		this.assignActions();
 		this.frame.add(this.landingPanel);
 		this.frame.pack();
 	}
 	public void analyze(){
 		this.frame.remove(this.landingPanel);
+		this.buildResultPanel();
 		this.frame.add(this.resultPanel);
+		this.frame.repaint();
 	}
 	private void buildLandingPanel(){
 		this.landingPanel = new JPanel();
@@ -59,8 +64,11 @@ public class MainWindow {
 		this.landingPanel.add(this.loadButton);
 		this.landingPanel.add(this.analyzeButton);
 	}
-	private void buildResultPanel(){
+	void buildResultPanel(){
 		this.resultPanel = new JPanel();
+		Icon image = new ImageProxy(this.imagePath);
+		JScrollPane picPane = new JScrollPane(new JLabel(image));
+		this.resultPanel.add(picPane);
 	}
 	
 	private void assignActions() {
@@ -104,9 +112,11 @@ public class MainWindow {
 					visitor.printToOutput(out);
 					out.close();
 					Runtime rt = Runtime.getRuntime();
-					String outputString= reader.getUML_OUTPUT()+"\\Output.";
+					String outputString= reader.getUML_OUTPUT()+"\\\\Output.";
 					String command = "\""+reader.getDOT_PATH()+"\" -Tpng " +outputString +"dot -o "+outputString+"png";
 					rt.exec(command);
+					MainWindow.this.setImage(outputString+"png");
+					MainWindow.this.analyze();
 				} catch (IOException exception) {
 					exception.printStackTrace();
 				}
@@ -144,6 +154,12 @@ public class MainWindow {
 		if(phases.contains("composite"))
 			detectors.add(new CompositeDetector());
 		return detectors;
+	}
+	public String getImage() {
+		return this.imagePath;
+	}
+	public void setImage(String image) {
+		this.imagePath = image;
 	}
 
 }

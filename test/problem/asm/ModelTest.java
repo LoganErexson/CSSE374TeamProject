@@ -42,10 +42,10 @@ public class ModelTest {
 	@Before
 	public void setUp(){
 		List<IPatternDetector> detectors = new ArrayList<>();
-		detectors.add(new SingletonDetector());
-		detectors.add(new DecoratorDetector());
-		detectors.add(new AdapterDetector());
-		detectors.add(new InterfaceDetector());
+		this.detectors.add(new SingletonDetector(false));
+		this.detectors.add(new DecoratorDetector(1));
+		this.detectors.add(new AdapterDetector(2));
+		this.detectors.add(new InterfaceDetector());
 		this.detectors = detectors;
 	}
 	@Test

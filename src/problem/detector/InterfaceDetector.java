@@ -6,9 +6,8 @@ import java.util.Map;
 import problem.model.data.IClassData;
 import problem.model.data.IPackageModel;
 
-public class InterfaceDetector implements IPatternDetector {
+public class InterfaceDetector extends AbstractDetector {
 	
-	private IPackageModel m;
 	@Override
 	public void findPattern(IPackageModel model){
 		this.m = model;
@@ -17,7 +16,8 @@ public class InterfaceDetector implements IPatternDetector {
 		}
 	}
 	
-	private void findPatternInClass(IClassData d){
+	@Override
+	public void findPatternInClass(IClassData d){
 		Map<String, List<String>> interfaceMap = this.m.getClassToInterfaces();
 		
 		for(String className: this.m.getClassNames()){

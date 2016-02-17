@@ -8,9 +8,11 @@ import problem.model.data.IFieldData;
 import problem.model.data.IMethodData;
 import problem.model.data.IPackageModel;
 
-public class CompositeDetector implements IPatternDetector{
-
-	private IPackageModel m;
+public class CompositeDetector extends AbstractDetector{
+	
+	public CompositeDetector(){
+		this.patternName = "Composite";
+	}
 	@Override
 	public void findPattern(IPackageModel model){
 		this.m = model;
@@ -19,7 +21,8 @@ public class CompositeDetector implements IPatternDetector{
 		}
 	}
 	
-	private void findPatternInClass(IClassData d){
+	@Override
+	public void findPatternInClass(IClassData d){
 		List<String> potComponents = new ArrayList<>();
 		potComponents.addAll(d.getImplementedClasses());
 		potComponents.add(d.getSuperClass());
@@ -59,6 +62,7 @@ public class CompositeDetector implements IPatternDetector{
 						component.setHasPattern(true);
 						component.setFill("fillcolor = pink\n");
 						component.setPattern("\\n\\<\\<component\\>\\>\\n");
+						this.classes.add(component);
 					}
 					if(component.isInterface()){
 						for(String key : this.m.getClassToInterfaces().keySet()){
@@ -68,7 +72,8 @@ public class CompositeDetector implements IPatternDetector{
 								{
 									inheritsFrom.setHasPattern(true);
 									inheritsFrom.setFill("fillcolor = pink\n");
-									inheritsFrom.setPattern("\\n\\<\\<leaf\\>\\>\\n");	
+									inheritsFrom.setPattern("\\n\\<\\<leaf\\>\\>\\n");
+									this.classes.add(inheritsFrom);
 								}
 							}
 						}
@@ -82,6 +87,7 @@ public class CompositeDetector implements IPatternDetector{
 									extendsFrom.setHasPattern(true);
 									extendsFrom.setFill("fillcolor = pink\n");
 									extendsFrom.setPattern("\\n\\<\\<leaf\\>\\>\\n");	
+									this.classes.add(extendsFrom);
 								}
 							}
 						}
@@ -94,6 +100,7 @@ public class CompositeDetector implements IPatternDetector{
 								clazz.setHasPattern(true);
 								clazz.setFill("fillcolor = pink\n");
 								clazz.setPattern("\\n\\<\\<composite\\>\\>\\n");
+								this.classes.add(clazz);
 								if(i>=0)
 									i--;
 							}

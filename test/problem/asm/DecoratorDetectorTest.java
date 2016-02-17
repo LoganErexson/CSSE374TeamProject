@@ -27,9 +27,9 @@ private List<IPatternDetector> detectors;
 	@Before
 	public void setUp(){
 		this.detectors = new ArrayList<>();
-		this.detectors.add(new SingletonDetector());
-		this.detectors.add(new DecoratorDetector());
-		this.detectors.add(new AdapterDetector());
+		this.detectors.add(new SingletonDetector(false));
+		this.detectors.add(new DecoratorDetector(1));
+		this.detectors.add(new AdapterDetector(2));
 		this.detectors.add(new InterfaceDetector());
 	}
 	

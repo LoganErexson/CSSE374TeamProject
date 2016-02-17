@@ -4,22 +4,18 @@ import java.util.List;
 
 import problem.model.data.IClassData;
 import problem.model.data.IMethodData;
-import problem.model.data.IPackageModel;
 import problem.model.data.SpecialArrowKey;
 
-public class AdapterDetector implements IPatternDetector {
-	private double minimumMethods = 0.75;
-	private IPackageModel m;
+public class AdapterDetector extends AbstractDetector {
+	private int minimumMethods;
 	
-	@Override
-	public void findPattern(IPackageModel model){
-		this.m = model;
-		for(IClassData d : this.m.getClasses()){
-			findPatternInClass(d);
-		}
+	public AdapterDetector(int minimumMethods){
+		this.minimumMethods=minimumMethods;
+		this.patternName = "Adapter";
 	}
 	
-	private void findPatternInClass(IClassData d){
+	@Override
+	public void findPatternInClass(IClassData d){
 		List<String> interfaces = this.m.getClassToInterfaces().get(d.getName());
 		List<String> associatedClasses = this.m.getClassToAssociatedClasses().get(d.getName());
 		if(interfaces==null||associatedClasses==null){
@@ -45,18 +41,24 @@ public class AdapterDetector implements IPatternDetector {
 						isInConstructor = true;
 					}
 				}
-				if((methodsUsed/interData.getMethods().size())>=this.minimumMethods&&isInConstructor){
+				if(methodsUsed>=this.minimumMethods&&isInConstructor){
 					this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), assocData.getName(), "association"), 
 							"\\<\\<adapts\\>\\>");
 					d.setPattern("\\n\\<\\<adapter\\>\\>\\n");
 					d.setHasPattern(true);
 					d.setFill("fillcolor = red\n");
+					this.classes.add(d);
+					
 					assocData.setPattern("\\n\\<\\<adaptee\\>\\>\\n");
 					assocData.setHasPattern(true);
 					assocData.setFill("fillcolor = red\n");
+					this.classes.add(assocData);
+					
 					interData.setPattern("\\n\\<\\<target\\>\\>\\n");
 					interData.setHasPattern(true);
 					interData.setFill("fillcolor = red\n");
+					this.classes.add(interData);
+					
 					return;
 				}
 			}

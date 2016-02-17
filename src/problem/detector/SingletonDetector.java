@@ -3,19 +3,19 @@ package problem.detector;
 import problem.model.data.IClassData;
 import problem.model.data.IFieldData;
 import problem.model.data.IMethodData;
-import problem.model.data.IPackageModel;
 
 
-public class SingletonDetector implements IPatternDetector {
+public class SingletonDetector extends AbstractDetector{
 
-	@Override
-	public void findPattern(IPackageModel model){
-		for(IClassData d : model.getClasses()){
-			findPatternInClass(d);
-		}
+	private boolean requiresGetInstance =false;
+	
+	public SingletonDetector(boolean requiresGetInstance){
+		this.requiresGetInstance=requiresGetInstance;
+		this.patternName = "Singleton";
 	}
 	
-	private static void findPatternInClass(IClassData d){
+	@Override
+	public void findPatternInClass(IClassData d){
 		boolean privCon = false;
 		boolean privField = false;
 		boolean returnMethod = false;
@@ -28,13 +28,17 @@ public class SingletonDetector implements IPatternDetector {
 			if(dat.getName().equals("<init>") && dat.getAccess().equals("-") ) {
 				privCon = true;
 			} else if (dat.getType().equals(d.getName())) {
-				returnMethod = true;
+				if(!this.requiresGetInstance||dat.getName().equals("getInstance"))
+				{
+					returnMethod = true;	
+				}
 			}
 		}
 		if (privCon && privField && returnMethod) {
 			d.setHasPattern(true);
 			d.setFill("fillcolor = yellow\n");
 			d.setPattern("\\n\\<\\<singleton\\>\\>\\n");
+			this.classes.add(d);
 		}
 	}
 

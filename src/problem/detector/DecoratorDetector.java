@@ -1,53 +1,71 @@
 package problem.detector;
 
+import java.util.List;
+
 import problem.model.data.IClassData;
 import problem.model.data.IMethodData;
-import problem.model.data.IPackageModel;
 import problem.model.data.SpecialArrowKey;
 
 
-public class DecoratorDetector implements IPatternDetector {
+public class DecoratorDetector extends AbstractDetector {
 
-	private IPackageModel m;
-	@Override
-	public void findPattern(IPackageModel model){
-		this.m = model;
-		for(IClassData d : this.m.getClasses()){
-			findPatternInClass(d);
-		}
+	private int minimumMethods;
+	
+	public DecoratorDetector(int minimumMethods){
+		this.minimumMethods=minimumMethods;
+		this.patternName = "Decorator";
 	}
 	
-	private void findPatternInClass(IClassData d){
+	@Override
+	public void findPatternInClass(IClassData d){
 		IClassData sup = this.m.getClassDataFromName(d.getSuperClass());
 		if (sup != null && !sup.hasPattern() && !d.hasPattern()) {
 			findPatternInClass(sup);
-		}
-		for (IMethodData meth : d.getMethods()) {
-			if (meth.getName().equals("<init>")) {
-				for(String asc : d.getAssociatedClasses()) {
-					if (meth.getArgs().contains(asc) && ((d.getImplementedClasses().contains(asc) && this.m.getClassDataFromName(asc) != null)
-							|| (d.getSuperClass().equalsIgnoreCase(asc) && sup != null))  ) {
-						IClassData in = this.m.getClassDataFromName(asc);
-						if (in != null && !in.hasPattern()) {
-							in.setHasPattern(true);
-							in.setFill("fillcolor = green\n");
-							in.setPattern("\\n\\<\\<component\\>\\>\\n");
-							this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), in.getName(), 
-									"association"), "\\<\\<decorates\\>\\>");
-						}
-						d.setHasPattern(true);
-						d.setFill("fillcolor = green\n");
-						d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
-						return;
-					} 
-				}
-			}
 		}
 		if (sup != null && sup.hasPattern() && sup.getPattern().contains("decorator")) {
 			d.setHasPattern(true);
 			d.setFill("fillcolor = green\n");
 			d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
+			this.classes.add(d);
 			return;
+		}
+
+		List<String> parentClasses = d.getImplementedClasses();
+		parentClasses.add(d.getSuperClass());
+		for(String inter : parentClasses){
+
+			IClassData interData = this.m.getClassDataFromName(inter);
+			if(interData==null)
+				continue;
+			int methodsUsed = 0;
+			if(d.getAssociatedClasses().contains(inter)){
+				for(IMethodData meth: d.getMethods()){
+					if (meth.getName().equals("<init>")&&!meth.getArgs().contains(inter)){
+						return;
+					}
+					if(interData.getMethods().contains(meth)){
+						if(meth.getUsedClasses().contains(inter)){
+							methodsUsed++;
+						}
+					}
+				}
+			}
+			if(methodsUsed>=this.minimumMethods){
+				IClassData in = this.m.getClassDataFromName(inter);
+				if (in != null && !in.hasPattern()) {
+					in.setHasPattern(true);
+					in.setFill("fillcolor = green\n");
+					in.setPattern("\\n\\<\\<component\\>\\>\\n");
+					this.m.addSpecialArrow(new SpecialArrowKey(d.getName(), in.getName(), 
+							"association"), "\\<\\<decorates\\>\\>");
+					this.classes.add(in);
+				}
+				d.setHasPattern(true);
+				d.setFill("fillcolor = green\n");
+				d.setPattern("\\n\\<\\<decorator\\>\\>\\n");
+				this.classes.add(d);
+				return;
+			}	
 		}
 	}
 

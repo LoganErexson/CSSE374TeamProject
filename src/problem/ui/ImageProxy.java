@@ -24,7 +24,7 @@ public class ImageProxy implements Icon{
 			g.drawString("Loading image, please wait...", x+300, y+190);
 			if (!this.retrieving) {
 				this.retrieving = true;
-
+				final Component com = c;
 				this.retrievalThread = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -33,8 +33,8 @@ public class ImageProxy implements Icon{
 							ImageProxy.this.imageIcon = new ImageIcon(ImageProxy.this.pathToImage, "UML Diagram");
 
 							//NOTE: Do both revalidate() and repaint() on the parent component
-							c.revalidate();
-							c.repaint();
+							com.revalidate();
+							com.repaint();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

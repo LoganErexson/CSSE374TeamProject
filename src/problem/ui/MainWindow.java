@@ -1,5 +1,6 @@
 package problem.ui;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,6 +18,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
@@ -45,12 +51,14 @@ public class MainWindow {
 	private List<String> classes;
 	private String imagePath;
 	private JScrollPane picPane;
+	private JScrollPane treePane;
 	private ConfigReader reader;
 	private IPackageModel model; 
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
 		this.reader = new ConfigReader();
+		frame.setSize(500, 500);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -66,17 +74,22 @@ public class MainWindow {
 	public void analyze(){
 		this.contentPane.remove(this.landingPanel);
 		this.buildResultPanel();
+		this.buildCheckboxPanel();
 //		this.contentPane.add(this.resultPanel);
 
 //		this.contentPane.add(this.picPane);
-		this.frame.add(this.picPane);
+		this.resultPanel.add(this.treePane, BorderLayout.WEST);
+		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
+		this.frame.add(this.resultPanel, BorderLayout.CENTER);
+		
+//		this.frame.add(this.treePane, BorderLayout.EAST);
 		
 //		this.contentPane.revalidate();
 //		this.contentPane.repaint();
 		
 		this.frame.repaint();
 		
-//		this.frame.pack();
+		this.frame.pack();
 	}
 	private void buildLandingPanel(){
 		this.landingPanel = new JPanel();
@@ -93,6 +106,30 @@ public class MainWindow {
 		
 //		this.resultPanel.revalidate();
 //		this.resultPanel.repaint();
+	}
+	
+	void buildCheckboxPanel() {
+		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		for (String phase: reader.getPHASES()) {
+			final DefaultMutableTreeNode node =
+					add(root, phase, true);
+			
+				//add(node, , true);
+				
+				root.add(node);
+		}
+		
+		final DefaultTreeModel treeModel = new DefaultTreeModel(root);
+		final JTree tree = new JTree(treeModel);
+		
+		final ClassCheckboxRenderer renderer = new ClassCheckboxRenderer();
+		tree.setCellRenderer(renderer);
+		
+		final ClassCheckboxManager editor = new ClassCheckboxManager(tree);
+		tree.setCellEditor(editor);
+		tree.setEditable(true);		
+
+		this.treePane = new JScrollPane(tree);
 	}
 	
 	private void assignActions() {
@@ -185,4 +222,14 @@ public class MainWindow {
 		this.imagePath = image;
 	}
 
+
+	private static DefaultMutableTreeNode add(
+		final DefaultMutableTreeNode parent, final String text,
+		final boolean checked)
+	{
+		final ClassCheckboxData data = new ClassCheckboxData(text, checked);
+		final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
+		parent.add(node);
+		return node;
+	}
 }

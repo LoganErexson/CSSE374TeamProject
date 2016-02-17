@@ -42,9 +42,11 @@ public class MainWindow {
 	private File configFile;
 	private List<String> classes;
 	private String imagePath;
+	private ConfigReader reader;
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
+		this.reader = new ConfigReader();
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.buildLandingPanel();
 		this.assignActions();
@@ -90,7 +92,6 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				List<String> classList = new ArrayList<>(); 
 				try {
-					ConfigReader reader = new ConfigReader();
 					reader.configProject(MainWindow.this.getConfigFile());
 					classList = reader.getCLASSES();
 					

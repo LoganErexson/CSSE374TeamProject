@@ -18,17 +18,9 @@ public class ConfigReader {
 		String line;
 		while((line = br.readLine()) != null) {
 			if (line.contains("INPUT-FOLDER")) {
-				while((line = br.readLine())!=null && !line.equals("")){
+				if((line = br.readLine())!=null && !line.equals("")){
 					File folder = new File(line);
-					File[] listOfFiles = folder.listFiles();
-				    for (int i = 0; i < listOfFiles.length; i++) {
-				    	if (listOfFiles[i].isFile()) {
-				    		CLASSES.add(listOfFiles[i].getAbsolutePath().
-				    				substring(listOfFiles[i].getAbsolutePath().lastIndexOf("src\\") + 4, 
-				    						listOfFiles[i].getAbsolutePath().lastIndexOf("."))
-				    						.replace('\\', '.'));
-				    	}
-				    }
+					parseFolder(folder);
 				}
 			} else if (line.contains("INPUT-CLASSES")) {
 				while((line = br.readLine())!=null && !line.equals("")){
@@ -49,6 +41,20 @@ public class ConfigReader {
 			}
 		}
 		br.close();
+	}
+	
+	public void parseFolder(File folder) {
+		File[] listOfFiles = folder.listFiles();
+	    for (int i = 0; i < listOfFiles.length; i++) {
+	    	if (listOfFiles[i].isFile()) {
+	    		CLASSES.add(listOfFiles[i].getAbsolutePath().
+	    				substring(listOfFiles[i].getAbsolutePath().lastIndexOf("src\\") + 4, 
+	    						listOfFiles[i].getAbsolutePath().lastIndexOf("."))
+	    						.replace('\\', '.'));
+	    	} else if (listOfFiles[i].isDirectory()) {
+	    		parseFolder(listOfFiles[i]);
+	    	}
+	    }
 	}
 	
 	public List<String> getCLASSES() {

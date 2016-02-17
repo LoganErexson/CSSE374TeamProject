@@ -21,7 +21,8 @@ public class ClassCheckboxData {
 		this.checked = checked;
 		
 		if(!this.checked) {
-			this.model.addInactiveClass(this.model.getClassDataFromName(this.text));
+			if (this.model.getClassNames().contains(this.text))
+				this.model.addInactiveClass(this.model.getClassDataFromName(this.text));
 		} else {
 			if (this.model.getInactiveClasses().contains(this.model.getClassDataFromName(this.text)))
 				this.model.removeInactiveClass(this.model.getClassDataFromName(this.text));

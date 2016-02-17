@@ -10,6 +10,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
+import problem.model.data.IPackageModel;
+
 public class ClassCheckboxRenderer  implements TreeCellRenderer {
 	private final ClassSelectorPanel panel = new ClassSelectorPanel();
 

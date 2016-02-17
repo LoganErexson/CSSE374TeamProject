@@ -112,7 +112,7 @@ public class MainWindow {
 		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 		for (String phase: reader.getPHASES()) {
 			final DefaultMutableTreeNode node =
-					add(root, phase, true);
+					add(root, phase, true, this.model);
 			
 				//add(node, , true);
 				
@@ -125,8 +125,8 @@ public class MainWindow {
 		final ClassCheckboxRenderer renderer = new ClassCheckboxRenderer();
 		tree.setCellRenderer(renderer);
 		
-		final ClassCheckboxManager editor = new ClassCheckboxManager(tree);
-		tree.setCellEditor(editor);
+		final ClassCheckboxManager manager = new ClassCheckboxManager(tree, this.model);
+		tree.setCellEditor(manager);
 		tree.setEditable(true);		
 
 		this.treePane = new JScrollPane(tree);
@@ -225,9 +225,9 @@ public class MainWindow {
 
 	private static DefaultMutableTreeNode add(
 		final DefaultMutableTreeNode parent, final String text,
-		final boolean checked)
+		final boolean checked, final IPackageModel model)
 	{
-		final ClassCheckboxData data = new ClassCheckboxData(text, checked);
+		final ClassCheckboxData data = new ClassCheckboxData(text, checked, model);
 		final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
 		parent.add(node);
 		return node;

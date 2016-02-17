@@ -62,4 +62,10 @@ public interface IPackageModel extends ITraverser {
 	public String getUsedClassesArrows();
 
 	public void addSpecialArrow(SpecialArrowKey specialArrowKey, String string);
+	
+	public List<IClassData> getInactiveClasses();
+
+	public void addInactiveClass(IClassData inactiveClass);
+	
+	public void removeInactiveClass(IClassData inactiveClass);
 }

@@ -1,5 +1,6 @@
 package problem.ui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,6 +36,8 @@ import problem.model.visit.UMLVisitor;
 public class MainWindow {
 	
 	private JFrame frame;
+	private JPanel contentPane;
+	
 	private JPanel landingPanel;
 	private JPanel resultPanel;
 	private JButton loadButton;
@@ -42,20 +45,33 @@ public class MainWindow {
 	private File configFile;
 	private List<String> classes;
 	private String imagePath;
+	private JScrollPane picPane;
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+
+		this.contentPane = (JPanel)this.frame.getContentPane();
+		this.contentPane.setPreferredSize(new Dimension(800, 600));
+		
 		this.buildLandingPanel();
 		this.assignActions();
-		this.frame.add(this.landingPanel);
+		this.contentPane.add(this.landingPanel);
+		
 		this.frame.pack();
 	}
 	public void analyze(){
-		this.frame.remove(this.landingPanel);
+		this.contentPane.remove(this.landingPanel);
 		this.buildResultPanel();
-		this.frame.add(this.resultPanel);
-		this.frame.repaint();
+//		this.contentPane.add(this.resultPanel);
+
+		this.contentPane.add(this.picPane);
+		
+//		this.contentPane.revalidate();
+		this.contentPane.repaint();
+		
+//		this.frame.pack();
 	}
 	private void buildLandingPanel(){
 		this.landingPanel = new JPanel();
@@ -67,8 +83,11 @@ public class MainWindow {
 	void buildResultPanel(){
 		this.resultPanel = new JPanel();
 		Icon image = new ImageProxy(this.imagePath);
-		JScrollPane picPane = new JScrollPane(new JLabel(image));
-		this.resultPanel.add(picPane);
+		this.picPane = new JScrollPane(new JLabel(image));
+//		this.resultPanel.add(this.picPane, BorderLayout.CENTER);
+		
+//		this.resultPanel.revalidate();
+//		this.resultPanel.repaint();
 	}
 	
 	private void assignActions() {

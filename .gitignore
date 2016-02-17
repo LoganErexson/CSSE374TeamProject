@@ -1,9 +1,11 @@
 /bin/
 
 *.gv
+/input_output/*
 input_output/Diagram.gv
 input_output/sDiagram.sd
 input_output/Output.dot
 input_output/Default_Config
 input_output/Output.png
+input_output/Default_Config
 input_output/Default_Config

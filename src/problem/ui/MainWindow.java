@@ -46,6 +46,7 @@ public class MainWindow {
 	private String imagePath;
 	private JScrollPane picPane;
 	private ConfigReader reader;
+	private IPackageModel model; 
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
@@ -126,7 +127,7 @@ public class MainWindow {
 					
 					List<IPatternDetector> detectors = phaseSelector(reader.getPHASES());
 					
-					IPackageModel model = new PackageModel(detectors);
+					model = new PackageModel(detectors);
 					model.setClasses(classDatas);
 					OutputStream out = new FilterOutputStream(new FileOutputStream(reader.getUML_OUTPUT()+"\\Output.dot"));
 					IVisitor visitor = new UMLVisitor();

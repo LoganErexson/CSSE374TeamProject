@@ -20,9 +20,11 @@ public class PackageModel implements IPackageModel {
 	private List<String> classNames;
 	private Map<SpecialArrowKey, String> specialArrows = new HashMap<>();
 	private List<IPatternDetector> detectors = new ArrayList<>();
+	private List<IClassData> inactiveClasses;
 
 	public PackageModel(List<IPatternDetector> detectors) {
 		this.classes = new ArrayList<>();
+		this.inactiveClasses = new ArrayList<>();
 		this.classNames = StringParser.getClassNames(this.classes);
 		this.detectors = detectors;
 	}
@@ -260,7 +262,9 @@ public class PackageModel implements IPackageModel {
 		this.setClassRelations();
 		this.scanForPatterns();
 		for(IClassData data: this.classes){
-			data.accept(v);
+			if(!this.getInactiveClasses().contains(data)) {
+				data.accept(v);
+			}
 		}
 		v.visit(this);
 		v.postVisit(this);
@@ -280,5 +284,17 @@ public class PackageModel implements IPackageModel {
 	@Override
 	public void addSpecialArrow(SpecialArrowKey key, String label){
 		this.specialArrows.put(key, label);
+	}
+
+	public List<IClassData> getInactiveClasses() {
+		return inactiveClasses;
+	}
+
+	public void addInactiveClass(IClassData inactiveClass) {
+		this.inactiveClasses.add(inactiveClass);
+	}
+	
+	public void removeInactiveClass(IClassData inactiveClass) {
+		this.inactiveClasses.remove(inactiveClass);
 	}
 }

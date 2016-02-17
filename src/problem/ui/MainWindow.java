@@ -1,6 +1,5 @@
 package problem.ui;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -55,11 +54,11 @@ public class MainWindow {
 		
 
 		this.contentPane = (JPanel)this.frame.getContentPane();
-		this.contentPane.setPreferredSize(new Dimension(800, 600));
 		
 		this.buildLandingPanel();
 		this.assignActions();
-		this.contentPane.add(this.landingPanel);
+//		this.contentPane.add(this.landingPanel);
+		this.frame.add(this.landingPanel);
 		
 		this.frame.pack();
 	}
@@ -68,10 +67,13 @@ public class MainWindow {
 		this.buildResultPanel();
 //		this.contentPane.add(this.resultPanel);
 
-		this.contentPane.add(this.picPane);
+//		this.contentPane.add(this.picPane);
+		this.frame.add(this.picPane);
 		
 //		this.contentPane.revalidate();
-		this.contentPane.repaint();
+//		this.contentPane.repaint();
+		
+		this.frame.repaint();
 		
 //		this.frame.pack();
 	}

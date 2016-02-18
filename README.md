@@ -189,3 +189,37 @@ sd [method_signature] [depth]   #Used for creating .sd files.
 								#"depth" here is optional and will default to 5
 								#<method_signature> is in the format:
 [package_name].[class_name].[method_name]([parameter_type1];[parameter_type2];...)
+
+Milestone 7:
+
+
+Jack:
+- Added Config file reader
+- Implemented checkboxes in gui
+- Implemented Output.png updating when checkboxes for classes are swtiched on or off
+- 
+
+Logan:
+- Reorganized project code into packages and created config file for project files
+- Converted PackageModel to take in a list of detectors
+- Implemented Composite Detector Logic
+- Updated and added tests
+
+Manual UML Project Code
+![alt M7-Manual-UML](https://raw.githubusercontent.com/EruditeEnterprises/CSSE374TeamProject/master/docs/UMLdesignM7.png)
+
+To use this tool, run DesignParser with arguments in one of the three following formats:
+uml  #Used for creating .dot files
+	 #A GUI will appear with options to load a config file and to analyze the code the config directs to
+	 #Config file format is:
+	 	INPUT-FOLDER: Main directory from which to generate uml for
+	 	INPUT-CLASSES: Additional classes desired to be in the diagram that are not part of the main directory
+	 	OUTPUT-FILE: Path to where the input for the uml should go.
+	 	DOT-PATH: Path to where dot.exe is
+	 	PHASES: Which detectors to run when generating uml. 
+	 #Generated image will be displayed in the right window pane, and can be altered by unchecking class checkboxes and refreshing the window.
+	 #To load a new UML close the window and relaunch the client. 
+sd [method_signature] [depth]   #Used for creating .sd files. 
+								#"depth" here is optional and will default to 5
+								#<method_signature> is in the format:
+[package_name].[class_name].[method_name]([parameter_type1];[parameter_type2];...)

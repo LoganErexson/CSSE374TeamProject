@@ -14,18 +14,7 @@ import problem.model.visit.IVisitor;
 import problem.model.visit.SDEditVisitor;
 import problem.ui.MainWindow;
 
-public class DesignParser {
-	/**
-	 * Determine which folder to get classes from. Prefix here is the package name.
-	 * 
-	 */
-	public static final String[] DEFAULT_CLASSES = {"problem.asm.AbstractClassDataVisitor",  
-		"problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor", "problem.asm.ClassMethodVisitor",
-		"problem.asm.DesignParser", "problem.asm.FieldData", "problem.asm.GraphVisPrinter", 
-		"problem.asm.IFieldData", "problem.asm.IClassStructurePrinter", "problem.asm.IMethodCallData",
-		"problem.asm.IMethodData", "problem.asm.MethodBodyVisitor", "problem.asm.MethodCallData", "problem.asm.MethodData",
-		"problem.asm.SDEditPrinter", "problem.asm.StringParser", "problem.asm.VisitorManager"};
-	public static final String UML_OUTPUT = "./input_output/Diagram.dot";
+public class Client {
 	public static final String SD_OUTPUT = "./input_output/sDiagram.sd";
 	
 	/**

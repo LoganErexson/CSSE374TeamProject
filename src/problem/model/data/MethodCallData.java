@@ -1,7 +1,7 @@
 package problem.model.data;
 
-import problem.main.StringParser;
 import problem.model.visit.IVisitor;
+import problem.util.StringParser;
 
 
 public class MethodCallData implements IMethodCallData{

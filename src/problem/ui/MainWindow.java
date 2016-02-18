@@ -35,6 +35,7 @@ import problem.model.data.IPackageModel;
 import problem.model.data.PackageModel;
 import problem.model.visit.IVisitor;
 import problem.model.visit.UMLVisitor;
+import problem.util.ConfigReader;
 
 public class MainWindow {
 	
@@ -78,16 +79,21 @@ public class MainWindow {
 //		this.contentPane.add(this.picPane);
 		this.resultPanel.add(this.treePane, BorderLayout.WEST);
 		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
-		this.frame.add(this.resultPanel, BorderLayout.CENTER);
+		this.frame.add(this.resultPanel, BorderLayout.WEST);
 		
 //		this.frame.add(this.treePane, BorderLayout.EAST);
 		
 //		this.contentPane.revalidate();
 //		this.contentPane.repaint();
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException exception) {
+			exception.printStackTrace();
+		}
+		this.frame.revalidate();
 		this.frame.repaint();
 		
-//		this.frame.pack();
+		this.frame.pack();
 	}
 	private void buildLandingPanel(){
 		this.landingPanel = new JPanel();

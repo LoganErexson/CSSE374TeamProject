@@ -2,10 +2,10 @@ package problem.model.visit.method;
 
 import java.util.Set;
 
-import problem.main.StringParser;
 import problem.model.data.IMethodCallData;
 import problem.model.data.MethodCallData;
 import problem.model.visit.ITraverser;
+import problem.util.StringParser;
 
 public class MethodCallVisit extends AbstractVisitMethod{
 

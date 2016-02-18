@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import problem.main.StringParser;
 import problem.model.data.MethodCallData;
 import problem.model.visit.method.MethodCallVisit;
+import problem.util.StringParser;
 
 public class SDEditVisitor extends AbstractVisitor {
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.objectweb.asm.Type;
 
-import problem.main.StringParser;
 import problem.model.visit.IVisitor;
+import problem.util.StringParser;
 
 public class MethodData implements IMethodData{
 	private String name;

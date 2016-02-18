@@ -20,7 +20,6 @@ import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
 import problem.detector.SingletonDetector;
-import problem.main.StringParser;
 import problem.model.data.ClassData;
 import problem.model.data.FieldData;
 import problem.model.data.IClassData;
@@ -33,6 +32,7 @@ import problem.model.data.MethodData;
 import problem.model.data.PackageModel;
 import problem.model.visit.IVisitor;
 import problem.model.visit.SDEditVisitor;
+import problem.util.StringParser;
 
 
 public class ModelTest {

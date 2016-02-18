@@ -2,8 +2,8 @@ package problem.model.data;
 
 import org.objectweb.asm.Type;
 
-import problem.main.StringParser;
 import problem.model.visit.IVisitor;
+import problem.util.StringParser;
 
 public class FieldData implements IFieldData {
 	private String fieldName;

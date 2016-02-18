@@ -2,7 +2,7 @@ package problem.asm;
 
 import java.util.Arrays;
 
-import problem.main.StringParser;
+import problem.util.StringParser;
 
 public class ClassDeclarationVisitor extends AbstractASMVisitor {
 	

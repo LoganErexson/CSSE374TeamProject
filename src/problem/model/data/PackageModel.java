@@ -8,8 +8,8 @@ import java.util.Map;
 
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
-import problem.main.StringParser;
 import problem.model.visit.IVisitor;
+import problem.util.StringParser;
 
 public class PackageModel implements IPackageModel {
 	

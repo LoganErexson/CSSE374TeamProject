@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import problem.main.StringParser;
 import problem.model.visit.IVisitor;
+import problem.util.StringParser;
 
 public class ClassData implements IClassData {
 	private String className;

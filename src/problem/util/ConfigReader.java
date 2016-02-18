@@ -1,4 +1,4 @@
-package problem.ui;
+package problem.util;
 
 import java.io.BufferedReader;
 import java.io.File;

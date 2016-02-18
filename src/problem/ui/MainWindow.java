@@ -1,6 +1,7 @@
 package problem.ui;
 
-import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,13 +59,25 @@ public class MainWindow implements Observer{
 		this.buildResultPanel();
 		this.buildCheckboxPanel();
 		this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.treePane, this.picPane);
-//		this.resultPanel.add(this.treePane, BorderLayout.WEST);
-//		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
-		this.resultPanel.add(this.split, BorderLayout.NORTH);
-		this.resultPanel.add(this.refreshButton, BorderLayout.SOUTH);
-		this.frame.add(this.resultPanel, BorderLayout.WEST);
+
+		GridBagConstraints gridBag = new GridBagConstraints();
+		gridBag.weightx = 1;
+		gridBag.weighty = 1;
+		gridBag.fill = GridBagConstraints.BOTH;
+		gridBag.gridx = 0;
+		gridBag.gridy = 0;
+		gridBag.gridwidth = 3;
+		gridBag.gridheight = 2;
+
+		this.resultPanel.add(this.split, gridBag);
+		gridBag.weightx = 0;
+		gridBag.weighty = 0;
+		gridBag.gridy = 3;
+		gridBag.gridheight = 1;
+		this.resultPanel.add(this.refreshButton, gridBag);
+		this.frame.add(this.resultPanel);
+		this.frame.setVisible(true);
 		
-//		this.frame.add(this.treePane, BorderLayout.EAST);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException exception) {
@@ -84,7 +97,7 @@ public class MainWindow implements Observer{
 		this.landingPanel.add(this.analyzeButton);
 	}
 	void buildResultPanel(){
-		this.resultPanel = new JPanel();
+		this.resultPanel = new JPanel(new GridBagLayout());
 		this.image = new ImageProxy(this.imagePath);
 		this.picPane = new JScrollPane(new JLabel(this.image));
 	}

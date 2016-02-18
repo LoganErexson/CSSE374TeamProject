@@ -1,5 +1,6 @@
 package problem.ui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -46,7 +47,8 @@ public class MainWindow implements Observer{
 		
 		this.detectors = detectors;
 		this.frame = new JFrame("Design Parser");
-		this.frame.setSize(500, 500);
+		this.frame.setSize(500, 200);
+		this.frame.setMinimumSize(new Dimension(300, 80));
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.refreshButton = new JButton("Refresh");
@@ -59,6 +61,7 @@ public class MainWindow implements Observer{
 	}
 	public void analyze(){
 		this.frame.remove(this.landingPanel);
+		this.frame.setMinimumSize(new Dimension(1200, 900));
 		this.buildResultPanel();
 		this.buildCheckboxPanel();
 		this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.treePane, this.picPane);

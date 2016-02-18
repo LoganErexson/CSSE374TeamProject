@@ -162,5 +162,8 @@ public class MainWindow implements Observer{
 		this.imagePath = dp.getImagePath();
 		this.model = dp.getModel();
 		
+		this.frame.revalidate();
+		this.frame.repaint();
+		
 	}
 }

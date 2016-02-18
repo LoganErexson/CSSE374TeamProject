@@ -19,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -206,11 +204,11 @@ public class MainWindow {
 		List<IPatternDetector> detectors = new ArrayList<>();
 		detectors.add(new InterfaceDetector());
 		if(phases.contains("singleton"))
-			detectors.add(new SingletonDetector());
+			detectors.add(new SingletonDetector(false));
 		if(phases.contains("decorator"))
-			detectors.add(new DecoratorDetector());
+			detectors.add(new DecoratorDetector(1));
 		if(phases.contains("adaptor"))
-			detectors.add(new AdapterDetector());
+			detectors.add(new AdapterDetector(2));
 		if(phases.contains("composite"))
 			detectors.add(new CompositeDetector());
 		return detectors;

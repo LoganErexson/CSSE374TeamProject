@@ -16,11 +16,9 @@ public class ClassCheckboxData {
 
 	public boolean isChecked() throws IOException {
 		if(this.checked) {
-			System.out.println("UnChecked");
 			if (this.parser.getModel().getInactiveClasses().contains(this.parser.getModel().getClassDataFromName(this.text)))
 				this.parser.getModel().removeInactiveClass(this.parser.getModel().getClassDataFromName(this.text));
 		} else {
-			System.out.println("Checked");
 			if (this.parser.getModel().getClassNames().contains(this.text))
 				this.parser.getModel().addInactiveClass(this.parser.getModel().getClassDataFromName(this.text));
 		}

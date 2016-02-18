@@ -145,9 +145,12 @@ public class PackageModel implements IPackageModel {
 		sb.append("arrowhead = \"empty\"\n");
 		sb.append("style = \"solid\"\n]\n");
 		for(String className: this.classToSuperclass.keySet()){
-			if(this.classNames.contains(this.classToSuperclass.get(className))){
-				sb.append(className+" -> "+ this.classToSuperclass.get(className)+ "\n");
-			}
+			if(this.classNames.contains(this.classToSuperclass.get(className)) && !this.inactiveClasses.contains(
+					this.getClassDataFromName(this.classToSuperclass.get(className))) && 
+					!this.inactiveClasses.contains(this.getClassDataFromName(className)))
+					{
+						sb.append(className+" -> "+ this.classToSuperclass.get(className)+ "\n");
+					}
 		}
 		return sb.toString();
 	}
@@ -161,7 +164,8 @@ public class PackageModel implements IPackageModel {
 		for(String className: this.classToInterfaces.keySet()){
 			for(String curInterface : this.classToInterfaces.get(className)){
 				if(this.classNames.contains(curInterface)
-						&&!this.classToSuperclass.get(className).equals(curInterface))
+						&&!this.classToSuperclass.get(className).equals(curInterface) && !this.inactiveClasses.contains(
+								this.getClassDataFromName(className)) && !this.inactiveClasses.contains(curInterface))
 				{
 					sb.append(className+" -> "+ curInterface+ "\n");
 				}
@@ -178,8 +182,9 @@ public class PackageModel implements IPackageModel {
 		sb.append("style = \"solid\"\n]\n");
 		for(String className: this.classToAssociatedClasses.keySet()){
 			for(String assocClass: this.classToAssociatedClasses.get(className)){
-				if(this.classNames.contains(assocClass)
-						&&!this.classToInterfaces.get(className).contains(assocClass))
+				if(this.classNames.contains(assocClass) &&! this.classToInterfaces.get(className).contains(assocClass)
+						&& !this.inactiveClasses.contains(this.getClassDataFromName(className)) && 
+								!this.inactiveClasses.contains(assocClass))
 				{
 					SpecialArrowKey key = new SpecialArrowKey(className, assocClass, "association");
 					if(this.specialArrows.containsKey(key)){
@@ -213,8 +218,9 @@ public class PackageModel implements IPackageModel {
 						paramType = param;
 					}
 					if(!usedClasses.contains(paramType)&&this.classNames.contains(paramType)
-							&&!paramType.equals(className)
-							&&!this.classToAssociatedClasses.get(className).contains(paramType))
+							&&!paramType.equals(className)&&!this.classToAssociatedClasses.get(className).contains(paramType)
+							&& !this.inactiveClasses.contains(this.getClassDataFromName(className)) && 
+							!this.inactiveClasses.contains(paramType))
 					{
 						usedClasses.add(paramType);
 						sb.append(className+" -> "+paramType+"\n");
@@ -235,7 +241,9 @@ public class PackageModel implements IPackageModel {
 					}
 					if(!usedClasses.contains(usedClass)&&this.classNames.contains(usedClass)
 						&&!usedClass.equals(className)
-						&&!this.classToAssociatedClasses.get(className).contains(usedClass))
+						&&!this.classToAssociatedClasses.get(className).contains(usedClass)&&
+						!this.inactiveClasses.contains(this.getClassDataFromName(className))&& 
+						!this.inactiveClasses.contains(usedClass))
 					{
 						usedClasses.add(usedClass);
 						sb.append(className+" -> "+usedClass+"\n");
@@ -251,7 +259,9 @@ public class PackageModel implements IPackageModel {
 					}
 					if(!usedClasses.contains(returnType)&&this.classNames.contains(returnType)
 							&&!returnType.equals(className)
-							&&!this.classToAssociatedClasses.get(className).contains(returnType)){
+							&&!this.classToAssociatedClasses.get(className).contains(returnType)
+							&&!this.inactiveClasses.contains(this.getClassDataFromName(className))&& 
+							!this.inactiveClasses.contains(returnType)){
 						usedClasses.add(returnType);
 						sb.append(className+" -> "+returnType+"\n");
 					}

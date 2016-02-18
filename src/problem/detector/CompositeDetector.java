@@ -50,6 +50,7 @@ public class CompositeDetector extends AbstractDetector{
 				d.setHasPattern(true);
 				d.setFill("fillcolor = pink\n");
 				d.setPattern("\\n\\<\\<composite\\>\\>\\n");
+				classes.add(d);
 				IClassData component;
 				if(sup!=null&&sup.getImplementedClasses().contains(comp)){
 					component = this.m.getClassDataFromName(sup.getName());

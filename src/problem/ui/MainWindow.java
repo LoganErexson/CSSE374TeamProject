@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -31,17 +30,22 @@ public class MainWindow implements Observer{
 	private JPanel resultPanel;
 	private JButton loadButton;
 	private JButton analyzeButton;
+	private JButton refreshButton;
 	private String imagePath;
 	private JScrollPane picPane;
 	private JScrollPane treePane;
 	IPackageModel model; 
 	DesignParser designParser;
+	private JSplitPane split;
+	private ImageProxy image;
 	
 	public MainWindow(){
 		
 		this.frame = new JFrame("Design Parser");
 		this.frame.setSize(500, 500);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.refreshButton = new JButton("Refresh");
 		
 		this.buildLandingPanel();
 		this.assignActions();
@@ -53,13 +57,19 @@ public class MainWindow implements Observer{
 		this.frame.remove(this.landingPanel);
 		this.buildResultPanel();
 		this.buildCheckboxPanel();
-		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.treePane, this.picPane);
+		this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.treePane, this.picPane);
 //		this.resultPanel.add(this.treePane, BorderLayout.WEST);
 //		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
-		this.resultPanel.add(split);
+		this.resultPanel.add(this.split, BorderLayout.NORTH);
+		this.resultPanel.add(this.refreshButton, BorderLayout.SOUTH);
 		this.frame.add(this.resultPanel, BorderLayout.WEST);
 		
 //		this.frame.add(this.treePane, BorderLayout.EAST);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException exception) {
+			exception.printStackTrace();
+		}
 		
 		this.frame.revalidate();
 		this.frame.repaint();
@@ -75,12 +85,8 @@ public class MainWindow implements Observer{
 	}
 	void buildResultPanel(){
 		this.resultPanel = new JPanel();
-		Icon image = new ImageProxy(this.imagePath);
-		this.picPane = new JScrollPane(new JLabel(image));
-//		this.resultPanel.add(this.picPane, BorderLayout.CENTER);
-		
-//		this.resultPanel.revalidate();
-//		this.resultPanel.repaint();
+		this.image = new ImageProxy(this.imagePath);
+		this.picPane = new JScrollPane(new JLabel(this.image));
 	}
 	
 	void buildCheckboxPanel() {
@@ -151,6 +157,29 @@ public class MainWindow implements Observer{
 			}
 			
 		});
+		this.refreshButton.addActionListener( new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(MainWindow.this.imagePath != null) {
+					MainWindow.this.image.flush();
+					MainWindow.this.image = new ImageProxy(MainWindow.this.imagePath);
+					MainWindow.this.picPane = new JScrollPane(new JLabel(MainWindow.this.image));
+					MainWindow.this.split.setRightComponent(MainWindow.this.picPane);
+					
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException exception) {
+					exception.printStackTrace();
+				}
+				MainWindow.this.frame.revalidate();
+				MainWindow.this.frame.repaint();
+				
+				MainWindow.this.frame.pack();
+			}
+			
+		});
 	}
 	
 	public void show() {
@@ -177,15 +206,24 @@ public class MainWindow implements Observer{
 	public void update(Observable o, Object arg) {
 		DesignParser dp = (DesignParser) o;
 		
+		this.model = dp.getModel();
 		this.imagePath = dp.getImagePath();
 		if(this.imagePath != null) {
-			Icon image = new ImageProxy(this.imagePath);
-			this.picPane = new JScrollPane(new JLabel(image));
+			this.image.flush();
+			this.image = new ImageProxy(MainWindow.this.imagePath);
+			this.picPane = new JScrollPane(new JLabel(this.image));
+			this.split.setRightComponent(this.picPane);
 		}
-		this.model = dp.getModel();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException exception) {
+			exception.printStackTrace();
+		}		
 		
 		this.frame.revalidate();
 		this.frame.repaint();
+		
+		this.frame.pack();
 		
 	}
 }

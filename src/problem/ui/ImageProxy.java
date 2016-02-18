@@ -36,7 +36,11 @@ public class ImageProxy implements Icon{
 							com.revalidate();
 							com.repaint();
 						} catch (Exception e) {
-							e.printStackTrace();
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException exception) {
+								exception.printStackTrace();
+							}
 						}
 					}
 				});
@@ -63,6 +67,13 @@ public class ImageProxy implements Icon{
 	
 	synchronized void setImageIcon(ImageIcon imageIcon){
 		this.imageIcon = imageIcon;
+	}
+	
+	public void flush(){
+		if(this.imageIcon!=null){
+			this.imageIcon.getImage().flush();
+		}
+		this.retrieving = false;
 	}
 
 }

@@ -18,7 +18,6 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import problem.detector.AbstractDetector;
 import problem.detector.IPatternDetector;
 import problem.model.data.IClassData;
 import problem.model.data.IPackageModel;
@@ -139,19 +138,18 @@ public class MainWindow implements Observer{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
+				MainWindow.this.designParser.addObserver(MainWindow.this);
 				MainWindow.this.designParser.createThread();
 				while(MainWindow.this.designParser.isThreadIsRunning()) {
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
 				MainWindow.this.setImage(MainWindow.this.designParser.getImagePath());
 				MainWindow.this.analyze();
-				MainWindow.this.designParser.addObserver(MainWindow.this);
 				
 			}
 			
@@ -183,7 +181,7 @@ public class MainWindow implements Observer{
 		DesignParser dp = (DesignParser) o;
 		
 		this.imagePath = dp.getImagePath();
-		if(imagePath != null) {
+		if(this.imagePath != null) {
 			Icon image = new ImageProxy(this.imagePath);
 			this.picPane = new JScrollPane(new JLabel(image));
 		}

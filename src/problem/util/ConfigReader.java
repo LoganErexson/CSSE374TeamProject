@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigReader {
@@ -12,6 +13,7 @@ public class ConfigReader {
 	private String outputFolder = "";
 	private String dotPath = "";
 	private List<String> phases = new ArrayList<>();
+	private List<String> phaseInstructions = new ArrayList<>();
 	
 	public void configProject(File filePath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -35,8 +37,11 @@ public class ConfigReader {
 					this.dotPath = line;
 				}
 			} else if (line.contains("PHASES")) {
+				if((line=br.readLine())!=null&&!line.equals("")){
+					this.phases = Arrays.asList(line.split(", "));
+				}
 				while((line = br.readLine()) != null && !line.equals("")){
-					this.phases.add(line);
+					this.phaseInstructions.add(line);
 				}
 			}
 		}
@@ -78,5 +83,13 @@ public class ConfigReader {
 		while((line = r.readLine())!=null && !line.equals("")){
 			this.classes.add(line);
 		}
+	}
+
+	public List<String> getPhaseInstructions() {
+		return this.phaseInstructions;
+	}
+
+	public void setPhaseInstructions(List<String> phaseInstructions) {
+		this.phaseInstructions = phaseInstructions;
 	}
 }

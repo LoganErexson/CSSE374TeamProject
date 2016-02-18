@@ -5,9 +5,16 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import problem.asm.VisitorManager;
+import problem.detector.AdapterDetector;
+import problem.detector.CompositeDetector;
+import problem.detector.DecoratorDetector;
+import problem.detector.IPatternDetector;
+import problem.detector.SingletonDetector;
 import problem.model.data.IMethodCallData;
 import problem.model.data.MethodCallData;
 import problem.model.visit.IVisitor;
@@ -28,7 +35,12 @@ public class Client {
 			System.exit(0);
 		}
 		if(args[0].toLowerCase().equals("uml")){
-		    MainWindow window = new MainWindow();
+			Map<String, IPatternDetector> detectors = new HashMap<>();
+			detectors.put("Adapter", new AdapterDetector(2));
+			detectors.put("Composite", new CompositeDetector());
+			detectors.put("Decorator", new DecoratorDetector(1));
+			detectors.put("Singleton", new SingletonDetector(false));
+		    MainWindow window = new MainWindow(detectors);
 		    window.show();
 		}
 		else if(args[0].toLowerCase().equals("sd")){

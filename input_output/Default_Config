@@ -1,5 +1,5 @@
 INPUT-FOLDER: 
-C:\\Users\\erexsolr\\Documents\\GitHub\\CSSE374TeamProject\\src\\sample\\lab7_2
+C:\\Users\\erexsolr\\Documents\\GitHub\\CSSE374TeamProject\\src\\problem\\
 
 INPUT-CLASSES: 
 
@@ -10,7 +10,7 @@ DOT-PATH:
 C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
 
 PHASES: 
-Decorator
-Singleton
-Adapter
-Composite
+Decorator, Singleton, Adapter, Composite
+Decorator-MethodDelegation: 3
+Adapter-MethodDelegation: 2
+Singleton-RequireGetInstance: true

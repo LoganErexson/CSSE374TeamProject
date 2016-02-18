@@ -7,16 +7,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import problem.asm.AbstractASMVisitor;
 import problem.asm.VisitorManager;
-import problem.detector.AdapterDetector;
-import problem.detector.CompositeDetector;
-import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
-import problem.detector.SingletonDetector;
 import problem.model.data.IClassData;
 import problem.model.data.PackageModel;
 import problem.model.visit.IVisitor;
@@ -29,9 +26,11 @@ public class DesignParser extends Observable{
 	private PackageModel model;
 	private String imagePath;
 	private boolean threadIsRunning = false;
+	private Map<String, IPatternDetector> detectorMap;
 
-	public DesignParser(File configFile){
+	public DesignParser(File configFile, Map<String, IPatternDetector> detectors){
 		this.configFile = configFile;
+		this.detectorMap = detectors;
 	}
 	
 	public void createThread(){
@@ -71,6 +70,7 @@ public class DesignParser extends Observable{
 		}
 		
 		List<IPatternDetector> detectors = phaseSelector(this.reader.getPhases());
+		updateDetectors(detectors);
 		
 		this.model = new PackageModel(detectors);
 		this.model.setClasses(classDatas);
@@ -95,15 +95,26 @@ public class DesignParser extends Observable{
 	private List<IPatternDetector> phaseSelector(List<String> phases) {
 		List<IPatternDetector> detectors = new ArrayList<>();
 		detectors.add(new InterfaceDetector());
-		if(phases.contains("Singleton"))
-			detectors.add(new SingletonDetector(false));
-		if(phases.contains("Decorator"))
-			detectors.add(new DecoratorDetector(1));
-		if(phases.contains("Adapter"))
-			detectors.add(new AdapterDetector(2));
-		if(phases.contains("Composite"))
-			detectors.add(new CompositeDetector());
+		for(String phase : phases){
+			if(this.detectorMap.containsKey(phase)&&!detectors.contains(phase)){
+				detectors.add(this.detectorMap.get(phase));
+			}
+		}
 		return detectors;
+	}
+	private void updateDetectors(List<IPatternDetector> detectors){
+		for(String phaseInstr : this.reader.getPhaseInstructions()){
+			String phaseName = phaseInstr.substring(0, phaseInstr.indexOf("-"));
+			if(this.detectorMap.containsKey(phaseName)){
+				for(IPatternDetector detector : detectors){
+					if(detector.getPatternName().equalsIgnoreCase(phaseName)){
+						String valueName = phaseInstr.substring(phaseInstr.indexOf("-")+1, phaseInstr.indexOf(":"));
+						String value = phaseInstr.substring(phaseInstr.indexOf(": ")+2);
+						detector.update(valueName, value);
+					}
+				}
+			}
+		}
 	}
 
 	public ConfigReader getReader() {

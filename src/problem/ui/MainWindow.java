@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,9 +40,11 @@ public class MainWindow implements Observer{
 	DesignParser designParser;
 	private JSplitPane split;
 	private ImageProxy image;
+	private Map<String, IPatternDetector> detectors;
 	
-	public MainWindow(){
+	public MainWindow(Map<String, IPatternDetector> detectors){
 		
+		this.detectors = detectors;
 		this.frame = new JFrame("Design Parser");
 		this.frame.setSize(500, 500);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,7 +148,7 @@ public class MainWindow implements Observer{
 				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\input_output");
 				int returnVal = fc.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION){
-					MainWindow.this.designParser= new DesignParser(fc.getSelectedFile());
+					MainWindow.this.designParser= new DesignParser(fc.getSelectedFile(), MainWindow.this.detectors);
 				}
 			}
 			

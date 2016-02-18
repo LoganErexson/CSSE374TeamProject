@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -52,9 +53,10 @@ public class MainWindow implements Observer{
 		this.frame.remove(this.landingPanel);
 		this.buildResultPanel();
 		this.buildCheckboxPanel();
-		
-		this.resultPanel.add(this.treePane, BorderLayout.WEST);
-		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
+		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.treePane, this.picPane);
+//		this.resultPanel.add(this.treePane, BorderLayout.WEST);
+//		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
+		this.resultPanel.add(split);
 		this.frame.add(this.resultPanel, BorderLayout.WEST);
 		
 //		this.frame.add(this.treePane, BorderLayout.EAST);

@@ -3,11 +3,6 @@ package problem.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilterOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,69 +17,51 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import problem.asm.AbstractASMVisitor;
-import problem.asm.VisitorManager;
 import problem.detector.AdapterDetector;
 import problem.detector.CompositeDetector;
 import problem.detector.DecoratorDetector;
 import problem.detector.IPatternDetector;
 import problem.detector.InterfaceDetector;
 import problem.detector.SingletonDetector;
-import problem.model.data.IClassData;
 import problem.model.data.IPackageModel;
-import problem.model.data.PackageModel;
-import problem.model.visit.IVisitor;
-import problem.model.visit.UMLVisitor;
-import problem.util.ConfigReader;
+import problem.util.DesignParser;
 
 public class MainWindow {
 	
 	private JFrame frame;
-	private JPanel contentPane;
-	
 	private JPanel landingPanel;
 	private JPanel resultPanel;
 	private JButton loadButton;
 	private JButton analyzeButton;
-	private File configFile;
-	private List<String> classes;
 	private String imagePath;
 	private JScrollPane picPane;
 	private JScrollPane treePane;
-	ConfigReader reader;
 	IPackageModel model; 
+	DesignParser designParser;
 	
 	public MainWindow(){
+		
 		this.frame = new JFrame("Design Parser");
-		this.reader = new ConfigReader();
 		this.frame.setSize(500, 500);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-
-		this.contentPane = (JPanel)this.frame.getContentPane();
-		
 		this.buildLandingPanel();
 		this.assignActions();
-//		this.contentPane.add(this.landingPanel);
 		this.frame.add(this.landingPanel);
 		
 		this.frame.pack();
 	}
 	public void analyze(){
-		this.contentPane.remove(this.landingPanel);
+		this.frame.remove(this.landingPanel);
 		this.buildResultPanel();
 		this.buildCheckboxPanel();
-//		this.contentPane.add(this.resultPanel);
-
-//		this.contentPane.add(this.picPane);
+		
 		this.resultPanel.add(this.treePane, BorderLayout.WEST);
 		this.resultPanel.add(this.picPane,  BorderLayout.EAST);
 		this.frame.add(this.resultPanel, BorderLayout.WEST);
 		
 //		this.frame.add(this.treePane, BorderLayout.EAST);
 		
-//		this.contentPane.revalidate();
-//		this.contentPane.repaint();
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException exception) {
@@ -113,8 +90,8 @@ public class MainWindow {
 	}
 	
 	void buildCheckboxPanel() {
-		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		for (String phase: this.reader.getPhases()) {
+		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Model");
+		for (String phase: this.designParser.getReader().getPhases()) {
 			final DefaultMutableTreeNode node =
 					add(root, phase, true, this.model);
 			
@@ -144,7 +121,7 @@ public class MainWindow {
 				JFileChooser fc = new JFileChooser(System.getProperty("user.dir")+"\\input_output");
 				int returnVal = fc.showOpenDialog(null);
 				if(returnVal == JFileChooser.APPROVE_OPTION){
-					MainWindow.this.setConfigFile(fc.getSelectedFile());
+					MainWindow.this.designParser= new DesignParser(fc.getSelectedFile());
 				}
 			}
 			
@@ -153,37 +130,10 @@ public class MainWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<String> classList = new ArrayList<>(); 
-				try {
-					MainWindow.this.reader.configProject(MainWindow.this.getConfigFile());
-					classList = MainWindow.this.reader.getClasses();
-					
-					MainWindow.this.setClasses(classList);
-					List<IClassData> classDatas = new ArrayList<>();
-					for (String className : classList) {
-						System.out.println(className);
-						AbstractASMVisitor visitor = VisitorManager.visitClass(className);
-						classDatas.add(visitor.getClassData());
-					}
-					
-					List<IPatternDetector> detectors = phaseSelector(MainWindow.this.reader.getPhases());
-					
-					MainWindow.this.model = new PackageModel(detectors);
-					MainWindow.this.model.setClasses(classDatas);
-					OutputStream out = new FilterOutputStream(new FileOutputStream(MainWindow.this.reader.getOutputFile()+"\\Output.dot"));
-					IVisitor visitor = new UMLVisitor();
-					MainWindow.this.model.accept(visitor);
-					visitor.printToOutput(out);
-					out.close();
-					Runtime rt = Runtime.getRuntime();
-					String outputString= MainWindow.this.reader.getOutputFile()+"\\\\Output.";
-					String command = "\""+MainWindow.this.reader.getDotPath()+"\" -Tpng " +outputString +"dot -o "+outputString+"png";
-					rt.exec(command);
-					MainWindow.this.setImage(outputString+"png");
-					MainWindow.this.analyze();
-				} catch (IOException exception) {
-					exception.printStackTrace();
-				}
+				
+				MainWindow.this.designParser.createThread();
+				MainWindow.this.setImage(MainWindow.this.designParser.getImagePath());
+				MainWindow.this.analyze();
 				
 			}
 			
@@ -192,18 +142,6 @@ public class MainWindow {
 	
 	public void show() {
 		this.frame.setVisible(true);
-	}
-	public File getConfigFile() {
-		return this.configFile;
-	}
-	public void setConfigFile(File configFile) {
-		this.configFile = configFile;
-	}
-	public List<String> getClasses() {
-		return this.classes;
-	}
-	public void setClasses(List<String> classes) {
-		this.classes = classes;
 	}
 	
 	public List<IPatternDetector> phaseSelector(List<String> phases) {
@@ -225,7 +163,6 @@ public class MainWindow {
 	public void setImage(String image) {
 		this.imagePath = image;
 	}
-
 
 	private static DefaultMutableTreeNode add(
 		final DefaultMutableTreeNode parent, final String text,

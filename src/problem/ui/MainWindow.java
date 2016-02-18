@@ -61,11 +61,6 @@ public class MainWindow implements Observer{
 		
 //		this.frame.add(this.treePane, BorderLayout.EAST);
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException exception) {
-			exception.printStackTrace();
-		}
 		this.frame.revalidate();
 		this.frame.repaint();
 		

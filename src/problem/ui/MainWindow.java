@@ -3,6 +3,7 @@ package problem.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +18,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import problem.detector.AbstractDetector;
+import problem.detector.IPatternDetector;
+import problem.model.data.IClassData;
 import problem.model.data.IPackageModel;
 import problem.util.DesignParser;
 
@@ -84,15 +88,26 @@ public class MainWindow implements Observer{
 	}
 	
 	void buildCheckboxPanel() {
+		ArrayList<String> made = new ArrayList<>();
 		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Model");
 		for (String phase: this.designParser.getReader().getPhases()) {
 			final DefaultMutableTreeNode node =
 					add(root, phase, true, this.designParser);
-			
-				//add(node, , true, this.model);
-				
-				root.add(node);
+			for (IPatternDetector det : this.designParser.getModel().getDetectors()) {
+				if (det.getPatternName().equalsIgnoreCase(phase)) {
+					for (IClassData dat : det.getClasses()) {
+						add(node, dat.getName(), true, this.designParser);
+						made.add(dat.getName());
+					}
+				}
+			}
+			root.add(node);
 		}
+		for (IClassData dat : this.designParser.getModel().getClasses()) {
+			if (!made.contains(dat.getName()))
+				add(root, dat.getName(), true, this.designParser);
+		}
+		//root.add(node);
 		
 		final DefaultTreeModel treeModel = new DefaultTreeModel(root);
 		final JTree tree = new JTree(treeModel);
@@ -126,6 +141,14 @@ public class MainWindow implements Observer{
 			public void actionPerformed(ActionEvent e) {
 				
 				MainWindow.this.designParser.createThread();
+				while(MainWindow.this.designParser.isThreadIsRunning()) {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 				MainWindow.this.setImage(MainWindow.this.designParser.getImagePath());
 				MainWindow.this.analyze();
 				MainWindow.this.designParser.addObserver(MainWindow.this);
@@ -160,6 +183,10 @@ public class MainWindow implements Observer{
 		DesignParser dp = (DesignParser) o;
 		
 		this.imagePath = dp.getImagePath();
+		if(imagePath != null) {
+			Icon image = new ImageProxy(this.imagePath);
+			this.picPane = new JScrollPane(new JLabel(image));
+		}
 		this.model = dp.getModel();
 		
 		this.frame.revalidate();

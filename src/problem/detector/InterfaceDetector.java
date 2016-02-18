@@ -8,6 +8,10 @@ import problem.model.data.IPackageModel;
 
 public class InterfaceDetector extends AbstractDetector {
 	
+	public InterfaceDetector(){
+		this.patternName = "Interface";
+	}
+	
 	@Override
 	public void findPattern(IPackageModel model){
 		this.m = model;

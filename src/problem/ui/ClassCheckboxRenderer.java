@@ -3,6 +3,7 @@ package problem.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.io.IOException;
 
 import javax.swing.JTree;
 import javax.swing.UIManager;
@@ -61,7 +62,7 @@ public class ClassCheckboxRenderer  implements TreeCellRenderer {
 		panel.check.setSelected(false);
 
 		panel.setEnabled(tree.isEnabled());
-
+		
 		if (selected) {
 			panel.setForeground(selectionForeground);
 			panel.setBackground(selectionBackground);
@@ -82,7 +83,12 @@ public class ClassCheckboxRenderer  implements TreeCellRenderer {
 		}
 
 		panel.label.setText(data.getText());
-		panel.check.setSelected(data.isChecked());
+		try {
+			panel.check.setSelected(data.isChecked());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return panel;
 	}

@@ -67,6 +67,7 @@ public class ClassCheckboxManager extends AbstractCellEditor implements TreeCell
 
 			@Override
 			public void itemStateChanged(final ItemEvent itemEvent) {
+				//System.out.println("Checked");
 				if (stopCellEditing()) {
 					fireEditingStopped();
 				}

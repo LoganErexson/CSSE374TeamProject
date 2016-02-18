@@ -35,7 +35,7 @@ public class ConfigReader {
 					this.dotPath = line;
 				}
 			} else if (line.contains("PHASES")) {
-				while((line = br.readLine())!=null && !line.equals("")){
+				while((line = br.readLine()) != null && !line.equals("")){
 					this.phases.add(line);
 				}
 			}

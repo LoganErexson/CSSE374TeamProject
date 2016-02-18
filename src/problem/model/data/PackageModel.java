@@ -58,10 +58,12 @@ public class PackageModel implements IPackageModel {
 	@Override
 	public void setClassRelations() {
 		for(IClassData currentData: this.classes) {
-			this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
-			this.classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
-			this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
-			this.classToMethods.put(currentData.getName(), currentData.getMethods());
+			if(!this.getInactiveClasses().contains(currentData)) {
+				this.classToSuperclass.put(currentData.getName(), currentData.getSuperClass());
+				this.classToInterfaces.put(currentData.getName(), currentData.getImplementedClasses());
+				this.classToAssociatedClasses.put(currentData.getName(), currentData.getAssociatedClasses());
+				this.classToMethods.put(currentData.getName(), currentData.getMethods());
+			}
 		}
 	}
 	

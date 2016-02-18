@@ -112,5 +112,9 @@ public class CompositeDetector extends AbstractDetector{
 			}
 		}
 	}
+	@Override
+	public void update(String valueName, String newValue) {
+		//Currently no valid updateables
+	}
 
 }

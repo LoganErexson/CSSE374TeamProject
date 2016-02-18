@@ -69,4 +69,11 @@ public class DecoratorDetector extends AbstractDetector {
 		}
 	}
 
+	@Override
+	public void update(String valueName, String newValue) {
+		if(valueName.equals("MethodDelegation")){
+			this.minimumMethods = Integer.parseInt(newValue);
+		}
+	}
+
 }

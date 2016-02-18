@@ -42,4 +42,12 @@ public class SingletonDetector extends AbstractDetector{
 		}
 	}
 
+	@Override
+	public void update(String valueName, String newValue) {
+		if(valueName.equals("RequireGetInstance")){
+			this.requiresGetInstance = Boolean.parseBoolean(newValue);
+		}
+		
+	}
+
 }

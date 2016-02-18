@@ -11,4 +11,5 @@ public interface IPatternDetector {
 	public void findPatternInClass(IClassData d);
 	public String getPatternName();
 	public List<IClassData> getClasses();
+	public void update(String valueName, String newValue);
 }

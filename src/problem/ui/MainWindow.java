@@ -3,8 +3,8 @@ package problem.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -17,16 +17,10 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import problem.detector.AdapterDetector;
-import problem.detector.CompositeDetector;
-import problem.detector.DecoratorDetector;
-import problem.detector.IPatternDetector;
-import problem.detector.InterfaceDetector;
-import problem.detector.SingletonDetector;
 import problem.model.data.IPackageModel;
 import problem.util.DesignParser;
 
-public class MainWindow {
+public class MainWindow implements Observer{
 	
 	private JFrame frame;
 	private JPanel landingPanel;
@@ -134,6 +128,7 @@ public class MainWindow {
 				MainWindow.this.designParser.createThread();
 				MainWindow.this.setImage(MainWindow.this.designParser.getImagePath());
 				MainWindow.this.analyze();
+				MainWindow.this.designParser.addObserver(MainWindow.this);
 				
 			}
 			
@@ -143,20 +138,7 @@ public class MainWindow {
 	public void show() {
 		this.frame.setVisible(true);
 	}
-	
-	public List<IPatternDetector> phaseSelector(List<String> phases) {
-		List<IPatternDetector> detectors = new ArrayList<>();
-		detectors.add(new InterfaceDetector());
-		if(phases.contains("Singleton-Detection"))
-			detectors.add(new SingletonDetector(false));
-		if(phases.contains("Decorator-Detection"))
-			detectors.add(new DecoratorDetector(1));
-		if(phases.contains("Adapter-Detection"))
-			detectors.add(new AdapterDetector(2));
-		if(phases.contains("Composite-Detection"))
-			detectors.add(new CompositeDetector());
-		return detectors;
-	}
+
 	public String getImage() {
 		return this.imagePath;
 	}
@@ -172,5 +154,13 @@ public class MainWindow {
 		final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
 		parent.add(node);
 		return node;
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		DesignParser dp = (DesignParser) o;
+		
+		this.imagePath = dp.getImagePath();
+		this.model = dp.getModel();
+		
 	}
 }

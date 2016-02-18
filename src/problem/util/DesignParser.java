@@ -65,7 +65,7 @@ public class DesignParser extends Observable{
 		this.notifyObservers();
 	}
 	
-	private void createOutputFiles() throws IOException{
+	public void createOutputFiles() throws IOException{
 		OutputStream out = new FilterOutputStream(new FileOutputStream(this.reader.getOutputFile()+"\\Output.dot"));
 		IVisitor visitor = new UMLVisitor();
 		this.model.accept(visitor);

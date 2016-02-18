@@ -13,24 +13,25 @@ import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreePath;
 
 import problem.model.data.IPackageModel;
+import problem.util.DesignParser;
 
 public class ClassCheckboxManager extends AbstractCellEditor implements TreeCellEditor {
 
 	private final ClassCheckboxRenderer renderer = new ClassCheckboxRenderer();
 
 	private final JTree tree;
-	private IPackageModel model;
+	private DesignParser parser;
 
-	public ClassCheckboxManager(final JTree tree, IPackageModel m) {
+	public ClassCheckboxManager(final JTree tree, DesignParser parser) {
 		this.tree = tree;
-		this.model = m;
+		this.parser = parser;
 	}
 
 	@Override
 	public Object getCellEditorValue() {
 		final ClassSelectorPanel panel = renderer.getPanel();
 		final ClassCheckboxData checkBoxNode =
-			new ClassCheckboxData(panel.label.getText(), panel.check.isSelected(), this.model);
+			new ClassCheckboxData(panel.label.getText(), panel.check.isSelected(), this.parser);
 		return checkBoxNode;
 	}
 

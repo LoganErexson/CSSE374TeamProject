@@ -1,32 +1,36 @@
 package problem.ui;
 
+import java.io.IOException;
+
 import problem.model.data.IPackageModel;
+import problem.util.DesignParser;
 
 public class ClassCheckboxData {
 	private String text;
 	private boolean checked;
-	private IPackageModel model;
+	private DesignParser parser;
 
-	public ClassCheckboxData(final String text, final boolean checked, IPackageModel model) {
+	public ClassCheckboxData(final String text, final boolean checked, DesignParser parser) {
 		this.text = text;
 		this.checked = checked;
-		this.model = model;
+		this.parser = parser;
 	}
 
 	public boolean isChecked() {
 		return checked;
 	}
 
-	public void setChecked(final boolean checked) {
+	public void setChecked(final boolean checked) throws IOException {
 		this.checked = checked;
 		
 		if(!this.checked) {
-			if (this.model.getClassNames().contains(this.text))
-				this.model.addInactiveClass(this.model.getClassDataFromName(this.text));
+			if (this.parser.getModel().getClassNames().contains(this.text))
+				this.parser.getModel().addInactiveClass(this.parser.getModel().getClassDataFromName(this.text));
 		} else {
-			if (this.model.getInactiveClasses().contains(this.model.getClassDataFromName(this.text)))
-				this.model.removeInactiveClass(this.model.getClassDataFromName(this.text));
+			if (this.parser.getModel().getInactiveClasses().contains(this.parser.getModel().getClassDataFromName(this.text)))
+				this.parser.getModel().removeInactiveClass(this.parser.getModel().getClassDataFromName(this.text));
 		}
+		this.parser.createOutputFiles();
 	}
 	
 	public String getText() {

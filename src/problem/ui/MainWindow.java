@@ -87,7 +87,7 @@ public class MainWindow implements Observer{
 		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Model");
 		for (String phase: this.designParser.getReader().getPhases()) {
 			final DefaultMutableTreeNode node =
-					add(root, phase, true, this.model);
+					add(root, phase, true, this.designParser);
 			
 				//add(node, , true, this.model);
 				
@@ -100,7 +100,7 @@ public class MainWindow implements Observer{
 		final ClassCheckboxRenderer renderer = new ClassCheckboxRenderer();
 		tree.setCellRenderer(renderer);
 		
-		final ClassCheckboxManager manager = new ClassCheckboxManager(tree, this.model);
+		final ClassCheckboxManager manager = new ClassCheckboxManager(tree, this.designParser);
 		tree.setCellEditor(manager);
 		tree.setEditable(true);		
 
@@ -148,9 +148,9 @@ public class MainWindow implements Observer{
 
 	private static DefaultMutableTreeNode add(
 		final DefaultMutableTreeNode parent, final String text,
-		final boolean checked, final IPackageModel model)
+		final boolean checked, final DesignParser parser)
 	{
-		final ClassCheckboxData data = new ClassCheckboxData(text, checked, model);
+		final ClassCheckboxData data = new ClassCheckboxData(text, checked, parser);
 		final DefaultMutableTreeNode node = new DefaultMutableTreeNode(data);
 		parent.add(node);
 		return node;

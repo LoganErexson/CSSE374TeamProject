@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 public class ImageProxy implements Icon{
 	volatile ImageIcon imageIcon;
 	String pathToImage= null;
-	private boolean retrieving;
+	boolean retrieving;
 	private Thread retrievalThread;
 	
 	public ImageProxy(String fileName){
@@ -30,7 +30,7 @@ public class ImageProxy implements Icon{
 					public void run() {
 						try {
 							
-							ImageProxy.this.imageIcon = new ImageIcon(ImageProxy.this.pathToImage, "UML Diagram");
+							ImageProxy.this.setImageIcon(new ImageIcon(ImageProxy.this.pathToImage, "UML Diagram"));
 
 							//NOTE: Do both revalidate() and repaint() on the parent component
 							com.revalidate();
@@ -59,6 +59,10 @@ public class ImageProxy implements Icon{
             return this.imageIcon.getIconHeight();
         }
 		return 800;
+	}
+	
+	synchronized void setImageIcon(ImageIcon imageIcon){
+		this.imageIcon = imageIcon;
 	}
 
 }

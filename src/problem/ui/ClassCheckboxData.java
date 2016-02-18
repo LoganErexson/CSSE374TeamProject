@@ -1,12 +1,14 @@
 package problem.ui;
 
 import java.io.IOException;
+
 import problem.util.DesignParser;
 
 public class ClassCheckboxData {
 	private String text;
 	private boolean checked;
 	private DesignParser parser;
+	private boolean threadIsRunning = false;
 
 	public ClassCheckboxData(final String text, final boolean checked, DesignParser parser) {
 		this.text = text;
@@ -23,7 +25,20 @@ public class ClassCheckboxData {
 				this.parser.getModel().addInactiveClass(this.parser.getModel().getClassDataFromName(this.text));
 		}
 		
-		this.parser.createOutputFiles();
+//		if (!this.threadIsRunning) {
+//			this.threadIsRunning = true;
+//			Thread t = new Thread(new Runnable() { @Override
+//			public void run() {
+//				try {
+					parser.createOutputFiles();
+//					threadIsRunning = false;
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			});
+//			t.start();
+//		}
 		return checked;
 	}
 

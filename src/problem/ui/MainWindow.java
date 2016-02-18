@@ -50,13 +50,13 @@ public class MainWindow {
 	private String imagePath;
 	private JScrollPane picPane;
 	private JScrollPane treePane;
-	private ConfigReader reader;
-	private IPackageModel model; 
+	ConfigReader reader;
+	IPackageModel model; 
 	
 	public MainWindow(){
 		this.frame = new JFrame("Design Parser");
 		this.reader = new ConfigReader();
-		frame.setSize(500, 500);
+		this.frame.setSize(500, 500);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -87,7 +87,7 @@ public class MainWindow {
 		
 		this.frame.repaint();
 		
-		this.frame.pack();
+//		this.frame.pack();
 	}
 	private void buildLandingPanel(){
 		this.landingPanel = new JPanel();
@@ -108,7 +108,7 @@ public class MainWindow {
 	
 	void buildCheckboxPanel() {
 		final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-		for (String phase: reader.getPHASES()) {
+		for (String phase: this.reader.getPhases()) {
 			final DefaultMutableTreeNode node =
 					add(root, phase, true, this.model);
 			
@@ -149,8 +149,8 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				List<String> classList = new ArrayList<>(); 
 				try {
-					reader.configProject(MainWindow.this.getConfigFile());
-					classList = reader.getCLASSES();
+					MainWindow.this.reader.configProject(MainWindow.this.getConfigFile());
+					classList = MainWindow.this.reader.getClasses();
 					
 					MainWindow.this.setClasses(classList);
 					List<IClassData> classDatas = new ArrayList<>();
@@ -160,18 +160,18 @@ public class MainWindow {
 						classDatas.add(visitor.getClassData());
 					}
 					
-					List<IPatternDetector> detectors = phaseSelector(reader.getPHASES());
+					List<IPatternDetector> detectors = phaseSelector(MainWindow.this.reader.getPhases());
 					
-					model = new PackageModel(detectors);
-					model.setClasses(classDatas);
-					OutputStream out = new FilterOutputStream(new FileOutputStream(reader.getUML_OUTPUT()+"\\Output.dot"));
+					MainWindow.this.model = new PackageModel(detectors);
+					MainWindow.this.model.setClasses(classDatas);
+					OutputStream out = new FilterOutputStream(new FileOutputStream(MainWindow.this.reader.getOutputFile()+"\\Output.dot"));
 					IVisitor visitor = new UMLVisitor();
-					model.accept(visitor);
+					MainWindow.this.model.accept(visitor);
 					visitor.printToOutput(out);
 					out.close();
 					Runtime rt = Runtime.getRuntime();
-					String outputString= reader.getUML_OUTPUT()+"\\\\Output.";
-					String command = "\""+reader.getDOT_PATH()+"\" -Tpng " +outputString +"dot -o "+outputString+"png";
+					String outputString= MainWindow.this.reader.getOutputFile()+"\\\\Output.";
+					String command = "\""+MainWindow.this.reader.getDotPath()+"\" -Tpng " +outputString +"dot -o "+outputString+"png";
 					rt.exec(command);
 					MainWindow.this.setImage(outputString+"png");
 					MainWindow.this.analyze();
@@ -203,13 +203,13 @@ public class MainWindow {
 	public List<IPatternDetector> phaseSelector(List<String> phases) {
 		List<IPatternDetector> detectors = new ArrayList<>();
 		detectors.add(new InterfaceDetector());
-		if(phases.contains("singleton"))
+		if(phases.contains("Singleton-Detection"))
 			detectors.add(new SingletonDetector(false));
-		if(phases.contains("decorator"))
+		if(phases.contains("Decorator-Detection"))
 			detectors.add(new DecoratorDetector(1));
-		if(phases.contains("adaptor"))
+		if(phases.contains("Adapter-Detection"))
 			detectors.add(new AdapterDetector(2));
-		if(phases.contains("composite"))
+		if(phases.contains("Composite-Detection"))
 			detectors.add(new CompositeDetector());
 		return detectors;
 	}

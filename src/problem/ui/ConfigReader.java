@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigReader {
-	private List<String> CLASSES = new ArrayList<String>();
-	private String UML_OUTPUT = "";
-	private String DOT_PATH = "";
-	private List<String> PHASES = new ArrayList<String>();
+	private List<String> classes = new ArrayList<>();
+	private String outputFolder = "";
+	private String dotPath = "";
+	private List<String> phases = new ArrayList<>();
 	
 	public void configProject(File filePath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -24,19 +24,19 @@ public class ConfigReader {
 				}
 			} else if (line.contains("INPUT-CLASSES")) {
 				while((line = br.readLine())!=null && !line.equals("")){
-					CLASSES.add(line);
+					this.classes.add(line);
 				}
 			} else if (line.contains("OUTPUT-FILE")) {
 				if((line = br.readLine()) != null && !line.equals("")) {
-					UML_OUTPUT = line;
+					this.outputFolder = line;
 				}
 			} else if (line.contains("DOT-PATH")) {
 				if((line = br.readLine()) != null && !line.equals("")) {
-					DOT_PATH = line;
+					this.dotPath = line;
 				}
 			} else if (line.contains("PHASES")) {
 				while((line = br.readLine())!=null && !line.equals("")){
-					PHASES.add(line);
+					this.phases.add(line);
 				}
 			}
 		}
@@ -47,7 +47,7 @@ public class ConfigReader {
 		File[] listOfFiles = folder.listFiles();
 	    for (int i = 0; i < listOfFiles.length; i++) {
 	    	if (listOfFiles[i].isFile()) {
-	    		CLASSES.add(listOfFiles[i].getAbsolutePath().
+	    		this.classes.add(listOfFiles[i].getAbsolutePath().
 	    				substring(listOfFiles[i].getAbsolutePath().lastIndexOf("src\\") + 4, 
 	    						listOfFiles[i].getAbsolutePath().lastIndexOf("."))
 	    						.replace('\\', '.'));
@@ -57,26 +57,26 @@ public class ConfigReader {
 	    }
 	}
 	
-	public List<String> getCLASSES() {
-		return CLASSES;
+	public List<String> getClasses() {
+		return this.classes;
 	}
 
-	public String getUML_OUTPUT() {
-		return UML_OUTPUT;
+	public String getOutputFile() {
+		return this.outputFolder;
 	}
 
-	public String getDOT_PATH() {
-		return DOT_PATH;
+	public String getDotPath() {
+		return this.dotPath;
 	}
 
-	public List<String> getPHASES() {
-		return PHASES;
+	public List<String> getPhases() {
+		return this.phases;
 	}
 
 	public void fetchInputClasses(BufferedReader r) throws IOException {
 		String line;
 		while((line = r.readLine())!=null && !line.equals("")){
-			CLASSES.add(line);
+			this.classes.add(line);
 		}
 	}
 }

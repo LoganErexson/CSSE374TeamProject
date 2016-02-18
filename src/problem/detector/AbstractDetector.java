@@ -1,5 +1,6 @@
 package problem.detector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import problem.model.data.IClassData;
@@ -9,7 +10,7 @@ public abstract class AbstractDetector implements IPatternDetector {
 
 	protected IPackageModel m;
 	protected String patternName;
-	protected List<IClassData> classes;
+	protected List<IClassData> classes = new ArrayList<>();
 	
 	@Override
 	public void findPattern(IPackageModel model){

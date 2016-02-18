@@ -49,4 +49,6 @@ PHASES:
 Class-Loading
 Decorator-Detection
 Singleton-Detection
+Adapter-Detection
+Composite-Detection
 DOT-Generation

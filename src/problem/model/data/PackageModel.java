@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import problem.detector.IPatternDetector;
+import problem.detector.InterfaceDetector;
 import problem.main.StringParser;
 import problem.model.visit.IVisitor;
 
@@ -26,7 +27,10 @@ public class PackageModel implements IPackageModel {
 		this.classes = new ArrayList<>();
 		this.inactiveClasses = new ArrayList<>();
 		this.classNames = StringParser.getClassNames(this.classes);
-		this.detectors = detectors;
+		if(detectors!=null){
+			this.detectors = detectors;
+		}
+		this.detectors.add(new InterfaceDetector());
 	}
 	
 	private void scanForPatterns(){
@@ -286,14 +290,17 @@ public class PackageModel implements IPackageModel {
 		this.specialArrows.put(key, label);
 	}
 
+	@Override
 	public List<IClassData> getInactiveClasses() {
-		return inactiveClasses;
+		return this.inactiveClasses;
 	}
 
+	@Override
 	public void addInactiveClass(IClassData inactiveClass) {
 		this.inactiveClasses.add(inactiveClass);
 	}
 	
+	@Override
 	public void removeInactiveClass(IClassData inactiveClass) {
 		this.inactiveClasses.remove(inactiveClass);
 	}

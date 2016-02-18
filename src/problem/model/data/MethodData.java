@@ -94,7 +94,7 @@ public class MethodData implements IMethodData{
 	
 	@Override
 	public String toString() {
-		if (this.name.contains("<")) //Constructor handling
+		if (this.name.contains("<")&&!this.name.contains("\\<")) //Constructor handling
 			this.name = this.name.replace("<", "\\<").replace(">", "\\>");
 		String result = this.access + " " + this.name + "(";
 		for(String arg : this.getArgs()){

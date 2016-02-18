@@ -8,13 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ClassSelectorPanel extends JPanel{
+	private static final long serialVersionUID = 1L;
 	public final JLabel label = new JLabel();
 	public final JCheckBox check = new JCheckBox();
 
 	public ClassSelectorPanel() {
 		this.check.setMargin(new Insets(0, 0, 0, 0));
 		setLayout(new BorderLayout());
-		add(check, BorderLayout.WEST);
-		add(label, BorderLayout.CENTER);
+		add(this.check, BorderLayout.WEST);
+		add(this.label, BorderLayout.CENTER);
 	}
 }

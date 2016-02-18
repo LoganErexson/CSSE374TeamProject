@@ -27,7 +27,7 @@ public class AdapterDetector extends AbstractDetector {
 				continue;
 			for(String inter: interfaces){
 				IClassData interData = this.m.getClassDataFromName(inter);
-				if(interData==null)
+				if(interData==null||assocData.equals(interData))
 					continue;
 				int methodsUsed = 0;
 				boolean isInConstructor = false;
@@ -37,8 +37,16 @@ public class AdapterDetector extends AbstractDetector {
 							methodsUsed++;
 						}
 					}
-					if(method.getName().equals("<init>")&&method.getArgs().contains(inter)){
-						isInConstructor = true;
+					if(method.getName().contains("<init")){
+						for(String arg : method.getArgs()){
+							if(arg.contains("\\<")){
+								arg = arg.substring(0, arg.indexOf("\\<"));
+							}
+							if(arg.equals(assoc)){
+								isInConstructor = true;
+								break;
+							}
+						}
 					}
 				}
 				if(methodsUsed>=this.minimumMethods&&isInConstructor){
